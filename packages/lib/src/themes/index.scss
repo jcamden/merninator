@@ -1,0 +1,37 @@
+@use "./universe/_universe.scss";
+$primary: rgb(0, 44, 144);
+$navbar-dark-hover-color: #ffc107;
+
+:root {
+  // aka light theme
+  @import "./bootstrap-4.1.3/scss/bootstrap.scss";
+}
+
+.dark {
+  $white: #000 !default;
+  $gray-100: #212529 !default;
+  $gray-200: #343a40 !default;
+  $gray-300: #495057 !default;
+  $gray-400: #6c757d !default;
+  $gray-500: #adb5bd !default;
+  $gray-600: #ced4da !default;
+  $gray-700: #dee2e6 !default;
+  $gray-800: #e9ecef !default;
+  $gray-900: #f8f9fa !default;
+  $black: #fff !default;
+
+  $light: $gray-100 !default;
+  $dark: $gray-800 !default;
+
+  $white: $light;
+  $primary: rgb(0, 27, 88);
+
+  $modal-content-color: $dark;
+
+  $body-bg: $light;
+  $body-color: $light;
+
+  $background: $light;
+
+  @import "./bootstrap-4.1.3/scss/bootstrap.scss";
+}

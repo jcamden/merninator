@@ -1,0 +1,59 @@
+{
+  "name": "@djinndex/server",
+  "version": "0.1.0",
+  "description": "description",
+  "main": "server.ts",
+  "repository": "url",
+  "author": "John Camden <john.camden@gmail.com> (https://github.com/jcamden)",
+  "license": "MIT",
+  "private": true,
+  "apidoc": {
+    "name": "@djinndex/server",
+    "version": "0.1.0",
+    "description": "@djinndex/server",
+    "title": "Djinndex server",
+    "url": "https://localhost:8000"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "express-validator": "^6.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.15",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.1",
+    "eslint": "^7.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.1",
+    "type": "module",
+    "typescript": "^3.9.2"
+  },
+  "scripts": {
+    "start:debug": "node --inspect=5858 -r ts-node/register ./src/server.ts",
+    "server": "node -r ts-node/register ./src/server.ts",
+    "start": "nodemon",
+    "build": "tsc",
+    "apidoc": "apidoc -i src/ -o docs/api"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm run server",
+    "ext": "ts"
+  }
+}
