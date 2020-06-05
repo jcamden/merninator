@@ -1,4 +1,3 @@
-import '@djinndex/lib/src/themes/index.scss';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faSignOutAlt,
@@ -56,3 +55,5 @@ library.add(
   faPlusCircle,
   faInfinity,
 );
+
+import '@djinndex/lib/src/themes/index.scss';

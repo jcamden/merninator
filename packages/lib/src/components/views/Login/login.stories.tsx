@@ -1,23 +1,23 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { Container, Row, Col } from 'react-bootstrap';
-import StateTest from './StateTest';
+import Login from './Login';
 
 export default {
-  title: 'Button',
-  component: StateTest,
+  title: 'views',
+  component: Login,
 };
 
-export const stateTest = () => (
+export const googleLogin = () => (
   <Container>
     <Row>
       <Col className="d-flex justify-content-around p-3">
-        <StateTest onClick={action('clicked')} />
+        <Login onClick={action('clicked')} />
       </Col>
     </Row>
   </Container>
 );
 
-stateTest.story = {
-  name: 'StateTest test',
+googleLogin.story = {
+  name: 'Login test',
 };
