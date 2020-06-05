@@ -1,23 +1,23 @@
-import express from "express";
+import express from 'express';
 const router = express.Router();
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import config from "config";
-import auth from "../../middleware/auth";
-const { check, validationResult } = require("express-validator");
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import config from 'config';
+import auth from '../middleware/auth';
+const { check, validationResult } = require('express-validator');
 
-import User from "../../models/User";
+import User from '../models/User';
 
 // @route   GET api/auth
 // @desc    get logged in user
 // @access  private
-router.get("/", auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user.id).select('-password');
     res.json(user);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("server eror");
+    res.status(500).send('server eror');
   }
 });
 
@@ -25,11 +25,8 @@ router.get("/", auth, async (req, res) => {
 // @desc    auth user & get token
 // @access  public
 router.post(
-  "/",
-  [
-    check("email", "gotta have an email").isEmail(),
-    check("password", "gotta have a 6+ char password").exists(),
-  ],
+  '/',
+  [check('email', 'gotta have an email').isEmail(), check('password', 'gotta have a 6+ char password').exists()],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -41,13 +38,13 @@ router.post(
     try {
       let user = await User.findOne({ email });
       if (!user) {
-        return res.status(400).json({ msg: "invalid email" });
+        return res.status(400).json({ msg: 'invalid email' });
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
 
       if (!isMatch) {
-        return res.status(400).json({ msg: "invalid password" });
+        return res.status(400).json({ msg: 'invalid password' });
       }
 
       const payload = {
@@ -58,7 +55,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get("jwtSecret"),
+        config.get('jwtSecret'),
         {
           //reduce to 3600 (1 hr) for prod
           expiresIn: 360000,
@@ -66,13 +63,13 @@ router.post(
         (err, token) => {
           if (err) throw err;
           res.json({ token });
-        }
+        },
       );
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("server error");
+      res.status(500).send('server error');
     }
-  }
+  },
 );
 
 module.exports = router;

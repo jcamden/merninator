@@ -1,18 +1,17 @@
-const mongoose = require("mongoose");
-
-const mongoURI =
-  "mongodb+srv://jcamden:ptSW13DVdOLJv0MK@djinndex-ohs7j.gcp.mongodb.net/test?retryWrites=true&w=majority";
+const mongoose = require('mongoose');
+const config = require('config');
+const db = config.get('mongoURI');
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(mongoURI, {
+    await mongoose.connect(db, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false,
       useUnifiedTopology: true,
     });
 
-    console.log("Server connected to MongoDB cluster...");
+    console.log('Djinndex MongoDB cluster connected...');
   } catch (err) {
     console.error(err.message);
     process.exit(1);

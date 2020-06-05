@@ -1,20 +1,22 @@
-import express from "express";
+import express from 'express';
 const router = express.Router();
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import config from "config";
-import { check, validationResult } from "express-validator";
-import User from "../../models/User";
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import config from 'config';
+import { check, validationResult } from 'express-validator';
+import User from '../models/User';
 
 // @route   POST api/users
 // @desc    register a user
 // @access  public
 router.post(
-  "/",
+  '/',
   [
-    check("name", "name is required").not().isEmpty(),
-    check("email", "email is required").isEmail(),
-    check("password", "6+ char password is required").isLength({ min: 6 }),
+    check('name', 'name is required')
+      .not()
+      .isEmpty(),
+    check('email', 'email is required').isEmail(),
+    check('password', '6+ char password is required').isLength({ min: 6 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -23,12 +25,12 @@ router.post(
     }
 
     const { name, email, password } = req.body;
-    //using the destructed vars:
+    //using the destructured vars:
     try {
       //e.g. {email : email}
       let user = await User.findOne({ email });
       if (user) {
-        return res.status(400).json({ msg: "user already exists" });
+        return res.status(400).json({ msg: 'user already exists' });
       }
       //e.g. {name: name}
       user = new User({
@@ -51,7 +53,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get("jwtSecret"),
+        config.get('jwtSecret'),
         {
           //reduce to 3600 (1 hr) for prod
           expiresIn: 360000,
@@ -59,13 +61,13 @@ router.post(
         (err, token) => {
           if (err) throw err;
           res.json({ token });
-        }
+        },
       );
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("server error");
+      res.status(500).send('server error');
     }
-  }
+  },
 );
 
 module.exports = router;

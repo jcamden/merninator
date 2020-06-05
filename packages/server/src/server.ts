@@ -27,9 +27,9 @@ app.use(fileUpload());
 // routes
 // app.use("/", require("./routes/index"));
 app.use(express.static('public'));
-app.use('/api/auth', require('./routes/auth/auth'));
-app.use('/api/users', require('./routes//users/users'));
-app.use('/api/uploads', require('./routes/uploads/uploads'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/users', require('./routes/users'));
+app.use('/api/uploads', require('./routes/uploads'));
 
 const PORT = process.env.PORT || 5000;
 
