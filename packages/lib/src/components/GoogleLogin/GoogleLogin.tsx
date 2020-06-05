@@ -1,17 +1,17 @@
-import React from "react";
-import { Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface GoogleLoginProps {
   children?: string;
-  onClick?: any;
+  onClick?: () => void;
 }
 
-const GoogleLogin = ({ children }: GoogleLoginProps) => {
+const GoogleLogin: React.FC<GoogleLoginProps> = ({ children }: GoogleLoginProps) => {
   return (
-    <Button variant='danger'>
-      <FontAwesomeIcon icon={["fab", "google"]} className='mr-2' />
-      Login with Google
+    <Button variant="danger">
+      <FontAwesomeIcon icon={['fab', 'google']} className="mr-2" />
+      Login with Google{children}
     </Button>
   );
 };

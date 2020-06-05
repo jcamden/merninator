@@ -59,12 +59,13 @@ library.add(
   faInfinity,
 );
 
-import { GoogleLogin } from '@djinndex/lib';
+import { GoogleLogin, StateTest } from '@djinndex/lib';
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <GoogleLogin />
+      <StateTest />
     </div>
   );
 };
