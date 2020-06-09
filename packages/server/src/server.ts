@@ -1,15 +1,16 @@
 import express from 'express';
-import connectDB from './db';
+import mongoConnect from './services/mongoConnect';
+import https from 'https';
+import { readFileSync } from 'fs';
 import consoleLogo from './utils/consoleLogo';
 import fileUpload from 'express-fileupload';
 import cors from 'cors';
-// import path from "path";
+import passport from 'passport';
+import routes from './routes';
+import { resolve, join } from 'path';
+import chalk from 'chalk';
 
 const app = express();
-
-// Your IP is not whitelisted for my MongoDB collection.
-// Change the URI in ./db/db to point to your own collection.
-connectDB();
 
 // middleware options
 const customCorsOptions = {
@@ -22,18 +23,36 @@ const customCorsOptions = {
 app.use(cors(customCorsOptions));
 app.use(express.static(__dirname + '/public'));
 app.use(express.json({ extended: false, limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
 
+app.use(passport.initialize());
+// require('./services/jwtStrategy');
+// require('./services/facebookStrategy');
+require('./services/googleStrategy');
+// require('./services/localStrategy');
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+// DB Config
+const mongoURI = isProduction ? process.env.MONGO_URI_PROD : process.env.MONGO_URI_DEV;
+
+// Your IP is not whitelisted for my MongoDB collection.
+// Change the URI in ./db/db to point to your own collection.
+mongoConnect(mongoURI);
+
 // routes
-// app.use("/", require("./routes/index"));
-app.use(express.static('public'));
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/users', require('./routes/users'));
-app.use('/api/uploads', require('./routes/uploads'));
+app.use('/', routes);
+app.use('/public', express.static(join(__dirname, '../public')));
 
-const PORT = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+const httpsOptions = {
+  key: readFileSync(resolve(__dirname, '../security/cert.key')),
+  cert: readFileSync(resolve(__dirname, '../security/cert.pem')),
+};
+
+const server = https.createServer(httpsOptions, app).listen(port, () => {
   consoleLogo();
-  console.log(`Server is running on PORT ${PORT}...`);
+  console.log(`Djinndex server running at ` + chalk.cyan(`https://localhost:${port}`));
 });
