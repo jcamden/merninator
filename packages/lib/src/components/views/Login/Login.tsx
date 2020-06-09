@@ -10,7 +10,7 @@ const LoginForm = [
   { id: 'formPassword', type: 'password', placeholder: 'password' },
 ];
 
-const Login = (props: Props) => {
+const Login: React.FC<Props> = props => {
   return <Modal heading="Login" formGroups={LoginForm} buttons={[{ title: 'Login' }]}></Modal>;
 };
 

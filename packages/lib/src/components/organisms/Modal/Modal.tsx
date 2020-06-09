@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
-import ModalFooter from "../../molecules/modal/ModalFooter/ModalFooter";
-import ModalBody from "../../molecules/modal/ModalBody/ModalBody";
+import React, { useState } from 'react';
+import { Modal } from 'react-bootstrap';
+import ModalFooter from '../../molecules/modal/ModalFooter/ModalFooter';
+import ModalBody from '../../molecules/modal/ModalBody/ModalBody';
 
 interface ModalWrapperProps {
   heading: string;
@@ -11,7 +11,7 @@ interface ModalWrapperProps {
   className?: string;
 }
 
-const ModalWrapper = ({
+const ModalWrapper: React.FC<ModalWrapperProps> = ({
   heading,
   buttons,
   formGroups,
@@ -21,7 +21,7 @@ const ModalWrapper = ({
   const [show, setShow] = useState(true);
 
   return (
-    <Modal className={className} show={show} onHide={() => setShow(false)}>
+    <Modal className={className} show={show} onHide={(): void => setShow(false)}>
       <Modal.Header closeButton>
         <Modal.Title>{heading}</Modal.Title>
       </Modal.Header>

@@ -6,7 +6,7 @@ interface ModalBodyProps {
   fileLabel?: string;
 }
 
-const ModalBody = ({ formGroups, fileLabel }: ModalBodyProps) => {
+const ModalBody: React.FC<ModalBodyProps> = ({ formGroups, fileLabel }: ModalBodyProps) => {
   return (
     <Modal.Body>
       {formGroups && (

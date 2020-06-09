@@ -1,20 +1,20 @@
-import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
 
 interface ModalFooterProps {
   buttons: { title: string }[];
 }
 
-const ModalFooter = ({ buttons }: ModalFooterProps) => {
+const ModalFooter: React.FC<ModalFooterProps> = ({ buttons }: ModalFooterProps) => {
   return (
     <Modal.Footer>
       {buttons.map((button, index) => (
         <Button
           key={`modalButton${index}`}
-          variant='primary'
-          type='submit'
-          onClick={() => {
-            console.log("meow");
+          variant="primary"
+          type="submit"
+          onClick={(): void => {
+            console.log('meow');
           }}
         >
           {button.title}
