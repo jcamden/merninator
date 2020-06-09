@@ -1,5 +1,5 @@
 import express from 'express';
-import connectDB from '../config/db';
+import connectDB from './db';
 import consoleLogo from './utils/consoleLogo';
 import fileUpload from 'express-fileupload';
 import cors from 'cors';

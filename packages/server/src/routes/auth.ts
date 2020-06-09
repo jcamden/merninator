@@ -1,8 +1,8 @@
+import 'dotenv/config';
 import express from 'express';
 const router = express.Router();
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import config from 'config';
 import auth from '../middleware/auth';
 const { check, validationResult } = require('express-validator');
 
@@ -55,7 +55,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        process.env.JWT_SECRET_DEV,
         {
           //reduce to 3600 (1 hr) for prod
           expiresIn: 360000,

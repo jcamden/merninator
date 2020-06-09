@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import config from 'config';
+import 'dotenv/config';
 import { check, validationResult } from 'express-validator';
 import User from '../models/User';
 
@@ -53,7 +53,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        process.env.JWT_SECRET_DEV,
         {
           //reduce to 3600 (1 hr) for prod
           expiresIn: 360000,
