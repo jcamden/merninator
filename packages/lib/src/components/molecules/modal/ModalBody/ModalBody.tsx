@@ -1,5 +1,5 @@
-import React from "react";
-import { Modal, Form } from "react-bootstrap";
+import React from 'react';
+import { Modal, Form } from 'react-bootstrap';
 
 interface ModalBodyProps {
   formGroups: { id: string; type: string; placeholder: string }[];
@@ -11,15 +11,15 @@ const ModalBody = ({ formGroups, fileLabel }: ModalBodyProps) => {
     <Modal.Body>
       {formGroups && (
         <Form>
-          {formGroups.map((group) => (
-            <Form.Group controlId={group.id}>
+          {formGroups.map((group, index) => (
+            <Form.Group controlId={group.id} key={`modalFormGroup${index}`}>
               {/* <Form.Label>Email</Form.Label> */}
               <Form.Control type={group.type} placeholder={group.placeholder} />
             </Form.Group>
           ))}
         </Form>
       )}
-      {fileLabel && <Form.File id='custom-file' label={fileLabel} custom />}
+      {fileLabel && <Form.File id="custom-file" label={fileLabel} custom />}
     </Modal.Body>
   );
 };
