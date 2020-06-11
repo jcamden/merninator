@@ -21,7 +21,8 @@ router.get(
   (req, res) => {
     const token = req.user.generateJWT();
     res.cookie('x-auth-cookie', token);
-    res.redirect(clientUrl);
+    // res.redirect(clientUrl);
+    res.redirect('https://localhost:5000/api/projects');
   },
 );
 

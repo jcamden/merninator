@@ -1,9 +1,9 @@
 import { Router } from 'express';
 // import usersRoutes from './users';
-// import projectsRoutes from './projects';
+import projectsRoutes from './projects';
 const router = Router();
 
 // router.use('/users', usersRoutes);
-// router.use('/messages', projectsRoutes);
+router.use('/projects', projectsRoutes);
 
 export default router;
