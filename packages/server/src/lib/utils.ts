@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { IUser } from '../models/User';
 
-const pathToKey = path.join(__dirname, '../../security', 'id_rsa_priv.pem');
+const pathToKey = path.join(__dirname, '../../security/jwt', 'id_rsa_priv.pem');
 const PRIV_KEY = fs.readFileSync(pathToKey, 'utf8');
 
 /**

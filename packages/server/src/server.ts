@@ -1,30 +1,56 @@
 import express from 'express';
+import options from './config/corsOptions';
+import cors from 'cors';
 import passport from 'passport';
-import configure from './config/passport';
+import configurePassport from './config/passport';
 import router from './routes/index';
 import './config/database';
 import consoleLogo from './lib/consoleLogo';
+import https from 'https';
+import { readFileSync } from 'fs';
+import { resolve, join } from 'path';
 import chalk from 'chalk';
 
-// Create the Express application
+// init Express application
 const app = express();
 
-// Pass the global passport object into the configuration function
-configure(passport);
-
-// This will initialize the passport object on every request
-app.use(passport.initialize());
-
-// Instead of using body-parser middleware, use the new Express implementation of the same thing
+// init middleware
+app.use(cors(options));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Imports all of the routes from ./routes/index.j
+// init passport
+// pass the global passport object into the configuration function
+configurePassport(passport);
+// init passport object on every request
+app.use(passport.initialize());
+
+// init routes
 app.use(router);
 
-const port = 5000;
+const isProduction = process.env.NODE_ENV === 'production';
 
-app.listen(port, () => {
-  consoleLogo();
-  console.log(`Djinndex server running at: ` + chalk.cyan(`https://localhost:${port}`));
-});
+// Serve static assets if in production
+if (isProduction) {
+  // Set static folder
+  app.use(express.static(join(__dirname, '../../client/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(resolve(__dirname, '../..', 'client', 'build', 'index.html')); // index is in /server/src so 2 folders up
+  });
+
+  const port = process.env.PORT || 80;
+  app.listen(port, () => console.log(`Server started on port ${port}`));
+} else {
+  const port = process.env.PORT || 5000;
+
+  const httpsOptions = {
+    key: readFileSync(resolve(__dirname, '../security/ssl/cert.key')),
+    cert: readFileSync(resolve(__dirname, '../security/ssl/cert.pem')),
+  };
+
+  https.createServer(httpsOptions, app).listen(port, () => {
+    consoleLogo();
+    console.log('https server running at ' + chalk.cyan(`https://localhost:${port}`));
+  });
+}
