@@ -61,3 +61,10 @@ typings/
 
 # dotenv (cuz of API keys, etc.)
 .env
+
+# private key
+id_rsa_priv.pem
+
+# scraps
+serverBAK1
+serverBAK2

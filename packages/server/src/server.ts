@@ -1,58 +1,30 @@
 import express from 'express';
-import mongoConnect from './services/mongoConnect';
-import https from 'https';
-import { readFileSync } from 'fs';
-import consoleLogo from './utils/consoleLogo';
-import fileUpload from 'express-fileupload';
-import cors from 'cors';
 import passport from 'passport';
-import routes from './routes';
-import { resolve, join } from 'path';
+import configure from './config/passport';
+import router from './routes/index';
+import './config/database';
+import consoleLogo from './lib/consoleLogo';
 import chalk from 'chalk';
 
+// Create the Express application
 const app = express();
 
-// middleware options
-const customCorsOptions = {
-  allowedHeaders: ['Content-Type', 'x-auth-token'],
-  origin: 'http://localhost:3000',
-  // preflightContinue: true,
-};
+// Pass the global passport object into the configuration function
+configure(passport);
 
-// init middleware
-app.use(cors(customCorsOptions));
-app.use(express.static(__dirname + '/public'));
-app.use(express.json({ extended: false, limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
-app.use(fileUpload());
-
+// This will initialize the passport object on every request
 app.use(passport.initialize());
-require('./services/localStrategy');
-require('./services/jwtStrategy');
-require('./services/googleStrategy');
-// require('./services/facebookStrategy');
 
-const isProduction = process.env.NODE_ENV === 'production';
+// Instead of using body-parser middleware, use the new Express implementation of the same thing
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// DB Config
-const mongoURI = isProduction ? process.env.MONGO_URI_PROD : process.env.MONGO_URI_DEV;
+// Imports all of the routes from ./routes/index.j
+app.use(router);
 
-// Your IP is not whitelisted for my MongoDB collection.
-// Change the URI in ./db/db to point to your own collection.
-mongoConnect(mongoURI);
+const port = 5000;
 
-// routes
-app.use('/', routes);
-app.use('/public', express.static(join(__dirname, '../public')));
-
-const port = process.env.PORT || 5000;
-
-const httpsOptions = {
-  key: readFileSync(resolve(__dirname, '../security/cert.key')),
-  cert: readFileSync(resolve(__dirname, '../security/cert.pem')),
-};
-
-const server = https.createServer(httpsOptions, app).listen(port, () => {
+app.listen(port, () => {
   consoleLogo();
-  console.log(`Djinndex server running at ` + chalk.cyan(`https://localhost:${port}`));
+  console.log(`Djinndex server running at: ` + chalk.cyan(`https://localhost:${port}`));
 });

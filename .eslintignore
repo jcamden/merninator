@@ -6,4 +6,5 @@
 **/.git/**
 **/public/**
 !.eslintrc.js
-**/server/**
+**/serverBAK1/**
+**/serverBAK2/**

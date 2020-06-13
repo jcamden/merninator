@@ -1,7 +1,7 @@
 {
   "exclude": ["node_modules", "dist-esm", "dist"],
   "files": ["./typings.d.ts"],
-  "include": ["src", "config"],
+  "include": ["src"],
   "compilerOptions": {
     "outDir": "dist",
     "declaration": true,
