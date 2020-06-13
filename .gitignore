@@ -62,8 +62,9 @@ typings/
 # dotenv (cuz of API keys, etc.)
 .env
 
-# private key
+# private keys
 id_rsa_priv.pem
+cert.key
 
 # scraps
 serverBAK1
