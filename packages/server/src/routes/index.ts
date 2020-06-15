@@ -1,7 +1,7 @@
-import users from "./users";
+import auth from './auth';
 
-const router = require("express").Router();
+const router = require('express').Router();
 
-router.use("/users", users);
+router.use('/auth', auth);
 
 export default router;

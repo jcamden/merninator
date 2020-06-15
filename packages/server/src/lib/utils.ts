@@ -20,7 +20,7 @@ const PRIV_KEY = fs.readFileSync(pathToKey, 'utf8');
  * This function uses the crypto library to decrypt the hash using the salt and then compares
  * the decrypted hash/salt with the password that the user provided at login
  */
-function validPassword(password: crypto.BinaryLike, hash: string, salt: crypto.BinaryLike) {
+function validatePassword(password: crypto.BinaryLike, hash: string, salt: crypto.BinaryLike) {
   const hashVerify = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
   return hash === hashVerify;
 }
@@ -51,7 +51,7 @@ function genPassword(password: crypto.BinaryLike) {
 function issueJWT(user: IUser) {
   const _id = user._id;
 
-  const expiresIn = '1d';
+  const expiresIn = '14d';
 
   const payload = {
     sub: _id,
@@ -63,10 +63,13 @@ function issueJWT(user: IUser) {
     algorithm: 'RS256',
   });
 
+  // This is the format required for extraction method fromAuthHeaderAsBearerToken .
+  // We could choose another option as well, such as providing the token in the body, or do something custom.
+  // But this format in the header is pretty standard.
   return {
     token: 'Bearer ' + signedToken,
     expires: expiresIn,
   };
 }
 
-export { validPassword, genPassword, issueJWT };
+export { validatePassword, genPassword, issueJWT };

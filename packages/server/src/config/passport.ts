@@ -7,6 +7,25 @@ import User from '../models/User';
 const pathToKey = path.join(__dirname, '../../security/jwt/', 'id_rsa_pub.pem');
 const PUB_KEY = fs.readFileSync(pathToKey, 'utf8');
 
+// full passport options object
+// (options from jsonwebtoken package: secretOrKey, issuer, audience, algorithms, and jsonWebTokenOptions (yes, confusing))
+// const passportJWTOptions = {
+//   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+//   secretOrKey: PUB_KEY,
+//   issuer: 'enter issuer here',
+//   audience: 'enter audience here',
+//   algorithms: ['RS256'],
+//   ignoreExpiration: false,
+//   passReqToCallback: false,
+//   jsonWebTokenOptions: {
+//     complete: false,
+//     clockTolerance: '',
+//     maxAge: '2d',
+//     clockTimestamp: '100',
+//     nonce: 'string here for OpenID',
+//   },
+// };
+
 // At a minimum, you must pass the `jwtFromRequest` and `secretOrKey` properties
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
