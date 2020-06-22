@@ -1,13 +1,13 @@
-import React from "react";
-import { Nav } from "react-bootstrap";
+import React from 'react';
+import { Nav } from 'react-bootstrap';
 
 const UnauthdLinks = () => {
   return (
     <>
-      <Nav.Link href='#home' className='navbar-right'>
+      <Nav.Link href="login" className="navbar-right">
         Login
       </Nav.Link>
-      <Nav.Link href='#link'>Register</Nav.Link>
+      <Nav.Link href="register">Register</Nav.Link>
     </>
   );
 };

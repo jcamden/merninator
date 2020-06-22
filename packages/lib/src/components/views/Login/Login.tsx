@@ -10,8 +10,12 @@ const LoginForm = [
   { id: 'formPassword', type: 'password', placeholder: 'password' },
 ];
 
-const Login: React.FC<Props> = props => {
-  return <Modal heading="Login" formGroups={LoginForm} buttons={[{ title: 'Login' }]}></Modal>;
+const onClick = () => {
+  alert('meow');
+};
+
+const Login: React.FC<Props> = () => {
+  return <Modal heading="Login" formGroups={LoginForm} buttons={[{ title: 'Login', onClick: onClick }]}></Modal>;
 };
 
 export default Login;

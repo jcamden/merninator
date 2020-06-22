@@ -7,7 +7,7 @@ interface ModalWrapperProps {
   heading: string;
   formGroups: { id: string; type: string; placeholder: string }[];
   fileLabel?: string;
-  buttons: { title: string }[];
+  buttons: { title: string; onClick?: () => void }[];
   className?: string;
 }
 
