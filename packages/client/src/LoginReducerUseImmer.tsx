@@ -21,14 +21,14 @@ interface LoginState {
   variant: 'login' | 'forgetPassword';
 }
 
-type LoginAction =
+type LoginActions =
   | { type: 'login' | 'success' | 'error' | 'logOut' }
   | { type: 'field'; fieldName: string; payload: string };
 
 // when curried via immer, you will be passsing draft instead of current state
 
 // since mutations to state are tracked by immer return type void instead of LoginState
-function loginReducer(draft: LoginState, action: LoginAction): void {
+function loginReducer(draft: LoginState, action: LoginActions): void {
   // note: we don't destructure draft since we are actually mutating it
   switch (action.type) {
     case 'field': {
@@ -75,6 +75,7 @@ export default function LoginUseReducer(): JSX.Element {
   // const [state, dispatch] = useReducer(curriedLoginReducer, initialState);
   // or, with useImmerReducer hook:
   const [state, dispatch] = useImmerReducer(loginReducer, initialState);
+  console.log(typeof dispatch);
   const { username, password, isLoading, error, isLoggedIn } = state;
 
   // return type of Promise required for async function, even with no return...

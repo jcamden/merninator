@@ -1,11 +1,11 @@
 import React from 'react';
 import '@djinndex/lib/src/themes/index.scss';
-import LoginReducer from './LoginReducerUseImmer';
+import LoginReducerUseImmerContext from './LoginReducerUseImmerContext';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <LoginReducer />
+      <LoginReducerUseImmerContext />
     </div>
   );
 };
