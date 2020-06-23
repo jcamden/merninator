@@ -65,7 +65,3 @@ typings/
 # private keys
 id_rsa_priv.pem
 cert.key
-
-# scraps
-serverBAK1
-serverBAK2
