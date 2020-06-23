@@ -96,7 +96,7 @@ function loginReducer(draft: LoginState, action: LoginActions): void {
 const StateContext = React.createContext<LoginState | undefined>(undefined);
 
 // LoginAction may not be right there...
-const DispatchContext = React.createContext<Dispatch<LoginAction> | undefined>(undefined);
+const DispatchContext = React.createContext<Dispatch<LoginActions> | undefined>(undefined);
 
 // curried approach with immer; not needed with useImmerReducer hook
 // const curriedLoginReducer = produce(loginReducer);
