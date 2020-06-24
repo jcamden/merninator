@@ -6,15 +6,15 @@ import { login, ensure } from './utils';
 
 const todos = [
   {
-    title: 'Get milk',
+    title: 'milk the fish',
     completed: true,
   },
   {
-    title: 'Make YouTube video',
+    title: 'clean the cheese',
     completed: false,
   },
   {
-    title: 'Write blog post',
+    title: 'oragnize the cat',
     completed: false,
   },
 ];
@@ -83,11 +83,14 @@ function loginReducer(draft: LoginState, action: LoginActions): void {
       return;
     }
     case 'toggleTodoCompleted': {
-      const todo = ensure(
-        todos.find(item => item.title === action.payload),
-        'todo not found!',
+      const index = ensure(
+        draft.todos.findIndex(item => item.title === action.payload),
+        `couldn't find todo ${action.payload}`,
       );
-      todo.completed = !todo.completed;
+      console.log(index);
+      console.log(draft.todos[index].completed);
+      draft.todos[index].completed = !draft.todos[index].completed;
+      console.log(draft.todos[index].completed);
       return;
     }
     default:
@@ -173,7 +176,7 @@ export default function LoginUseContext(): JSX.Element {
               </form>
             )}
           </div>
-          <TodoPage todos={todos} />
+          <TodoPage todos={state.todos} />
         </div>
       </StateContext.Provider>
     </DispatchContext.Provider>
@@ -205,10 +208,9 @@ TodoPage.propTypes = {
 };
 
 const TodoItem: React.FC<TodosItemProps> = ({ title, completed }) => {
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
-  // const { isLoggedIn } = state;
-  const isLoggedIn = true;
+  const dispatch = useContext<Dispatch<LoginActions> | undefined>(DispatchContext);
+  const state = useContext<LoginState | undefined>(StateContext);
+  const isLoggedIn = ensure(state?.isLoggedIn, 'isLoggedIn was not defined in state');
   return (
     <div className="todoItem">
       <p>{title}</p>
@@ -224,11 +226,10 @@ const TodoItem: React.FC<TodosItemProps> = ({ title, completed }) => {
           onChange={(): void => {
             if (isLoggedIn) {
               // non-null assertion issues here
-              dispatch !== undefined && dispatch({ type: 'toggleTodoCompleted', payload: title });
+              dispatch!({ type: 'toggleTodoCompleted', payload: title });
             }
           }}
         />
-        {state}
       </div>
     </div>
   );
