@@ -1,70 +1,70 @@
 {
-  "setting.json+=": {
-    "material-icon-theme.folders.associations": {
-      "client": "App",
-      "lib": "Tools",
-      "components": "Components",
-      "atoms": "React-components",
-      "molecules": "Cluster",
-      "organisms": "Debug",
-      "ui": "shared"
-    }
+  // setting.json+=
+  "material-icon-theme.folders.associations": {
+    "client": "App",
+    "lib": "Tools",
+    "components": "Components",
+    "atoms": "React-components",
+    "molecules": "Cluster",
+    "organisms": "Debug",
+    "ui": "shared"
   },
-  "user_snippets_typescriptreact.json+=": {
-    "console.log": {
-      "prefix": "cl",
-      "body": ["console.log($1)"],
-      "description": "console.log"
-    },
-    "TS React arrow function component with PropTypes": {
-      "prefix": "tsrafcp",
-      "body": [
-        "import React from 'react'",
-        "import PropTypes from 'prop-types'",
-        "",
-        "interface ${TM_FILENAME_BASE}Props {",
-        "\t$1",
-        "}",
-        "",
-        "export const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
-        "\t\treturn ( $2 );",
-        "}",
-        "",
-        " $TM_FILENAME_BASE.propTypes = {$0",
-        "\t${1/\\:.*;/: PropTypes./g}",
-        "};"
-      ],
-      "description": "tab stops (unlabeled): $1:props, $2:return, $0: PropTypes; Prettier recommended;"
-    },
-    "TS React arrow function component": {
-      "prefix": "tsrafc",
-      "body": [
-        "import React from 'react'",
-        "",
-        "interface ${TM_FILENAME_BASE}Props {",
-        "\t$1",
-        "}",
-        "",
-        "export const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
-        "\t\treturn ( $0 );",
-        "}"
-      ],
-      "description": "tab stops (unlabeled): $1:props, $0:return; Prettier recommended;"
-    },
-    "useState (Object)": {
-      "prefix": "uso",
-      "body": [
-        "interface ${1/([a-z])/${1:/upcase}/} {",
-        "\t$3",
-        "}",
-        "",
-        "const initial${1/([a-z])/${1:/upcase}/} = {$0",
-        "\t${3/\\:.*;/:/g}",
-        "}",
-        "",
-        "const [$1, set${name:${1/([a-z])/${1:/upcase}/}}] = useState<${1/([a-z])/${1:/upcase}/}>(initial${1/([a-z])/${1:/upcase}/});"
-      ],
-      "description": "tab stops (unlabeled): $1:name, $2:type, $0:initial values; Prettier recommended;"
-    }
+
+  // user snippets
+  // typescriptreact.json+=
+  "console.log": {
+    "prefix": "cl",
+    "body": ["console.log($1)"],
+    "description": "console.log"
+  },
+  "TS React arrow function component with PropTypes": {
+    "prefix": "tsrafcp",
+    "body": [
+      "import React from 'react'",
+      "import PropTypes from 'prop-types'",
+      "",
+      "interface ${TM_FILENAME_BASE}Props {",
+      "\t$1",
+      "}",
+      "",
+      "export const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
+      "\t\treturn ( $2 );",
+      "}",
+      "",
+      " $TM_FILENAME_BASE.propTypes = {$0",
+      "\t${1/\\:.*;/: PropTypes./g}",
+      "};"
+    ],
+    "description": "tab stops (unlabeled): $1:props, $2:return, $0: PropTypes; Prettier recommended;"
+  },
+  "TS React arrow function component": {
+    "prefix": "tsrafc",
+    "body": [
+      "import React from 'react'",
+      "",
+      "interface ${TM_FILENAME_BASE}Props {",
+      "\t$1",
+      "}",
+      "",
+      "export const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
+      "\t\treturn ( $0 );",
+      "}"
+    ],
+    "description": "tab stops (unlabeled): $1:props, $0:return; Prettier recommended;"
+  },
+  "useState (Object)": {
+    "prefix": "uso",
+    "body": [
+      "interface ${1/([a-z])/${1:/upcase}/} {",
+      "\t$3",
+      "}",
+      "",
+      "const initial${1/([a-z])/${1:/upcase}/} = {$0",
+      "\t${3/\\:.*;/:/g}",
+      "}",
+      "",
+      "const [$1, set${name:${1/([a-z])/${1:/upcase}/}}] = useState<${1/([a-z])/${1:/upcase}/}>(initial${1/([a-z])/${1:/upcase}/});"
+    ],
+    "description": "tab stops (unlabeled): $1:name, $2:type, $0:initial values; Prettier recommended;"
   }
 }
