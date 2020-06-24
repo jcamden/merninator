@@ -1,5 +1,5 @@
 import React from 'react';
-import '@djinndex/lib/src/themes/index.scss';
+import '@merninator/lib/src/themes/index.scss';
 import LoginReducerUseImmerContext from './LoginReducerUseImmerContext';
 // import LoginReducerUseImmer from './LoginReducerUseImmer';
 

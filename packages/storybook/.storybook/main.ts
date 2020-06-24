@@ -1,5 +1,5 @@
 module.exports = {
-  stories: ['@djinndex/lib/src/components/**/*.stories.(ts|tsx|js|jsx)'],
+  stories: ['@merninator/lib/src/components/**/*.stories.(ts|tsx|js|jsx)'],
   addons: [
     '@storybook/addon-actions',
     '@storybook/addon-links',

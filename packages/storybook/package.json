@@ -1,5 +1,5 @@
 {
-  "name": "@djinndex/storybook",
+  "name": "@merninator/storybook",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@djinndex/lib": "1.0.0",
+    "@merninator/lib": "1.0.0",
     "@react-workspaces/react-scripts": "3.3.0-alpha-08",
     "@storybook/addon-viewport": "^5.3.19",
     "node-sass": "^4.14.1",

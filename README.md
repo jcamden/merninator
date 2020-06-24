@@ -1,5 +1,5 @@
 <p align="center"><img  src="https://github.com/jcamden/MERN-monorepo-boilerplate/blob/master/monorepo.png" /></p>
-<h1 align="center">MERN-monorepo-boilerplate</h1>
+<h1 align="center">MERNinator-monorepo-boilerplate</h1>
 
 _Well, sir, there's nothing on earth_  
 _Like a genuine, bona fide_  
@@ -25,9 +25,9 @@ Tritypical [Semantic Versioning](http://semver.org/):
 <sub> 2. [API design: Which version of versioning is right for you?](https://cloud.google.com/blog/products/gcp/api-design-which-version-of-versioning-is-right-for-you)</sub>  
 <sub> 3. [Historical Versions Explained](https://spideroak.support/hc/en-us/articles/115002157643-Historical-Versions-Explained) </sub>
 
-#### Candy
+#### VSCode settings
 
-See [VSCodeConfigs.jsonc](https://github.com/jcamden/MERN-monorepo/blob/master/VSCodeConfigs.jsonc)
+See [.vscode](https://github.com/jcamden/MERN-monorepo/blob/master/.vscode/)
 
 ## Packages
 
@@ -36,7 +36,7 @@ See [VSCodeConfigs.jsonc](https://github.com/jcamden/MERN-monorepo/blob/master/V
 ##### [node](https://nodejs.org/en/) - [express](https://expressjs.com/) - [cors](https://github.com/expressjs/cors) - [mongoose](https://mongoosejs.com/) - [apidoc](https://apidocjs.com/)
 
 [API Documentation](https://github.com/jcamden/MERN-Storybook-Workspaces-monorepo-boilerplate/tree/master/packages/server/docs)<sup> [to-do: docs --> Github Pages]</sup>  
-[Server Documentation](https://github.com/jcamden/djinndex-monorepo/blob/master/packages/server/README.md)
+[Server Documentation](https://github.com/jcamden/merninator-monorepo/blob/master/packages/server/README.md)
 
 #### Note: you must specify a MongoURI in /src/db/db.ts
 
@@ -52,7 +52,7 @@ See [VSCodeConfigs.jsonc](https://github.com/jcamden/MERN-monorepo/blob/master/V
 
 ##### [storybook](https://storybook.js.org/)
 
-[Documentation](https://github.com/jcamden/djinndex-monorepo/blob/master/packages/lib/README.md)
+[Documentation](https://github.com/jcamden/merninator-monorepo/blob/master/packages/lib/README.md)
 
 #### Specifications
 
@@ -75,7 +75,7 @@ see especially:
 
 ##### [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) - [jest-dom](https://testing-library.com/docs/ecosystem-jest-dom) - [react-testing-library](https://testing-library.com/docs/react-testing-library/intro)<sup> [pss. obsolete vis-a-vis Storybook testing]</sup>
 
-[Documentation](https://github.com/jcamden/djinndex-monorepo/blob/master/packages/client/README.md)
+[Documentation](https://github.com/jcamden/merninator-monorepo/blob/master/packages/client/README.md)
 
 ## Getting Started
 
@@ -113,18 +113,18 @@ To build @my-app/lib and run @my-app/client and @my-app/server
 
 Self-explanatory:
 
-    "server": "yarn workspace @djinndex/server start",
-    "story": "yarn workspace @djinndex/storybook storybook",
+    "server": "yarn workspace @merninator/server start",
+    "story": "yarn workspace @merninator/storybook storybook",
     "test": "FORCE_COLOR=true lerna run lint && CI=true FORCE_COLOR=true lerna run test -- --coverage",
-    "client": "yarn workspace @djinndex/client start",
-    "add:server": "npx yarn@1.19.1 workspace @djinndex/server add",
-    "add:lib": "npx yarn@1.19.1 workspace @djinndex/lib add",
-    "add:story": "npx yarn@1.19.1 workspace @djinndex/storybook add",
-    "add:client": "npx yarn@1.19.1 workspace @djinndex/client add",
-    "remove:server": "npx yarn@1.19.1 workspace @djinndex/server remove",
-    "remove:lib": "npx yarn@1.19.1 workspace @djinndex/lib remove",
-    "remove:client": "npx yarn@1.19.1 workspace @djinndex/client remove",
-    "apidoc": "yarn workspace @djinndex/server apidoc",
+    "client": "yarn workspace @merninator/client start",
+    "add:server": "npx yarn@1.19.1 workspace @merninator/server add",
+    "add:lib": "npx yarn@1.19.1 workspace @merninator/lib add",
+    "add:story": "npx yarn@1.19.1 workspace @merninator/storybook add",
+    "add:client": "npx yarn@1.19.1 workspace @merninator/client add",
+    "remove:server": "npx yarn@1.19.1 workspace @merninator/server remove",
+    "remove:lib": "npx yarn@1.19.1 workspace @merninator/lib remove",
+    "remove:client": "npx yarn@1.19.1 workspace @merninator/client remove",
+    "apidoc": "yarn workspace @merninator/server apidoc",
     "deploy": "FORCE_COLOR=true lerna run deploy"
 
 To ignore pre-commit testing (including coverage) use --no-verify

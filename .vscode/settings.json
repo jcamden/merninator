@@ -3,5 +3,32 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
-  }
+  },
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontLigatures": true,
+  "files.autoSave": "off",
+  "explorer.confirmDelete": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "prettier.jsxSingleQuote": true,
+  "prettier.packageManager": "yarn",
+  "workbench.iconTheme": "material-icon-theme",
+  "material-icon-theme.activeIconPack": "react",
+  "material-icon-theme.languages.associations": {},
+  "material-icon-theme.folders.associations": {
+    "client": "App",
+    "lib": "Tools",
+    "components": "Components",
+    "atoms": "React-components",
+    "molecules": "Cluster",
+    "organisms": "Debug",
+    "ui": "Shared",
+    "contexts": "Class",
+    "context": "Class"
+  },
+  "bracket-pair-colorizer-2.activeScopeCSS": [
+    "borderStyle : solid",
+    "borderWidth : 1px",
+    "borderColor : {color}",
+    "opacity: 0.5"
+  ]
 }

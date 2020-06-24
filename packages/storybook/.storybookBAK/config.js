@@ -7,13 +7,13 @@ import { addParameters, configure } from '@storybook/react';
 //   },
 // });
 
-const comps = require.context('@djinndex/lib/src', true, /.stories.tsx$/);
+const comps = require.context('@merninator/lib/src', true, /.stories.tsx$/);
 
 configure(() => {
   comps.keys().forEach(filename => comps(filename));
 }, module);
 
-import '@djinndex/lib/src/themes/index.scss';
+import '@merninator/lib/src/themes/index.scss';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faSignOutAlt,

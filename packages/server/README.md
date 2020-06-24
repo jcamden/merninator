@@ -1,1 +1,1 @@
-# @djinndex-server
+# @merninator-server

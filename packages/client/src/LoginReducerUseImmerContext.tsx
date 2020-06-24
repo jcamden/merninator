@@ -82,6 +82,7 @@ function loginReducer(draft: LoginState, action: LoginActions): void {
       draft.isLoggedIn = false;
       return;
     }
+
     case 'toggleTodoCompleted': {
       const index = ensure(
         draft.todos.findIndex(item => item.title === action.payload),
@@ -225,8 +226,9 @@ const TodoItem: React.FC<TodosItemProps> = ({ title, completed }) => {
           }}
           onChange={(): void => {
             if (isLoggedIn) {
-              // non-null assertion issues here
-              dispatch!({ type: 'toggleTodoCompleted', payload: title });
+              // Typescript wrongly thinks dispatch can be undefined.
+              // Satsify her thusly:
+              ensure(dispatch, 'dispatch was undefined')({ type: 'toggleTodoCompleted', payload: title });
             }
           }}
         />

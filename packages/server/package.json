@@ -1,72 +1,72 @@
 {
-  "name": "@djinndex/server",
-  "version": "0.1.0",
-  "description": "description",
-  "main": "server.ts",
-  "repository": "url",
-  "author": "John Camden <john.camden@gmail.com> (https://github.com/jcamden)",
-  "license": "MIT",
-  "private": true,
-  "apidoc": {
-    "name": "@djinndex/server",
+    "name": "@merninator/server",
     "version": "0.1.0",
-    "description": "@djinndex/server",
-    "title": "Djinndex server",
-    "url": "https://localhost:8000"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "chalk": "^4.1.0",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-fileupload": "^1.1.7-alpha.3",
-    "express-validator": "^6.5.0",
-    "faker": "^4.1.0",
-    "fs": "^0.0.1-security",
-    "joi": "^14.3.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.15",
-    "multer": "^1.4.2",
-    "passport": "^0.4.1",
-    "passport-facebook": "^3.0.0",
-    "passport-google-oauth20": "^2.0.0",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0",
-    "prop-types": "^15.7.2"
-  },
-  "devDependencies": {
-    "@types/node": "^14.0.1",
-    "@typescript-eslint/eslint-plugin": "^3.4.0",
-    "@typescript-eslint/parser": "^3.4.0",
-    "eslint": "^7.3.1",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-prettier": "^3.1.4",
-    "nodemon": "^2.0.4",
-    "prettier": "^2.0.5",
-    "ts-node": "^8.10.1",
-    "type": "module",
-    "typescript": "^3.9.2"
-  },
-  "scripts": {
-    "start:debug": "node --inspect=5858 -r ts-node/register ./src/server.ts",
-    "server": "node -r ts-node/register -r dotenv/config ./src/server.ts",
-    "start": "nodemon",
-    "build": "tsc",
-    "apidoc": "apidoc -i src/ -o docs/api"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "**/*.test.ts",
-      "**/*.spec.ts",
-      ".git",
-      "node_modules"
-    ],
-    "watch": [
-      "src"
-    ],
-    "exec": "npm run server",
-    "ext": "ts"
-  }
+    "description": "description",
+    "main": "server.ts",
+    "repository": "url",
+    "author": "John Camden <john.camden@gmail.com> (https://github.com/jcamden)",
+    "license": "MIT",
+    "private": true,
+    "apidoc": {
+        "name": "@merninator/server",
+        "version": "0.1.0",
+        "description": "@merninator/server",
+        "title": "merninator server",
+        "url": "https://localhost:8000"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "chalk": "^4.1.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-fileupload": "^1.1.7-alpha.3",
+        "express-validator": "^6.5.0",
+        "faker": "^4.1.0",
+        "fs": "^0.0.1-security",
+        "joi": "^14.3.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.9.15",
+        "multer": "^1.4.2",
+        "passport": "^0.4.1",
+        "passport-facebook": "^3.0.0",
+        "passport-google-oauth20": "^2.0.0",
+        "passport-jwt": "^4.0.0",
+        "passport-local": "^1.0.0",
+        "prop-types": "^15.7.2"
+    },
+    "devDependencies": {
+        "@types/node": "^14.0.1",
+        "@typescript-eslint/eslint-plugin": "^3.4.0",
+        "@typescript-eslint/parser": "^3.4.0",
+        "eslint": "^7.3.1",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-import": "^2.20.2",
+        "eslint-plugin-prettier": "^3.1.4",
+        "nodemon": "^2.0.4",
+        "prettier": "^2.0.5",
+        "ts-node": "^8.10.1",
+        "type": "module",
+        "typescript": "^3.9.2"
+    },
+    "scripts": {
+        "start:debug": "node --inspect=5858 -r ts-node/register ./src/server.ts",
+        "server": "node -r ts-node/register -r dotenv/config ./src/server.ts",
+        "start": "nodemon",
+        "build": "tsc",
+        "apidoc": "apidoc -i src/ -o docs/api"
+    },
+    "nodemonConfig": {
+        "ignore": [
+            "**/*.test.ts",
+            "**/*.spec.ts",
+            ".git",
+            "node_modules"
+        ],
+        "watch": [
+            "src"
+        ],
+        "exec": "npm run server",
+        "ext": "ts"
+    }
 }

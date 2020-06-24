@@ -1,4 +1,4 @@
-import '@djinndex/lib/src/themes/index.scss';
+import '@merninator/lib/src/themes/index.scss';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
