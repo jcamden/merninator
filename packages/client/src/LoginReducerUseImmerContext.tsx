@@ -2,7 +2,7 @@
 import React, { useContext, Dispatch } from 'react';
 import PropTypes from 'prop-types';
 import { useImmerReducer } from 'use-immer';
-import { login } from './utils';
+import { login, ensure } from './utils';
 
 const todos = [
   {
@@ -83,9 +83,11 @@ function loginReducer(draft: LoginState, action: LoginActions): void {
       return;
     }
     case 'toggleTodoCompleted': {
-      const todo = draft.todos.find(item => item.title === action.payload);
-      // non-null assertion pain
-      todo!.completed = !todo!.completed;
+      const todo = ensure(
+        todos.find(item => item.title === action.payload),
+        'todo not found!',
+      );
+      todo.completed = !todo.completed;
       return;
     }
     default:
@@ -204,7 +206,7 @@ TodoPage.propTypes = {
 
 const TodoItem: React.FC<TodosItemProps> = ({ title, completed }) => {
   const dispatch = useContext(DispatchContext);
-  // const state = useContext(StateContext);
+  const state = useContext(StateContext);
   // const { isLoggedIn } = state;
   const isLoggedIn = true;
   return (
@@ -221,12 +223,12 @@ const TodoItem: React.FC<TodosItemProps> = ({ title, completed }) => {
           }}
           onChange={(): void => {
             if (isLoggedIn) {
-              // not really working...
-              // eslint-disable-line @typescript-eslint/no-non-null-assertion
-              dispatch!({ type: 'toggleTodoCompleted', payload: title });
+              // non-null assertion issues here
+              dispatch !== undefined && dispatch({ type: 'toggleTodoCompleted', payload: title });
             }
           }}
         />
+        {state}
       </div>
     </div>
   );
