@@ -33,25 +33,25 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 // Serve static assets if in production
 if (isProduction) {
-  // Set static folder
-  app.use(express.static(join(__dirname, '../../client/build')));
+    // Set static folder
+    app.use(express.static(join(__dirname, '../../client/build')));
 
-  app.get('*', (req, res) => {
-    res.sendFile(resolve(__dirname, '../..', 'client', 'build', 'index.html')); // index is in /server/src so 2 folders up
-  });
+    app.get('*', (req, res) => {
+        res.sendFile(resolve(__dirname, '../..', 'client', 'build', 'index.html')); // index is in /server/src so 2 folders up
+    });
 
-  const port = process.env.PORT || 80;
-  app.listen(port, () => console.log(`Server started on port ${port}`));
+    const port = process.env.PORT || 80;
+    app.listen(port, () => console.log(`Server started on port ${port}`));
 } else {
-  const port = process.env.PORT || 5000;
+    const port = process.env.PORT || 5000;
 
-  const httpsOptions = {
-    key: readFileSync(resolve(__dirname, '../security/ssl/cert.key')),
-    cert: readFileSync(resolve(__dirname, '../security/ssl/cert.pem')),
-  };
+    const httpsOptions = {
+        key: readFileSync(resolve(__dirname, '../security/ssl/cert.key')),
+        cert: readFileSync(resolve(__dirname, '../security/ssl/cert.pem')),
+    };
 
-  https.createServer(httpsOptions, app).listen(port, () => {
-    consoleLogo();
-    console.log('https server running at ' + chalk.cyan(`https://localhost:${port}`));
-  });
+    https.createServer(httpsOptions, app).listen(port, () => {
+        consoleLogo();
+        console.log('https server running at ' + chalk.cyan(`https://localhost:${port}`));
+    });
 }
