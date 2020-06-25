@@ -2,7 +2,7 @@
 import React, { useContext, Dispatch } from 'react';
 import PropTypes from 'prop-types';
 import { useImmerReducer } from 'use-immer';
-import { login, ensure } from './utils';
+import { login, ensure } from '../utils';
 
 const todos = [
   {
@@ -100,8 +100,6 @@ function loginReducer(draft: LoginState, action: LoginActions): void {
 }
 
 const StateContext = React.createContext<LoginState | undefined>(undefined);
-
-// LoginAction may not be right there...
 const DispatchContext = React.createContext<Dispatch<LoginActions> | undefined>(undefined);
 
 // curried approach with immer; not needed with useImmerReducer hook

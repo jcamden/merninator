@@ -1,76 +1,14 @@
-import React, { useReducer } from 'react';
-import { login } from './utils';
+import React, { useContext } from 'react';
+import { StateContext, DispatchContext } from '../../context/auth/authContext';
+import { login, ensure } from '../../utils';
 
-const initialState: LoginState = {
-  username: '',
-  password: '',
-  isLoading: false,
-  error: '',
-  isLoggedIn: false,
-  variant: 'login',
-};
-
-interface LoginState {
-  [propName: string]: string | boolean;
-  username: string;
-  password: string;
-  isLoading: boolean;
-  error: string;
-  isLoggedIn: boolean;
-  variant: 'login' | 'forgetPassword';
-}
-
-type LoginAction =
-  | { type: 'login' | 'success' | 'error' | 'logOut' }
-  | { type: 'field'; fieldName: string; payload: string };
-
-function loginReducer(state: LoginState, action: LoginAction): LoginState {
-  switch (action.type) {
-    case 'field': {
-      // standard create new immutable state
-      return {
-        ...state,
-        [action.fieldName]: action.payload,
-      };
-    }
-    case 'login': {
-      return {
-        ...state,
-        error: '',
-        isLoading: true,
-      };
-    }
-    case 'success': {
-      return {
-        ...state,
-        isLoggedIn: true,
-        isLoading: false,
-      };
-    }
-    case 'error': {
-      return {
-        ...state,
-        error: 'Incorrect username or password!',
-        isLoggedIn: false,
-        isLoading: false,
-        username: '',
-        password: '',
-      };
-    }
-    case 'logOut': {
-      return {
-        ...state,
-        isLoggedIn: false,
-      };
-    }
-    default:
-      return state;
-  }
-}
-
-export default function LoginUseReducer(): JSX.Element {
-  const [state, dispatch] = useReducer(loginReducer, initialState);
-  const { username, password, isLoading, error, isLoggedIn } = state;
+const AuthTest: React.FC = ({}) => {
+  //this is gonna go somewhere else, down to the return
+  const { username, password, isLoading, error, isLoggedIn } = ensure(
+    useContext(StateContext),
+    'What the hell?? StateContext was undefined.',
+  );
+  const dispatch = ensure(useContext(DispatchContext), 'DispatchContext was undefined. Good God!');
 
   // return type of Promise required for async function, even with no return...
   const onSubmit = async (e: React.FormEvent): Promise<void> => {
@@ -85,14 +23,15 @@ export default function LoginUseReducer(): JSX.Element {
       dispatch({ type: 'error' });
     }
   };
-
   return (
     <div className="container text-center p-3">
       <div className="card p-5">
         {isLoggedIn ? (
           <>
             <h1>Welcome {username}!</h1>
-            <button onClick={(): void => dispatch({ type: 'logOut' })}>Log Out</button>
+            <button className="btn btn-primary" onClick={(): void => dispatch({ type: 'logOut' })}>
+              Log Out
+            </button>
           </>
         ) : (
           <form onSubmit={onSubmit}>
@@ -135,4 +74,8 @@ export default function LoginUseReducer(): JSX.Element {
       </div>
     </div>
   );
-}
+};
+
+AuthTest.propTypes = {};
+
+export default AuthTest;

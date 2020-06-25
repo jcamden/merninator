@@ -1,6 +1,6 @@
 import React from 'react';
 import { useImmerReducer } from 'use-immer';
-import { login } from './utils';
+import { login } from '../utils';
 
 const initialState: LoginState = {
   username: '',
