@@ -8,10 +8,7 @@ export interface Todos {
 // };
 // [];
 
-export type Register = {
-  username: string;
-  password: string;
-};
+export type Login = (formData: { username: string; password: string }) => Promise<void>;
 
 export interface LoginState {
   [propName: string]:
@@ -36,6 +33,7 @@ export interface LoginState {
   }[];
   loadUser?: () => Promise<void>;
   register?: (formData: { username: string; password: string }) => Promise<void>;
+  login?: (formData: { username: string; password: string }) => Promise<void>;
 }
 
 export interface User {
@@ -46,7 +44,7 @@ export interface User {
   __v: number;
 }
 
-export interface RegisterSuccess {
+export interface LoginSuccess {
   success: boolean;
   user: User;
   token: string;
@@ -54,8 +52,11 @@ export interface RegisterSuccess {
 }
 
 export type LoginActions =
-  | { type: 'login' | 'success' | 'error' | 'logOut' | 'userLoaded' | 'authError' | 'registerFail' }
-  | { type: 'registerSuccess'; payload: RegisterSuccess }
+  | { type: 'login' | 'success' | 'error' | 'logOut' | 'authError' | 'registerFail' }
+  | { type: 'registerSuccess'; payload: LoginSuccess }
+  | { type: 'registerFail'; payload: string }
+  | { type: 'loginSuccess'; payload: LoginSuccess }
+  | { type: 'loginFail'; payload: string }
   | { type: 'field'; fieldName: string; payload: string }
   | { type: 'toggleTodoCompleted'; payload: string }
   | { type: 'userLoaded'; payload: string };

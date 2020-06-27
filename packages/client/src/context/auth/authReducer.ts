@@ -2,20 +2,24 @@ import { ensure } from '../../utils';
 import { LoginState, LoginActions } from './types';
 
 export default function authReducer(draft: LoginState, action: LoginActions): void {
-  // note: we don't destructure draft since we are actually mutating it
   switch (action.type) {
     case 'userLoaded': {
+      console.log(action.payload);
       return;
     }
     case 'registerSuccess': {
+      localStorage.setItem('token', action.payload.token);
+      console.log('register success! Next, update state.');
       return;
     }
+    case 'loginSuccess':
+      localStorage.setItem('token', action.payload.token);
+      console.log('login success! Next, update state.');
+      return;
+    case 'loginFail':
+      console.log(action.payload);
+      return;
     case 'field': {
-      // standard immer(but we be curryin now)
-      // return produce<LoginState>(state, draft => {
-      //   draft[action.fieldName] = action.payload;
-      // });
-
       draft[action.fieldName] = action.payload;
       return;
     }

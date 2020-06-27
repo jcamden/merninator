@@ -1,20 +1,13 @@
 import React, { useContext } from 'react';
 import { StateContext, DispatchContext } from '../../context/auth/authContext';
-import { login, ensure } from '../../utils';
+import { ensureType, login } from '../../utils';
 
 const AuthTest: React.FC = ({}) => {
-  //this is gonna go somewhere else, down to the return
-  const { username, password, isLoading, error, isLoggedIn } = ensure(
-    useContext(StateContext),
-    'What the hell?! StateContext was undefined.',
-  );
-  const dispatch = ensure(useContext(DispatchContext), 'DispatchContext was undefined. God help us!!');
+  const { username, password, isLoading, error, isLoggedIn } = ensureType(useContext(StateContext));
+  const dispatch = ensureType(useContext(DispatchContext));
 
-  // return type of Promise required for async function, even with no return...
   const onSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-
-    dispatch({ type: 'login' });
 
     try {
       await login({ username, password });
