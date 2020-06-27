@@ -6,9 +6,9 @@ const AuthTest: React.FC = ({}) => {
   //this is gonna go somewhere else, down to the return
   const { username, password, isLoading, error, isLoggedIn } = ensure(
     useContext(StateContext),
-    'What the hell?? StateContext was undefined.',
+    'What the hell?! StateContext was undefined.',
   );
-  const dispatch = ensure(useContext(DispatchContext), 'DispatchContext was undefined. Good God!');
+  const dispatch = ensure(useContext(DispatchContext), 'DispatchContext was undefined. God help us!!');
 
   // return type of Promise required for async function, even with no return...
   const onSubmit = async (e: React.FormEvent): Promise<void> => {

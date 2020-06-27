@@ -10,9 +10,15 @@ export type TodoItemProps = {
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
-  const dispatch = useContext<Dispatch<LoginActions> | undefined>(DispatchContext);
-  const state = useContext<LoginState | undefined>(StateContext);
-  const isLoggedIn = ensure(state?.isLoggedIn, 'isLoggedIn was not defined in state');
+  const dispatch = ensure(
+    useContext<Dispatch<LoginActions> | undefined>(DispatchContext),
+    'DispatchContext was undefined for some crazy reason.',
+  );
+  const state = ensure(
+    useContext<LoginState | undefined>(StateContext),
+    "StateContext was undefined. We're all going to die.",
+  );
+  const isLoggedIn = state.isLoggedIn;
   return (
     <div className="todoItem">
       <input
@@ -27,7 +33,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
           if (isLoggedIn) {
             // Typescript wrongly thinks dispatch can be undefined.
             // Satsify her thusly:
-            ensure(dispatch, 'dispatch was undefined')({ type: 'toggleTodoCompleted', payload: title });
+            dispatch({ type: 'toggleTodoCompleted', payload: title });
           }
         }}
       />
