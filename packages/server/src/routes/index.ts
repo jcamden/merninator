@@ -1,6 +1,7 @@
 import auth from './auth';
+import express from 'express';
 
-const router = require('express').Router();
+const router = express.Router();
 
 router.use('/auth', auth);
 

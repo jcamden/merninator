@@ -4,6 +4,12 @@ import { LoginState, LoginActions } from './types';
 export default function authReducer(draft: LoginState, action: LoginActions): void {
   // note: we don't destructure draft since we are actually mutating it
   switch (action.type) {
+    case 'userLoaded': {
+      return;
+    }
+    case 'registerSuccess': {
+      return;
+    }
     case 'field': {
       // standard immer(but we be curryin now)
       // return produce<LoginState>(state, draft => {

@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "413868a0-4cbc-40b7-bcf0-7edb62823a72",
+		"name": "MERNBoilerplateAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://localhost:5000/auth/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"john@mail.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5000/auth/register",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5000/auth/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"john@mail.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5000/auth/login",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5000/auth/passportprotected",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZWY3NTlmODdmY2Q1ZDFhZDQxY2RjOWQiLCJpYXQiOjE1OTMyNjg3NDA4ODMsImV4cCI6MTU5MzI2OTk1MDQ4M30.udazb0aw_8iT146VFPAApgqpkNN8NDxqvIsYhDM3T0FRCFT83H3X2-Lirn35-kg41rrph98yRneyvabkoYgxPSzTQWN3WH0zFBNbhF1xDXhAfZZjbP0iJZ2IpDIWDGEdeWxAPyO3GtNdSvsCxqj0vdsGxd8HytiecPwfT7ag0CN8gAZi7pT4UHr-3Hrh9S4TKx52CEvdtTqJS6ztKSgOdijw5z9UEmk4YQkVMbogDPl2ue8kBfR2QFTaD9YRq8-O08iuhibnWf1RLvW311RNf3CMlBI8OTZ57c59qTIA0l0WBuRBXH-8TuSlJXou_ZVfRtHKli1mq9fjlOS0qJCL6EQfVJtPB_hbkipADAxwRP-Vy8mO-PSDvgH2gOlNAByMwiu1hed0csLfF7SfQgwnsj5PkGsmU-HbkzJUujFGzZPLCDalq7Vv4diO7jWC0Xj63kjEoth46v69WbaRsf8iUG-0jBaksKALwKGEfwSxSLGjQM5sb1kJ8QzxzeHxiJSax3RCR6em94ZQvdogFP8DJ1MbvOa1avQ0OTsgQPy3kcnoQmb7BoHfv9iDnsh7P6Lq4OxZA7hCq4B998n3G4pauvUdlafa4o5eEPI21w8ztKFmX6Qo1J5yIjaXfzW0uBcFzdu_d5f4l_e7vO9lmNvlONlenv5BTRWISwh3Wu3WYZk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:5000/auth/passportprotected",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"passportprotected"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:5000/auth/customjwtprotected",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZWY3NTlmODdmY2Q1ZDFhZDQxY2RjOWQiLCJpYXQiOjE1OTMyNjg3NDA4ODMsImV4cCI6MTU5MzI2OTk1MDQ4M30.udazb0aw_8iT146VFPAApgqpkNN8NDxqvIsYhDM3T0FRCFT83H3X2-Lirn35-kg41rrph98yRneyvabkoYgxPSzTQWN3WH0zFBNbhF1xDXhAfZZjbP0iJZ2IpDIWDGEdeWxAPyO3GtNdSvsCxqj0vdsGxd8HytiecPwfT7ag0CN8gAZi7pT4UHr-3Hrh9S4TKx52CEvdtTqJS6ztKSgOdijw5z9UEmk4YQkVMbogDPl2ue8kBfR2QFTaD9YRq8-O08iuhibnWf1RLvW311RNf3CMlBI8OTZ57c59qTIA0l0WBuRBXH-8TuSlJXou_ZVfRtHKli1mq9fjlOS0qJCL6EQfVJtPB_hbkipADAxwRP-Vy8mO-PSDvgH2gOlNAByMwiu1hed0csLfF7SfQgwnsj5PkGsmU-HbkzJUujFGzZPLCDalq7Vv4diO7jWC0Xj63kjEoth46v69WbaRsf8iUG-0jBaksKALwKGEfwSxSLGjQM5sb1kJ8QzxzeHxiJSax3RCR6em94ZQvdogFP8DJ1MbvOa1avQ0OTsgQPy3kcnoQmb7BoHfv9iDnsh7P6Lq4OxZA7hCq4B998n3G4pauvUdlafa4o5eEPI21w8ztKFmX6Qo1J5yIjaXfzW0uBcFzdu_d5f4l_e7vO9lmNvlONlenv5BTRWISwh3Wu3WYZk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:5000/auth/customjwtprotected",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"customjwtprotected"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

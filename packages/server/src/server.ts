@@ -29,15 +29,23 @@ app.use(passport.initialize());
 // init routes
 app.use(router);
 
+// error handler
+function errorHandler(err, req, res) {
+    res.status(500);
+    res.render('error', { error: err });
+}
+
+app.use(errorHandler);
+
 const isProduction = process.env.NODE_ENV === 'production';
 
-// Serve static assets if in production
+// serve static assets if in production
 if (isProduction) {
-    // Set static folder
+    // not sure about this, since I tend to use a public static folder as well
     app.use(express.static(join(__dirname, '../../client/build')));
 
     app.get('*', (req, res) => {
-        res.sendFile(resolve(__dirname, '../..', 'client', 'build', 'index.html')); // index is in /server/src so 2 folders up
+        res.sendFile(resolve(__dirname, '../..', 'client', 'build', 'index.html'));
     });
 
     const port = process.env.PORT || 80;
