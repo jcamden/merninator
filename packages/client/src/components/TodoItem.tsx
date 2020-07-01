@@ -1,8 +1,6 @@
-import React, { useContext, Dispatch } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { DispatchContext, StateContext } from '../context/auth/authContext';
-import { ensure } from '../utils';
-import { LoginActions, LoginState } from '../context/auth/types';
+import { DispatchContext, StateContext } from '../context/auth/AuthState';
 
 export type TodoItemProps = {
   title: string;
@@ -10,15 +8,9 @@ export type TodoItemProps = {
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
-  const dispatch = ensure(
-    useContext<Dispatch<LoginActions> | undefined>(DispatchContext),
-    'DispatchContext was undefined for some crazy reason.',
-  );
-  const state = ensure(
-    useContext<LoginState | undefined>(StateContext),
-    "StateContext was undefined. We're all going to die.",
-  );
-  const isLoggedIn = state.isLoggedIn;
+  const dispatch = useContext(DispatchContext);
+  const { isLoggedIn } = useContext(StateContext);
+
   return (
     <div className="todoItem">
       <input

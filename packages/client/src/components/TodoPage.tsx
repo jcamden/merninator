@@ -1,15 +1,10 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
-import { StateContext } from '../context/auth/authContext';
-import { LoginState } from '../context/auth/types';
-import { ensure } from '../utils';
+import { StateContext } from '../context/auth/AuthState';
 
 const TodoPage: React.FC = () => {
-  const { todos } = ensure(
-    useContext<LoginState | undefined>(StateContext),
-    'StateContext was undefined. Oh. My. God.',
-  );
+  const { todos } = useContext(StateContext);
 
   return (
     <div className="container">

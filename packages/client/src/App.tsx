@@ -1,7 +1,7 @@
 import React from 'react';
 import '@merninator/lib/src/themes/index.scss';
 // import LoginReducerUseImmerContext from './LoginReducerUseImmerContext';
-import AuthState from './context/auth/AuthState';
+import { AuthState } from './context/auth/AuthState';
 import TodoPage from './components/TodoPage';
 import AuthTest from './components/auth/AuthTest';
 

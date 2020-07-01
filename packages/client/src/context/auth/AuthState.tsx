@@ -1,9 +1,8 @@
 import React, { ReactNode } from 'react';
 import { useImmerReducer } from 'use-immer';
-import { DispatchContext, StateContext } from './authContext';
 import authReducer from './authReducer';
-import { LoginState } from './types';
-import axios from 'axios';
+import { createContext, Dispatch } from 'react';
+import { LoginState, LoginActions } from './types';
 
 // really todos belongs in a separate context
 // and it should be informed by a GET request
@@ -38,58 +37,15 @@ interface AuthStateProps {
   children: ReactNode;
 }
 
-export default function Authstate({ children }: AuthStateProps): JSX.Element {
+export const StateContext = createContext<LoginState>(initialState);
+export const DispatchContext = createContext<Dispatch<LoginActions>>(() => null);
+
+export const AuthState = ({ children }: AuthStateProps): JSX.Element => {
   const [state, dispatch] = useImmerReducer(authReducer, initialState);
-
-  // Register User
-  const register = async (formData: { username: string; password: string }): Promise<void> => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    try {
-      const res = await axios.post('http://localhost:5000/api/users', formData, config);
-
-      dispatch({
-        type: 'registerSuccess',
-        payload: res.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: 'registerFail',
-        payload: err.response.data.msg,
-      });
-    }
-  };
-
-  // Login User
-  const login = async (formData: { username: string; password: string }): Promise<void> => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    try {
-      const res = await axios.post('https://localhost:5000/auth/login', formData, config);
-
-      dispatch({
-        type: 'loginSuccess',
-        payload: res.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: 'loginFail',
-        payload: err.response.data.msg,
-      });
-    }
-  };
 
   return (
     <DispatchContext.Provider value={dispatch}>
-      <StateContext.Provider value={{ ...state, register, login }}>{children}</StateContext.Provider>
+      <StateContext.Provider value={{ ...state }}>{children}</StateContext.Provider>
     </DispatchContext.Provider>
   );
-}
+};

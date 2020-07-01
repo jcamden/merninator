@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { StateContext, DispatchContext } from '../../context/auth/authContext';
-import { ensureType, login } from '../../utils';
+import { StateContext, DispatchContext } from '../../context/auth/AuthState';
+import { login } from '../../utils';
 
 const AuthTest: React.FC = ({}) => {
-  const { username, password, isLoading, error, isLoggedIn } = ensureType(useContext(StateContext));
-  const dispatch = ensureType(useContext(DispatchContext));
+  const { username, password, isLoading, error, isLoggedIn } = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
 
   const onSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
