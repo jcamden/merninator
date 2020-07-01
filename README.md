@@ -1,5 +1,6 @@
 <p align="center"><img  src="https://github.com/jcamden/MERN-monorepo-boilerplate/blob/master/monorepo.png" /></p>
-<h1 align="center">MERNinator-monorepo-boilerplate</h1>
+<h1 align="center">MERNinator</h1>
+<h2 align="center">monorepo boilerplate by Djinndex</h2>
 
 _Well, sir, there's nothing on earth_  
 _Like a genuine, bona fide_  
