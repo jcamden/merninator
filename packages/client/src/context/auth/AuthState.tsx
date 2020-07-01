@@ -24,7 +24,7 @@ const todos = [
 
 const initialState: LoginState = {
   token: localStorage.getItem('token'),
-  username: '',
+  email: '',
   password: '',
   isLoading: false,
   error: '',

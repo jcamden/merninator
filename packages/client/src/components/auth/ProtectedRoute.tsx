@@ -1,8 +1,8 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
+import { StateContext, DispatchContext } from '../../context/auth/AuthState';
 
 export interface ProtectedRouteProps extends RouteProps {
-  isAuthenticated: boolean;
   isAllowed?: boolean;
   restrictedRedirectPath?: string;
   unauthedRedirectPath?: string;
@@ -11,17 +11,21 @@ export interface ProtectedRouteProps extends RouteProps {
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
-  isAuthenticated,
   isAllowed,
   restrictedRedirectPath,
   unauthedRedirectPath,
   path,
   component,
 }) => {
+  const { isAuthenticated } = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
+
+  dispatch({ type: 'isLoading' });
+
   const getRedirectPath = (): string | undefined => {
     if (!isAuthenticated) {
       return unauthedRedirectPath;
-    } else if (isAuthenticated && !isAllowed) {
+    } else if (isAuthenticated && isAllowed === false) {
       return restrictedRedirectPath;
     }
   };
@@ -30,8 +34,10 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   if (redirectPath) {
     const redirectComponent: React.FC = () => <Redirect to={{ pathname: redirectPath }} />;
+    dispatch({ type: 'isNotLoading' });
     return <Route exact component={redirectComponent} render={undefined} />;
   } else {
+    dispatch({ type: 'isNotLoading' });
     return <Route exact path={path} component={component} />;
   }
 };

@@ -8,7 +8,7 @@ export interface Todos {
 // };
 // [];
 
-export type Login = (formData: { username: string; password: string }) => Promise<void>;
+export type Login = (formData: { email: string; password: string }) => Promise<void>;
 
 export interface LoginState {
   [propName: string]:
@@ -17,10 +17,11 @@ export interface LoginState {
     | null
     | Todos
     | (() => Promise<void>)
-    | ((formData: { username: string; password: string }) => Promise<void>)
+    | ((formData: { email: string; password: string }) => Promise<void>)
     | undefined;
+  user?: {};
   token: string | null;
-  username: string;
+  email: string;
   password: string;
   isLoading: boolean;
   error: string;
@@ -31,14 +32,11 @@ export interface LoginState {
     title: string;
     completed: boolean;
   }[];
-  loadUser?: () => Promise<void>;
-  register?: (formData: { username: string; password: string }) => Promise<void>;
-  login?: (formData: { username: string; password: string }) => Promise<void>;
 }
 
 export interface User {
   _id: string;
-  username: string;
+  email: string;
   hash: string;
   salt: string;
   __v: number;
@@ -52,11 +50,12 @@ export interface LoginSuccess {
 }
 
 export type LoginActions =
-  | { type: 'login' | 'success' | 'error' | 'logOut' | 'authError' | 'registerFail' }
+  | { type: 'login' | 'success' | 'error' | 'logOut' | 'authError' | 'registerFail' | 'isLoading' | 'isNotLoading' }
   | { type: 'registerSuccess'; payload: LoginSuccess }
   | { type: 'registerFail'; payload: string }
   | { type: 'loginSuccess'; payload: LoginSuccess }
   | { type: 'loginFail'; payload: string }
   | { type: 'field'; fieldName: string; payload: string }
   | { type: 'toggleTodoCompleted'; payload: string }
-  | { type: 'userLoaded'; payload: string };
+  | { type: 'userLoaded'; payload: string }
+  | { type: 'authError'; payload: string };

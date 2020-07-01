@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
 import { StateContext } from '../context/auth/AuthState';
 
@@ -16,10 +15,6 @@ const TodoPage: React.FC = () => {
       </div>
     </div>
   );
-};
-
-TodoPage.propTypes = {
-  todos: PropTypes.array.isRequired,
 };
 
 export default TodoPage;
