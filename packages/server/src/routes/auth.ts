@@ -24,6 +24,28 @@ router.get('/customjwtprotected', auth, (_req: Request, res: Response) => {
     });
 });
 
+router.get('/', auth, (req: Request, res: Response, next: NextFunction) => {
+    User.findOne({ _id: req.sub })
+        .then((user) => {
+            if (!user) {
+                res.status(401).json({ success: false, msg: 'could not find user' });
+                return;
+            } else {
+                const userRes = {
+                    _id: user._id,
+                };
+
+                res.status(200).json({
+                    success: true,
+                    user: userRes,
+                });
+            }
+        })
+        .catch((err) => {
+            next(err);
+        });
+});
+
 // validate an existing user and issue a JWT
 router.post('/login', function (req: Request, res: Response, next: NextFunction): void {
     User.findOne({ email: req.body.email })
@@ -39,7 +61,7 @@ router.post('/login', function (req: Request, res: Response, next: NextFunction)
 
                     res.status(200).json({
                         success: true,
-                        user: user,
+                        user: user._id,
                         token: tokenObject.token,
                         expiresIn: tokenObject.expires,
                     });
@@ -70,7 +92,7 @@ router.post('/register', function (req: Request, res: Response, next: NextFuncti
             const tokenObject = issueJWT(user);
             res.status(200).json({
                 success: true,
-                user: user,
+                user: user._id,
                 token: tokenObject.token,
                 expiresIn: tokenObject.expires,
             });

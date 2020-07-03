@@ -21,7 +21,7 @@ const auth = (req: Request, res: Response, next: NextFunction): void => {
 
         const decoded = jwt.verify(strippedToken, PUB_KEY, 'RS256');
 
-        req.user = decoded.user;
+        req.sub = decoded.sub;
         next();
     } catch (err) {
         res.status(401).json({

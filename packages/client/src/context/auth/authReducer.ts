@@ -6,12 +6,12 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
       draft[action.fieldName] = action.payload;
       return;
     }
-    case 'isLoading': {
-      draft.isLoading = true;
+    case 'loading': {
+      draft.loading = true;
       return;
     }
     case 'isNotLoading': {
-      draft.isLoading = false;
+      draft.loading = false;
       return;
     }
     case 'registerSuccess': {
@@ -25,7 +25,8 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
       return;
 
     case 'userLoaded': {
-      draft.isLoading = false;
+      console.log('REDUCER USERLOADED');
+      draft.loading = false;
       draft.user = action.payload;
       draft.checkedAuth = true;
       return;
@@ -34,25 +35,9 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
       console.log(action.payload);
       return;
 
-    // case 'login': {
-    //   draft.error = '';
-    //   draft.isLoading = true;
-    //   return;
-    // }
-    // case 'success': {
-    //   draft.isLoading = false;
-    //   return;
-    // }
-    // case 'error': {
-    //   draft.error = 'Incorrect email or password!';
-    //   draft.isLoading = false;
-    //   draft.email = '';
-    //   draft.password = '';
-    //   return;
-    // }
     case 'authError': {
       draft.error = 'There was an authorization error.';
-      draft.isLoading = false;
+      draft.loading = false;
       draft.email = '';
       draft.password = '';
       return;

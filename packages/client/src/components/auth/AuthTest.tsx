@@ -2,8 +2,11 @@ import React, { useContext } from 'react';
 import { StateContext, DispatchContext } from '../../context/auth/AuthState';
 import axios from 'axios';
 
-const AuthTest: React.FC = ({ }) => {
-  const { email, password, isLoading, error, user } = useContext(StateContext);
+const AuthTest: React.FC = ({}) => {
+  const { email, password, loading, error, user } = useContext(StateContext);
+
+  console.log(user);
+
   const dispatch = useContext(DispatchContext);
 
   // const register = async (formData: { email: string; password: string }): Promise<void> => {
@@ -51,32 +54,6 @@ const AuthTest: React.FC = ({ }) => {
     }
   };
 
-  // Set Auth Token
-  // const setAuthToken = (token: string): void => {
-  //   if (token) {
-  //     axios.defaults.headers.common['x-auth-token'] = token;
-  //   } else {
-  //     delete axios.defaults.headers.common['x-auth-token'];
-  //   }
-  // };
-
-  // Load User
-  // const loadUser = async (): Promise<void> => {
-  //   if (localStorage.token) {
-  //     setAuthToken(localStorage.token);
-  //   }
-  //   try {
-  //     const res = await axios.get('http://localhost:5000/api/auth');
-  //     dispatch({
-  //       type: 'userLoaded',
-  //       payload: res.data,
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //     dispatch({ type: 'authError', payload: err });
-  //   }
-  // };
-
   const onSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
@@ -98,43 +75,43 @@ const AuthTest: React.FC = ({ }) => {
             </button>
           </>
         ) : (
-            <form onSubmit={onSubmit}>
-              {error && <p className="error">{error}</p>}
-              <p>Please Login!</p>
-              <div className="form-group">
-                <input
-                  type="text"
-                  placeholder="email"
-                  value={email}
-                  onChange={(e): void =>
-                    dispatch({
-                      type: 'field',
-                      fieldName: 'email',
-                      payload: e.currentTarget.value,
-                    })
-                  }
-                />
-              </div>
-              <div className="form-group">
-                <input
-                  type="password"
-                  placeholder="password"
-                  autoComplete="new-password"
-                  value={password}
-                  onChange={(e): void =>
-                    dispatch({
-                      type: 'field',
-                      fieldName: 'password',
-                      payload: e.currentTarget.value,
-                    })
-                  }
-                />
-              </div>
-              <button className="submit btn btn-primary" type="submit" disabled={isLoading}>
-                {isLoading ? 'Logging in...' : 'Log In'}
-              </button>
-            </form>
-          )}
+          <form onSubmit={onSubmit}>
+            {error && <p className="error">{error}</p>}
+            <p>Please Login!</p>
+            <div className="form-group">
+              <input
+                type="text"
+                placeholder="email"
+                value={email}
+                onChange={(e): void =>
+                  dispatch({
+                    type: 'field',
+                    fieldName: 'email',
+                    payload: e.currentTarget.value,
+                  })
+                }
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                placeholder="password"
+                autoComplete="new-password"
+                value={password}
+                onChange={(e): void =>
+                  dispatch({
+                    type: 'field',
+                    fieldName: 'password',
+                    payload: e.currentTarget.value,
+                  })
+                }
+              />
+            </div>
+            <button className="submit btn btn-primary" type="submit" disabled={loading}>
+              {loading ? 'Logging in...' : 'Log In'}
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );

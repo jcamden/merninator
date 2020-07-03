@@ -27,7 +27,7 @@ const initialState: LoginState = {
   token: localStorage.getItem('token'),
   email: '',
   password: '',
-  isLoading: false,
+  loading: true,
   error: '',
   variant: 'login',
   todos,
@@ -42,9 +42,11 @@ export const DispatchContext = createContext<Dispatch<LoginActions>>(() => undef
 
 export const AuthState = ({ children }: AuthStateProps): JSX.Element => {
   const [state, dispatch] = useImmerReducer(authReducer, initialState);
+
   useEffect(() => {
+    console.log('STATE USE EFFECT');
     loadUser(dispatch);
-  }, [])
+  }, []);
 
   return (
     <DispatchContext.Provider value={dispatch}>
@@ -52,4 +54,3 @@ export const AuthState = ({ children }: AuthStateProps): JSX.Element => {
     </DispatchContext.Provider>
   );
 };
-

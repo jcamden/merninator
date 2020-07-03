@@ -1,11 +1,13 @@
-import { useContext, Dispatch } from 'react';
-import { DispatchContext } from '../context/auth/AuthState';
+import { Dispatch } from 'react';
 import axios from 'axios';
 import { LoginActions } from '../context/auth/types';
 
 // Register User
 
-export const register = async (formData: { email: string; password: string }, dispatch: Dispatch<LoginActions>): Promise<void> => {
+export const register = async (
+  formData: { email: string; password: string },
+  dispatch: Dispatch<LoginActions>,
+): Promise<void> => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -13,7 +15,7 @@ export const register = async (formData: { email: string; password: string }, di
   };
 
   try {
-    const res = await axios.post('http://localhost:5000/api/users', formData, config);
+    const res = await axios.post('https://localhost:5000/api/users', formData, config);
 
     dispatch({
       type: 'registerSuccess',
@@ -28,7 +30,10 @@ export const register = async (formData: { email: string; password: string }, di
 };
 
 // Login User
-export const login = async (formData: { email: string; password: string }, dispatch: Dispatch<LoginActions>): Promise<void> => {
+export const login = async (
+  formData: { email: string; password: string },
+  dispatch: Dispatch<LoginActions>,
+): Promise<void> => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -65,10 +70,10 @@ export const loadUser = async (dispatch: Dispatch<LoginActions>): Promise<void> 
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await axios.get('http://localhost:5000/api/auth');
+    const res = await axios.get('https://localhost:5000/auth');
     dispatch({
       type: 'userLoaded',
-      payload: res.data,
+      payload: res.data.user,
     });
   } catch (err) {
     console.log(err);
