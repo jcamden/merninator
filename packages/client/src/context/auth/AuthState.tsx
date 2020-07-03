@@ -1,8 +1,9 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { useImmerReducer } from 'use-immer';
 import authReducer from './authReducer';
 import { createContext, Dispatch } from 'react';
 import { LoginState, LoginActions } from './types';
+import { loadUser } from '../../utils/authUtils';
 
 // really todos belongs in a separate context
 // and it should be informed by a GET request
@@ -17,7 +18,7 @@ const todos = [
     completed: false,
   },
   {
-    title: 'oraganize the cat',
+    title: 'oraganize the cat ninja',
     completed: false,
   },
 ];
@@ -28,7 +29,6 @@ const initialState: LoginState = {
   password: '',
   isLoading: false,
   error: '',
-  isLoggedIn: false,
   variant: 'login',
   todos,
 };
@@ -38,10 +38,13 @@ interface AuthStateProps {
 }
 
 export const StateContext = createContext<LoginState>(initialState);
-export const DispatchContext = createContext<Dispatch<LoginActions>>(() => null);
+export const DispatchContext = createContext<Dispatch<LoginActions>>(() => undefined);
 
 export const AuthState = ({ children }: AuthStateProps): JSX.Element => {
   const [state, dispatch] = useImmerReducer(authReducer, initialState);
+  useEffect(() => {
+    loadUser(dispatch);
+  }, [])
 
   return (
     <DispatchContext.Provider value={dispatch}>
@@ -49,3 +52,4 @@ export const AuthState = ({ children }: AuthStateProps): JSX.Element => {
     </DispatchContext.Provider>
   );
 };
+

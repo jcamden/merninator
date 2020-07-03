@@ -21,14 +21,13 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
     }
     case 'loginSuccess':
       localStorage.setItem('token', action.payload.token);
-      draft.isLoggedIn = true;
       draft.user = action.payload.user;
       return;
 
     case 'userLoaded': {
-      draft.isLoggedIn = true;
       draft.isLoading = false;
       draft.user = action.payload;
+      draft.checkedAuth = true;
       return;
     }
     case 'loginFail':
@@ -41,13 +40,11 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
     //   return;
     // }
     // case 'success': {
-    //   draft.isLoggedIn = true;
     //   draft.isLoading = false;
     //   return;
     // }
     // case 'error': {
     //   draft.error = 'Incorrect email or password!';
-    //   draft.isLoggedIn = false;
     //   draft.isLoading = false;
     //   draft.email = '';
     //   draft.password = '';
@@ -55,14 +52,12 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
     // }
     case 'authError': {
       draft.error = 'There was an authorization error.';
-      draft.isLoggedIn = false;
       draft.isLoading = false;
       draft.email = '';
       draft.password = '';
       return;
     }
     // case 'logOut': {
-    //   draft.isLoggedIn = false;
     //   return;
     // }
 

@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { StateContext, DispatchContext } from '../../context/auth/AuthState';
 import axios from 'axios';
 
-const AuthTest: React.FC = ({}) => {
-  const { email, password, isLoading, error, isLoggedIn } = useContext(StateContext);
+const AuthTest: React.FC = ({ }) => {
+  const { email, password, isLoading, error, user } = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
 
   // const register = async (formData: { email: string; password: string }): Promise<void> => {
@@ -90,7 +90,7 @@ const AuthTest: React.FC = ({}) => {
   return (
     <div className="container text-center p-3">
       <div className="card p-5">
-        {isLoggedIn ? (
+        {user ? (
           <>
             <h1>Welcome {email}!</h1>
             <button className="btn btn-primary" onClick={(): void => dispatch({ type: 'logOut' })}>
@@ -98,43 +98,43 @@ const AuthTest: React.FC = ({}) => {
             </button>
           </>
         ) : (
-          <form onSubmit={onSubmit}>
-            {error && <p className="error">{error}</p>}
-            <p>Please Login!</p>
-            <div className="form-group">
-              <input
-                type="text"
-                placeholder="email"
-                value={email}
-                onChange={(e): void =>
-                  dispatch({
-                    type: 'field',
-                    fieldName: 'email',
-                    payload: e.currentTarget.value,
-                  })
-                }
-              />
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                placeholder="password"
-                autoComplete="new-password"
-                value={password}
-                onChange={(e): void =>
-                  dispatch({
-                    type: 'field',
-                    fieldName: 'password',
-                    payload: e.currentTarget.value,
-                  })
-                }
-              />
-            </div>
-            <button className="submit btn btn-primary" type="submit" disabled={isLoading}>
-              {isLoading ? 'Logging in...' : 'Log In'}
-            </button>
-          </form>
-        )}
+            <form onSubmit={onSubmit}>
+              {error && <p className="error">{error}</p>}
+              <p>Please Login!</p>
+              <div className="form-group">
+                <input
+                  type="text"
+                  placeholder="email"
+                  value={email}
+                  onChange={(e): void =>
+                    dispatch({
+                      type: 'field',
+                      fieldName: 'email',
+                      payload: e.currentTarget.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  placeholder="password"
+                  autoComplete="new-password"
+                  value={password}
+                  onChange={(e): void =>
+                    dispatch({
+                      type: 'field',
+                      fieldName: 'password',
+                      payload: e.currentTarget.value,
+                    })
+                  }
+                />
+              </div>
+              <button className="submit btn btn-primary" type="submit" disabled={isLoading}>
+                {isLoading ? 'Logging in...' : 'Log In'}
+              </button>
+            </form>
+          )}
       </div>
     </div>
   );

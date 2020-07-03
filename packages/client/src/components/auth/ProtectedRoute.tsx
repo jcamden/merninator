@@ -17,15 +17,15 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   path,
   component,
 }) => {
-  const { isAuthenticated } = useContext(StateContext);
+  const { user } = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
 
   dispatch({ type: 'isLoading' });
 
   const getRedirectPath = (): string | undefined => {
-    if (!isAuthenticated) {
+    if (!user) {
       return unauthedRedirectPath;
-    } else if (isAuthenticated && isAllowed === false) {
+    } else if (user && isAllowed === false) {
       return restrictedRedirectPath;
     }
   };

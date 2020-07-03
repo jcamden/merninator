@@ -1,11 +1,11 @@
-import { useContext } from 'react';
+import { useContext, Dispatch } from 'react';
 import { DispatchContext } from '../context/auth/AuthState';
 import axios from 'axios';
+import { LoginActions } from '../context/auth/types';
 
 // Register User
-const dispatch = useContext(DispatchContext);
 
-export const register = async (formData: { email: string; password: string }): Promise<void> => {
+export const register = async (formData: { email: string; password: string }, dispatch: Dispatch<LoginActions>): Promise<void> => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export const register = async (formData: { email: string; password: string }): P
 };
 
 // Login User
-export const login = async (formData: { email: string; password: string }): Promise<void> => {
+export const login = async (formData: { email: string; password: string }, dispatch: Dispatch<LoginActions>): Promise<void> => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -53,14 +53,14 @@ export const login = async (formData: { email: string; password: string }): Prom
 // Set Auth Token
 export const setAuthToken = (token: string): void => {
   if (token) {
-    axios.defaults.headers.common['x-auth-token'] = token;
+    axios.defaults.headers.common['Authorization'] = token;
   } else {
-    delete axios.defaults.headers.common['x-auth-token'];
+    delete axios.defaults.headers.common['Authorization'];
   }
 };
 
 // Load User
-export const loadUser = async (): Promise<void> => {
+export const loadUser = async (dispatch: Dispatch<LoginActions>): Promise<void> => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }

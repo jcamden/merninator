@@ -9,7 +9,7 @@ export type TodoItemProps = {
 
 const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
   const dispatch = useContext(DispatchContext);
-  const { isLoggedIn } = useContext(StateContext);
+  const { user } = useContext(StateContext);
 
   return (
     <div className="todoItem">
@@ -17,12 +17,12 @@ const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
         type="checkbox"
         checked={completed}
         onClick={(): void => {
-          if (!isLoggedIn) {
+          if (!user) {
             alert('Please login to click this!');
           }
         }}
         onChange={(): void => {
-          if (isLoggedIn) {
+          if (user) {
             // Typescript wrongly thinks dispatch can be undefined.
             // Satsify her thusly:
             dispatch({ type: 'toggleTodoCompleted', payload: title });
