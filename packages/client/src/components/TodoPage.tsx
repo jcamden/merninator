@@ -3,7 +3,7 @@ import TodoItem from './TodoItem';
 import { StateContext } from '../context/auth/AuthState';
 
 const TodoPage: React.FC = () => {
-  const { todos } = useContext(StateContext);
+  const { todos, user } = useContext(StateContext);
 
   return (
     <div className="container">

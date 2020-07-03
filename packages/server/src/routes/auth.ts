@@ -46,6 +46,31 @@ router.get('/', auth, (req: Request, res: Response, next: NextFunction) => {
         });
 });
 
+// not sure how this would ever be called, but just in case
+router.get('/google/failed', (req, res) =>
+    res.status(200).json({
+        success: false,
+    }),
+);
+
+// redirect to Google's auth
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+// issue JWT for user found/created and appended to req in GoogleStrategy of config/passport.ts
+router.get(
+    '/google/callback',
+    passport.authenticate('google', { failureRedirect: '/failed', session: false }),
+    function (req, res) {
+        const tokenObject = issueJWT(req.user);
+        res.status(200).json({
+            success: true,
+            user: req.user,
+            token: tokenObject.token,
+            expiresIn: tokenObject.expires,
+        });
+    },
+);
+
 // validate an existing user and issue a JWT
 router.post('/login', function (req: Request, res: Response, next: NextFunction): void {
     User.findOne({ email: req.body.email })

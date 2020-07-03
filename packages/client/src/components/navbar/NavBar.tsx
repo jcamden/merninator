@@ -1,8 +1,14 @@
 import React, { useContext } from 'react';
-import { StateContext } from '../../context/auth/AuthState';
+import { StateContext, DispatchContext } from '../../context/auth/AuthState';
 
 export const NavBar: React.FC = () => {
   const { user } = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
+
+  const logOut = (): void => {
+    console.log('logout clicked');
+    dispatch({ type: 'logOut' });
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -32,6 +38,9 @@ export const NavBar: React.FC = () => {
               <a className="nav-link" href="/todos">
                 todos
               </a>
+            </li>
+            <li className="nav-item">
+              <button onClick={(): void => logOut()}>Log Out</button>
             </li>
             <li className="nav-item dropdown">
               <a

@@ -2,7 +2,7 @@ import React from 'react';
 import '@merninator/lib/src/themes/index.scss';
 import { AuthState } from './context/auth/AuthState';
 import TodoPage from './components/TodoPage';
-import AuthTest from './components/auth/AuthTest';
+import AuthTest from './components/auth/Login';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { NavBar } from './components/navbar/NavBar';

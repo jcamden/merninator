@@ -21,6 +21,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const dispatch = useContext(DispatchContext);
 
   console.log(`PROTECTED ROUTE. USER WAS ${user}`);
+  console.log(`PROTECTED ROUTE. LOADING WAS ${loading}`);
 
   dispatch({ type: 'loading' });
 
@@ -33,6 +34,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   };
 
   const redirectPath = getRedirectPath();
+  console.log(redirectPath);
 
   if (redirectPath) {
     const redirectComponent: React.FC = () => <Redirect to={{ pathname: redirectPath }} />;

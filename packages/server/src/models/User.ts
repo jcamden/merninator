@@ -8,7 +8,11 @@ const UserSchema = new Schema({
 
 interface IUserSchema extends Document {
     _id: string;
-    email: string;
+    email: {
+        type: string;
+        required: true;
+        unique: true;
+    };
     hash: string;
     salt: string;
 }

@@ -10,10 +10,10 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
       draft.loading = true;
       return;
     }
-    case 'isNotLoading': {
-      draft.loading = false;
-      return;
-    }
+    // case 'isNotLoading': {
+    //   draft.loading = false;
+    //   return;
+    // }
     case 'registerSuccess': {
       localStorage.setItem('token', action.payload.token);
       console.log('register success! Next, update state.');
@@ -42,10 +42,11 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
       draft.password = '';
       return;
     }
-    // case 'logOut': {
-    //   return;
-    // }
-
+    case 'logOut': {
+      localStorage.removeItem('token');
+      draft.user = undefined;
+      return;
+    }
     case 'toggleTodoCompleted': {
       const index = draft.todos.findIndex(item => item.title === action.payload);
       draft.todos[index].completed = !draft.todos[index].completed;

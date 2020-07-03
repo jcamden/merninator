@@ -33,7 +33,18 @@ export interface LoginSuccess {
 }
 
 export type LoginActions =
-  | { type: 'login' | 'success' | 'error' | 'logOut' | 'authError' | 'registerFail' | 'loading' | 'isNotLoading' }
+  | {
+      type:
+        | 'login'
+        | 'logout'
+        | 'success'
+        | 'error'
+        | 'logOut'
+        | 'authError'
+        | 'registerFail'
+        | 'loading'
+        | 'isNotLoading';
+    }
   | { type: 'registerSuccess'; payload: LoginSuccess }
   | { type: 'registerFail'; payload: string }
   | { type: 'loginSuccess'; payload: LoginSuccess }

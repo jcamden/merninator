@@ -1,6 +1,11 @@
 import React, { useContext } from 'react';
 import { StateContext, DispatchContext } from '../../context/auth/AuthState';
 import axios from 'axios';
+import GoogleLogin from 'react-google-login';
+
+const responseGoogle = response => {
+  console.log(response.profileObj.email);
+};
 
 const AuthTest: React.FC = ({}) => {
   const { email, password, loading, error, user } = useContext(StateContext);
@@ -52,6 +57,22 @@ const AuthTest: React.FC = ({}) => {
         payload: err.response.data.msg,
       });
     }
+  };
+
+  const loginWithGoogle = async (): Promise<void> => {
+    //  try {
+    const res = await axios.get('https://localhost:5000/auth/google');
+    console.log(res.data);
+    //   dispatch({
+    //     type: 'loginSuccess',
+    //     payload: res.data,
+    //   });
+    // } catch (err) {
+    //   dispatch({
+    //     type: 'loginFail',
+    //     payload: err.response.data.msg,
+    //   });
+    // }
   };
 
   const onSubmit = async (e: React.FormEvent): Promise<void> => {
@@ -110,6 +131,17 @@ const AuthTest: React.FC = ({}) => {
             <button className="submit btn btn-primary" type="submit" disabled={loading}>
               {loading ? 'Logging in...' : 'Log In'}
             </button>
+            <button className="submit btn btn-danger" disabled={loading} onClick={() => loginWithGoogle()}>
+              Login with Google
+            </button>
+            <GoogleLogin
+              clientId="799766289642-p9oii4nesmg5v7fiq06so41mrdgtjkdl.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
+            ,
           </form>
         )}
       </div>
