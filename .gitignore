@@ -65,3 +65,6 @@ typings/
 # private keys
 id_rsa_priv.pem
 cert.key
+
+# Google Client info for the front-end
+settings.ts

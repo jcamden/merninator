@@ -6,6 +6,7 @@ import AuthTest from './components/auth/Login';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { NavBar } from './components/navbar/NavBar';
+import './utils/faLib';
 
 const App: React.FC = () => {
   return (

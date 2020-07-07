@@ -1,6 +1,9 @@
 import { Dispatch } from 'react';
 import axios from 'axios';
 import { LoginActions } from '../context/auth/types';
+import { User } from '../context/auth/types';
+import { ensureType } from '../utils';
+import chalk from 'chalk';
 
 // Register User
 
@@ -71,12 +74,31 @@ export const loadUser = async (dispatch: Dispatch<LoginActions>): Promise<void> 
   }
   try {
     const res = await axios.get('https://localhost:5000/auth');
-    dispatch({
-      type: 'userLoaded',
-      payload: res.data.user,
-    });
+
+    if (ensureType(res.data, { _id: '', email: '' })) {
+      dispatch({
+        type: 'userLoaded',
+        payload: {
+          user: {
+            _id: res.data.user,
+            email: res.data.email,
+          },
+        },
+      });
+    }
   } catch (err) {
     console.log(err);
     dispatch({ type: 'authError', payload: err });
   }
+};
+
+// for Google OAuth 2.0
+export const checkGoogleClientID = (ID: string | undefined): string => {
+  if (typeof ID === 'string') {
+    return ID;
+  } else {
+    chalk.red('process.env.GOOGLE_CLIENT_ID was not a string');
+  }
+  // not sure if there is a better way to do this
+  return "explosion. I'm sorry.";
 };

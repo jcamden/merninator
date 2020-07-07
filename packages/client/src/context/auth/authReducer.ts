@@ -23,11 +23,16 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
       localStorage.setItem('token', action.payload.token);
       draft.user = action.payload.user;
       return;
-
+    case 'googleLoginSuccess':
+      // localStorage.setItem('token', action.payload.token);
+      console.log(action.payload.user);
+      draft.user = action.payload.user;
+      return;
     case 'userLoaded': {
       console.log('REDUCER USERLOADED');
       draft.loading = false;
-      draft.user = action.payload;
+      // update backend to fix this
+      draft.user = action.payload.user;
       draft.checkedAuth = true;
       return;
     }

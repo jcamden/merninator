@@ -1,28 +1,20 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import passport from 'passport';
 import { validatePassword, genPassword, issueJWT } from '../lib/utils';
 import User from '../models/User';
 import auth from '../middleware/auth';
+import axios from 'axios';
 
 const router = Router();
 
-router.get(
-    '/passportjwtprotected',
-    passport.authenticate('jwt', { session: false }),
-    (_req: Request, res: Response) => {
-        res.status(200).json({
-            success: true,
-            msg: 'You are successfully authenticated to this route!',
-        });
-    },
-);
+// Here is an example of using custom JWT validation middleware (vs. Passport)
+// This is the middleware used in the root .../auth route (below)
 
-router.get('/customjwtprotected', auth, (_req: Request, res: Response) => {
-    res.status(200).json({
-        success: true,
-        msg: 'You are successfully authenticated to this route!',
-    });
-});
+// router.get('/customjwtprotected', auth, (_req: Request, res: Response) => {
+//     res.status(200).json({
+//         success: true,
+//         msg: 'You are successfully authenticated to this route!',
+//     });
+// });
 
 router.get('/', auth, (req: Request, res: Response, next: NextFunction) => {
     User.findOne({ _id: req.sub })
@@ -46,30 +38,51 @@ router.get('/', auth, (req: Request, res: Response, next: NextFunction) => {
         });
 });
 
-// not sure how this would ever be called, but just in case
-router.get('/google/failed', (req, res) =>
-    res.status(200).json({
-        success: false,
-    }),
-);
-
-// redirect to Google's auth
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-// issue JWT for user found/created and appended to req in GoogleStrategy of config/passport.ts
-router.get(
-    '/google/callback',
-    passport.authenticate('google', { failureRedirect: '/failed', session: false }),
-    function (req, res) {
-        const tokenObject = issueJWT(req.user);
-        res.status(200).json({
-            success: true,
-            user: req.user,
-            token: tokenObject.token,
-            expiresIn: tokenObject.expires,
+// if Google verifies the JWT from the front-end, then find or create User
+router.get('/google', async (req, res) => {
+    try {
+        const verifyRes = await axios.get(`https://oauth2.googleapis.com/tokeninfo?id_token=${req.query.idToken}`);
+        User.findOne(
+            {
+                email: verifyRes.data.email,
+            },
+            (err, user) => {
+                if (err) {
+                    res.status(401).json({
+                        success: false,
+                        error: err,
+                    });
+                } else if (!user) {
+                    user = new User({
+                        email: verifyRes.data.email,
+                        // some options to think about for the future
+                        // username: profile.username,
+                        // provider: 'google',
+                        // account: something
+                    });
+                    user.save(function (err) {
+                        if (err) {
+                            res.status(401).json({
+                                success: false,
+                                error: err,
+                            });
+                        }
+                    });
+                } else {
+                    res.status(200).json({
+                        success: true,
+                        user: user,
+                    });
+                }
+            },
+        );
+    } catch (err) {
+        res.status(401).json({
+            success: false,
+            msg: err,
         });
-    },
-);
+    }
+});
 
 // validate an existing user and issue a JWT
 router.post('/login', function (req: Request, res: Response, next: NextFunction): void {
@@ -86,7 +99,7 @@ router.post('/login', function (req: Request, res: Response, next: NextFunction)
 
                     res.status(200).json({
                         success: true,
-                        user: user._id,
+                        user: { _id: user._id, email: user.email },
                         token: tokenObject.token,
                         expiresIn: tokenObject.expires,
                     });

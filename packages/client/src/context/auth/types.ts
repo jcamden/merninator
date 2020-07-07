@@ -6,7 +6,11 @@ export type Todos = {
 export type Login = (formData: { email: string; password: string }) => Promise<void>;
 
 export interface LoginState {
-  user?: {};
+  user?: {
+    _id: string;
+    email: string;
+    _v?: number;
+  };
   token: string | null;
   email: string;
   password: string;
@@ -20,9 +24,6 @@ export interface LoginState {
 export interface User {
   _id: string;
   email: string;
-  hash: string;
-  salt: string;
-  __v: number;
 }
 
 export interface LoginSuccess {
@@ -48,8 +49,9 @@ export type LoginActions =
   | { type: 'registerSuccess'; payload: LoginSuccess }
   | { type: 'registerFail'; payload: string }
   | { type: 'loginSuccess'; payload: LoginSuccess }
+  | { type: 'googleLoginSuccess'; payload: { user: User } }
   | { type: 'loginFail'; payload: string }
   | { type: 'field'; fieldName: 'email' | 'password'; payload: string }
   | { type: 'toggleTodoCompleted'; payload: string }
-  | { type: 'userLoaded'; payload: string }
+  | { type: 'userLoaded'; payload: { user: User } }
   | { type: 'authError'; payload: string };
