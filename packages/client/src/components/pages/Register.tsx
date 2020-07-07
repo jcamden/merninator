@@ -55,8 +55,8 @@ const Register: React.FC = ({}) => {
             },
           });
           dispatch({
-            type: 'googleLoginSuccess',
-            payload: { user: res.data.user },
+            type: 'loginSuccess',
+            payload: res.data.user,
           });
         })();
       } catch (error) {

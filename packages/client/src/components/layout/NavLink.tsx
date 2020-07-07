@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 interface NavLinkProps {
@@ -8,9 +8,16 @@ interface NavLinkProps {
 }
 
 const NavLink: React.FC<NavLinkProps> = ({ text, href, onClick }) => {
+  const [hovered, setHovered] = useState(false);
   return (
-    <a className="nav-item text-light nav-link px-2" href={href} onClick={onClick}>
-      <h5 className="mb-0">{text}</h5>
+    <a
+      className={`h5 nav-item ${hovered ? 'text-light' : 'text-secondary'} nav-link px-2 mb-0`}
+      href={href}
+      onClick={onClick}
+      onMouseOver={(): void => setHovered(true)}
+      onMouseLeave={(): void => setHovered(false)}
+    >
+      {text}
     </a>
   );
 };

@@ -49,7 +49,7 @@ export type LoginActions =
   | { type: 'registerSuccess'; payload: LoginSuccess }
   | { type: 'registerFail'; payload: string }
   | { type: 'loginSuccess'; payload: LoginSuccess }
-  | { type: 'googleLoginSuccess'; payload: { user: User } }
+  // | { type: 'googleLoginSuccess'; payload: { user: User } }
   | { type: 'loginFail'; payload: string }
   | { type: 'field'; fieldName: 'email' | 'password'; payload: string }
   | { type: 'toggleTodoCompleted'; payload: string }

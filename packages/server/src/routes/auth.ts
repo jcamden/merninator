@@ -69,9 +69,12 @@ router.get('/google', async (req, res) => {
                         }
                     });
                 } else {
+                    const tokenObject = issueJWT(user);
                     res.status(200).json({
                         success: true,
-                        user: user,
+                        user: { _id: user._id, email: user.email },
+                        token: tokenObject.token,
+                        expiresIn: tokenObject.expires,
                     });
                 }
             },

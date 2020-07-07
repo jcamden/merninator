@@ -32,13 +32,13 @@ const NavBar: React.FC = () => {
   );
 
   return (
-    <nav className="p-2 d-flex flex-row bg-primary justify-content-between align-items-center">
+    <nav className="py-3 px-2 d-flex flex-row bg-primary justify-content-between align-items-center shadow">
       <a className="d-flex flex-row text-decoration-none" href={'/about'}>
         <img className="logo-img ml-2" alt="no ordinary lamp" src={'https://localhost:5000/djinndexLogo.svg'} />
         <h3 className="font-logo pl-1 text-warning">Djinndex</h3>
       </a>
 
-      <div className="navbar-nav d-flex flex-row text-light">{user ? authLinks : guestLinks}</div>
+      <div className="navbar-nav d-flex flex-row text-secondary">{user ? authLinks : guestLinks}</div>
     </nav>
   );
 };

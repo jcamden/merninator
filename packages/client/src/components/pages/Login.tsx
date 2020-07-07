@@ -37,16 +37,15 @@ const Login: React.FC = ({}) => {
       try {
         // self-invoking arrow function so I can use async await
         (async (): Promise<void> => {
-          console.log('HERE!');
-
           const res = await axios.get('https://localhost:5000/auth/google', {
             params: {
               idToken: response.tokenId,
             },
           });
+          console.log(res.data);
           dispatch({
-            type: 'googleLoginSuccess',
-            payload: { user: res.data.user },
+            type: 'loginSuccess',
+            payload: res.data,
           });
         })();
       } catch (error) {

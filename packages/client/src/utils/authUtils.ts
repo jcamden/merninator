@@ -122,23 +122,28 @@ export const setAuthToken = (token: string): void => {
 export const loadUser = async (dispatch: Dispatch<LoginActions>): Promise<void> => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
-  }
-  try {
-    const res = await axios.get('https://localhost:5000/auth');
+    console.log(localStorage.token);
 
-    if (ensureType(res.data, { _id: '', email: '' })) {
-      dispatch({
-        type: 'userLoaded',
-        payload: {
-          user: {
-            _id: res.data.user,
-            email: res.data.email,
+    try {
+      const res = await axios.get('https://localhost:5000/auth');
+
+      if (ensureType(res.data, { _id: '', email: '' })) {
+        dispatch({
+          type: 'userLoaded',
+          payload: {
+            user: {
+              _id: res.data.user,
+              email: res.data.email,
+            },
           },
-        },
-      });
+        });
+      }
+    } catch (err) {
+      console.log('loadUser had the following error:');
+      console.log(err);
+      dispatch({ type: 'authError', payload: err });
     }
-  } catch (err) {
-    console.log(err);
-    dispatch({ type: 'authError', payload: err });
+  } else {
+    dispatch({ type: 'isNotLoading' });
   }
 };
