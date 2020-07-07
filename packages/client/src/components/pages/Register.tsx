@@ -5,31 +5,31 @@ import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 're
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../settings';
 
-const Login: React.FC = ({}) => {
+const Register: React.FC = ({}) => {
   const { email, password, loading, error, user } = useContext(StateContext);
   const dispatch = useContext(DispatchContext);
 
-  // const register = async (formData: { email: string; password: string }): Promise<void> => {
-  //   const config = {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   };
+  const register = async (formData: { email: string; password: string }): Promise<void> => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-  //   try {
-  //     const res = await axios.post('http://localhost:5000/api/users', formData, config);
+    try {
+      const res = await axios.post('http://localhost:5000/api/users', formData, config);
 
-  //     dispatch({
-  //       type: 'registerSuccess',
-  //       payload: res.data,
-  //     });
-  //   } catch (err) {
-  //     dispatch({
-  //       type: 'registerFail',
-  //       payload: err.response.data.msg,
-  //     });
-  //   }
-  // };
+      dispatch({
+        type: 'registerSuccess',
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: 'registerFail',
+        payload: err.response.data.msg,
+      });
+    }
+  };
 
   // this totally blows, but I lied about this type to stop Typescript from complaining that it doesn't have a tokenID.
   // I don't know how to do this correctly.
@@ -186,6 +186,6 @@ const Login: React.FC = ({}) => {
   );
 };
 
-Login.propTypes = {};
+Register.propTypes = {};
 
-export default Login;
+export default Register;
