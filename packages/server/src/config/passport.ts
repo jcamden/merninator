@@ -61,11 +61,6 @@ export default (passport: PassportStatic): void => {
     );
     passport.use(
         new GoogleStrategy(googleOptions, function (req, accessToken, refreshToken, profile, done) {
-            // console.log(profile);
-            console.log(`LOOK AT ME: ${profile.emails[0].value}`);
-            // req.user = profile.emails[0].value;
-            // console.log(`REQ.USER: ${req.user}`);
-            // return done(req);
             User.findOne(
                 {
                     email: profile.emails[0].value,

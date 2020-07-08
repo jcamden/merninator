@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import { StateContext, DispatchContext } from '../../context/auth/AuthState';
+import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../settings';
 
 const Register: React.FC = ({}) => {
-  const { email, password, loading, error, user } = useContext(StateContext);
-  const dispatch = useContext(DispatchContext);
+  const { email, password, loading, error, user } = useContext(AuthStateContext);
+  const dispatch = useContext(AuthDispatchContext);
 
   const register = async (formData: { email: string; password: string }): Promise<void> => {
     const config = {
@@ -47,8 +47,6 @@ const Register: React.FC = ({}) => {
       try {
         // self-invoking arrow function so I can use async await
         (async (): Promise<void> => {
-          console.log('HERE!');
-
           const res = await axios.get('https://localhost:5000/auth/google', {
             params: {
               idToken: response.tokenId,
@@ -78,7 +76,6 @@ const Register: React.FC = ({}) => {
 
     try {
       const res = await axios.post('https://localhost:5000/auth/login', formData, config);
-      console.log(res.data);
       dispatch({
         type: 'loginSuccess',
         payload: res.data,

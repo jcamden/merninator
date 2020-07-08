@@ -2,8 +2,6 @@ import { Dispatch } from 'react';
 import axios from 'axios';
 import { LoginActions } from '../context/auth/types';
 import { ensureType } from '../utils';
-import chalk from 'chalk';
-import { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
 // Register User
 
@@ -96,7 +94,6 @@ export const login = async (
 
   try {
     const res = await axios.post('https://localhost:5000/auth/login', formData, config);
-    console.log(res.data);
     dispatch({
       type: 'loginSuccess',
       payload: res.data,
@@ -122,8 +119,6 @@ export const setAuthToken = (token: string): void => {
 export const loadUser = async (dispatch: Dispatch<LoginActions>): Promise<void> => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
-    console.log(localStorage.token);
-
     try {
       const res = await axios.get('https://localhost:5000/auth');
 

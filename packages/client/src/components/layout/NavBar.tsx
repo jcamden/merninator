@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 // import PropTypes from 'prop-types';
-import { StateContext } from '../../context/auth/AuthState';
+import { AuthStateContext } from '../../context/auth/AuthState';
 
 import NavLink from './NavLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar: React.FC = () => {
-  const { user } = useContext(StateContext);
+  const { user } = useContext(AuthStateContext);
 
   //   const onLogout = () => {
   //     logout();

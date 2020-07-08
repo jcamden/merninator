@@ -31,26 +31,26 @@ const initialState: LoginState = {
   error: '',
   variant: 'login',
   todos,
+  checkedAuth: false,
 };
 
 interface AuthStateProps {
   children: ReactNode;
 }
 
-export const StateContext = createContext<LoginState>(initialState);
-export const DispatchContext = createContext<Dispatch<LoginActions>>(() => undefined);
+export const AuthStateContext = createContext<LoginState>(initialState);
+export const AuthDispatchContext = createContext<Dispatch<LoginActions>>(() => undefined);
 
 export const AuthState = ({ children }: AuthStateProps): JSX.Element => {
   const [state, dispatch] = useImmerReducer(authReducer, initialState);
 
   useEffect(() => {
-    console.log('STATE USE EFFECT');
     loadUser(dispatch);
   }, []);
 
   return (
-    <DispatchContext.Provider value={dispatch}>
-      <StateContext.Provider value={{ ...state }}>{children}</StateContext.Provider>
-    </DispatchContext.Provider>
+    <AuthDispatchContext.Provider value={dispatch}>
+      <AuthStateContext.Provider value={{ ...state }}>{children}</AuthStateContext.Provider>
+    </AuthDispatchContext.Provider>
   );
 };

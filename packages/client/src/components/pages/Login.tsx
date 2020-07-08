@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
-import { StateContext, DispatchContext } from '../../context/auth/AuthState';
+import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../settings';
 import { login } from '../../utils';
+import LoadingLogo from '../layout/LoadingLogo';
+import DummyPage from './DummyPage';
 
 const Login: React.FC = ({}) => {
-  const { email, password, loading, error, user } = useContext(StateContext);
-  const dispatch = useContext(DispatchContext);
+  const { email, password, loading, error, user, checkedAuth } = useContext(AuthStateContext);
+  const dispatch = useContext(AuthDispatchContext);
 
   const onSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
@@ -42,7 +44,7 @@ const Login: React.FC = ({}) => {
               idToken: response.tokenId,
             },
           });
-          console.log(res.data);
+
           dispatch({
             type: 'loginSuccess',
             payload: res.data,
@@ -57,7 +59,7 @@ const Login: React.FC = ({}) => {
     }
   };
 
-  return (
+  const loginElement = (
     <div className="container">
       <div className="row">
         <div className="col"></div>
@@ -126,7 +128,7 @@ const Login: React.FC = ({}) => {
                   onFailure={responseGoogle}
                   cookiePolicy={'single_host_origin'}
                 />
-                {/* We're gonna want to show this if the login was with Google. OnLogoutSuccess from Google token, perform logout from state. 
+                {/* We're gonna want to show this if the login was with Google. OnLogoutSuccess from Google token, perform logout from state.
                 <GoogleLogout
               clientId="799766289642-p9oii4nesmg5v7fiq06so41mrdgtjkdl.apps.googleusercontent.com"
               buttonText="Logout"
@@ -139,6 +141,19 @@ const Login: React.FC = ({}) => {
         <div className="col"></div>
       </div>
     </div>
+  );
+
+  return (
+    <>
+      {checkedAuth ? (
+        loginElement
+      ) : (
+        <DummyPage>
+          <div className="my-5"></div>
+          <LoadingLogo size={10} />
+        </DummyPage>
+      )}
+    </>
   );
 };
 

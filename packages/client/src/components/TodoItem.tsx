@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { DispatchContext, StateContext } from '../context/auth/AuthState';
+import { AuthDispatchContext, AuthStateContext } from '../context/auth/AuthState';
 
 export type TodoItemProps = {
   title: string;
@@ -8,8 +8,8 @@ export type TodoItemProps = {
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
-  const dispatch = useContext(DispatchContext);
-  const { user } = useContext(StateContext);
+  const dispatch = useContext(AuthDispatchContext);
+  const { user } = useContext(AuthStateContext);
 
   return (
     <div className="todoItem">

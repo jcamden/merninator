@@ -12,6 +12,7 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
     }
     case 'isNotLoading': {
       draft.loading = false;
+      draft.checkedAuth = true;
       return;
     }
     case 'registerSuccess': {
@@ -23,15 +24,8 @@ export default function authReducer(draft: LoginState, action: LoginActions): vo
       localStorage.setItem('token', action.payload.token);
       draft.user = action.payload.user;
       return;
-    // case 'googleLoginSuccess':
-    //   localStorage.setItem('token', action.payload.token);
-    //   console.log(action.payload.user);
-    //   draft.user = action.payload.user;
-    //   return;
     case 'userLoaded': {
-      console.log('REDUCER USERLOADED');
       draft.loading = false;
-      // update backend to fix this
       draft.user = action.payload.user;
       draft.checkedAuth = true;
       return;
