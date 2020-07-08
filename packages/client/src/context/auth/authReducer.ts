@@ -1,6 +1,6 @@
-import { LoginState, LoginActions } from './types';
+import { AuthStateInterface, AuthActions } from './types';
 
-export default function authReducer(draft: LoginState, action: LoginActions): void {
+export default function authReducer(draft: AuthStateInterface, action: AuthActions): void {
   switch (action.type) {
     case 'field': {
       draft[action.fieldName] = action.payload;

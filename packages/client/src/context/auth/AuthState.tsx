@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect } from 'react';
 import { useImmerReducer } from 'use-immer';
 import authReducer from './authReducer';
 import { createContext, Dispatch } from 'react';
-import { LoginState, LoginActions } from './types';
+import { AuthStateInterface, AuthActions } from './types';
 import { loadUser } from '../../utils/authUtils';
 
 // really todos belongs in a separate context
@@ -23,7 +23,7 @@ const todos = [
   },
 ];
 
-const initialState: LoginState = {
+const initialState: AuthStateInterface = {
   token: localStorage.getItem('token'),
   email: '',
   password: '',
@@ -38,8 +38,8 @@ interface AuthStateProps {
   children: ReactNode;
 }
 
-export const AuthStateContext = createContext<LoginState>(initialState);
-export const AuthDispatchContext = createContext<Dispatch<LoginActions>>(() => undefined);
+export const AuthStateContext = createContext<AuthStateInterface>(initialState);
+export const AuthDispatchContext = createContext<Dispatch<AuthActions>>(() => undefined);
 
 export const AuthState = ({ children }: AuthStateProps): JSX.Element => {
   const [state, dispatch] = useImmerReducer(authReducer, initialState);

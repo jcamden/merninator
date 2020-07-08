@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../settings';
 import { login } from '../../utils';
 import LoadingLogo from '../layout/LoadingLogo';
-import DummyPage from './DummyPage';
+import DummyPage from '../layout/DummyPage';
 
 const Login: React.FC = ({}) => {
   const { email, password, loading, error, user, checkedAuth } = useContext(AuthStateContext);

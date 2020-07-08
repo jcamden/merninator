@@ -1,13 +1,13 @@
 import { Dispatch } from 'react';
 import axios from 'axios';
-import { LoginActions } from '../context/auth/types';
+import { AuthActions } from '../context/auth/types';
 import { ensureType } from '../utils';
 
 // Register User
 
 // export const register = async (
 //   formData: { email: string; password: string },
-//   dispatch: Dispatch<LoginActions>,
+//   dispatch: Dispatch<AuthActions>,
 // ): Promise<void> => {
 //   const config = {
 //     headers: {
@@ -33,7 +33,7 @@ import { ensureType } from '../utils';
 // // Login User
 // export const login = async (
 //   formData: { email: string; password: string },
-//   dispatch: Dispatch<LoginActions>,
+//   dispatch: Dispatch<AuthActions>,
 // ): Promise<void> => {
 //   const config = {
 //     headers: {
@@ -58,7 +58,7 @@ import { ensureType } from '../utils';
 
 export const register = async (
   formData: { email: string; password: string },
-  dispatch: Dispatch<LoginActions>,
+  dispatch: Dispatch<AuthActions>,
 ): Promise<void> => {
   const config = {
     headers: {
@@ -84,7 +84,7 @@ export const register = async (
 // Login User
 export const login = async (
   formData: { email: string; password: string },
-  dispatch: Dispatch<LoginActions>,
+  dispatch: Dispatch<AuthActions>,
 ): Promise<void> => {
   const config = {
     headers: {
@@ -116,7 +116,7 @@ export const setAuthToken = (token: string): void => {
 };
 
 // Load User
-export const loadUser = async (dispatch: Dispatch<LoginActions>): Promise<void> => {
+export const loadUser = async (dispatch: Dispatch<AuthActions>): Promise<void> => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
     try {

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import TodoItem from './TodoItem';
-import { AuthStateContext } from '../context/auth/AuthState';
+import { AuthStateContext } from '../../../context/auth/AuthState';
 
 const TodoPage: React.FC = () => {
   const { todos } = useContext(AuthStateContext);

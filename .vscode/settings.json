@@ -23,7 +23,8 @@
     "organisms": "Debug",
     "ui": "Shared",
     "contexts": "Class",
-    "context": "Class"
+    "context": "Class",
+    "storybook": "Sass"
   },
   "bracket-pair-colorizer-2.activeScopeCSS": [
     "borderStyle : solid",

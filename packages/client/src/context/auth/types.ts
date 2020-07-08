@@ -5,7 +5,7 @@ export type Todos = {
 
 export type Login = (formData: { email: string; password: string }) => Promise<void>;
 
-export interface LoginState {
+export interface AuthStateInterface {
   user?: {
     _id: string;
     email: string;
@@ -18,7 +18,7 @@ export interface LoginState {
   error: string;
   variant: 'login' | 'forgetPassword';
   todos: Todos;
-  checkedAuth?: boolean;
+  checkedAuth: boolean;
 }
 
 export interface User {
@@ -33,7 +33,7 @@ export interface LoginSuccess {
   expiresIn: string;
 }
 
-export type LoginActions =
+export type AuthActions =
   | {
       type:
         | 'login'

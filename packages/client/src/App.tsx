@@ -1,7 +1,7 @@
 import React from 'react';
 import '@merninator/lib/src/themes/index.scss';
 import { AuthState } from './context/auth/AuthState';
-import TodoPage from './components/TodoPage';
+import TodoPage from './components/pages/Todos/Todos';
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
 import ProtectedRoute from './components/auth/ProtectedRoute';

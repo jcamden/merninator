@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { AuthDispatchContext, AuthStateContext } from '../context/auth/AuthState';
+import { AuthDispatchContext, AuthStateContext } from '../../../context/auth/AuthState';
 
 export type TodoItemProps = {
   title: string;

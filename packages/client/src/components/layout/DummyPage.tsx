@@ -5,6 +5,9 @@ interface DummyPageProps {
   children: ReactNode;
 }
 
+// I made this to present LoadingLogo.
+// Could have other uses.
+
 const DummyPage: React.FC<DummyPageProps> = ({ children }) => {
   return (
     <div className="container">

@@ -20,13 +20,14 @@
       "\t$1",
       "}",
       "",
-      "export const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
+      "const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
       "\t\treturn ( $2 );",
       "}",
       "",
       " $TM_FILENAME_BASE.propTypes = {$0",
       "\t${1/\\:.*;/: PropTypes./g}",
-      "};"
+      "};",
+      "export default $TM_FILENAME_BASE"
     ],
     "description": "tab stops (unlabeled): $1:props, $2:return, $0: PropTypes; Prettier recommended;"
   },
@@ -39,9 +40,10 @@
       "\t$1",
       "}",
       "",
-      "export const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
+      "const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
       "\t\treturn ( $0 );",
-      "}"
+      "}",
+      "export default $TM_FILENAME_BASE"
     ],
     "description": "tab stops (unlabeled): $1:props, $0:return; Prettier recommended;"
   },
