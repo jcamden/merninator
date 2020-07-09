@@ -24,14 +24,11 @@ const todos = [
 ];
 
 const initialState: AuthStateInterface = {
-  token: localStorage.getItem('token'),
-  email: '',
-  password: '',
+  checkedAuth: false,
+  user: undefined,
   loading: true,
   error: '',
-  variant: 'login',
   todos,
-  checkedAuth: false,
 };
 
 interface AuthStateProps {

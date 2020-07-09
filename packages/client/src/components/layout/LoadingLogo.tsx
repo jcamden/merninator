@@ -10,7 +10,7 @@ const LoadingLogo: React.FC<LoadingLogoProps> = ({ size }) => {
     <img
       style={{ height: `${size}em` }}
       className="logo-img ml-2"
-      alt="no ordinary lamp"
+      alt=""
       src={'https://localhost:5000/djinndexLogo.svg'}
     />
   );

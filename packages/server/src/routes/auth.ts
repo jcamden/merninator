@@ -20,16 +20,12 @@ router.get('/', auth, (req: Request, res: Response, next: NextFunction) => {
     User.findOne({ _id: req.sub })
         .then((user) => {
             if (!user) {
-                res.status(401).json({ success: false, msg: 'could not find user' });
+                res.status(401).json({ success: false, msg: 'User not found ;(' });
                 return;
             } else {
-                const userRes = {
-                    _id: user._id,
-                };
-
                 res.status(200).json({
                     success: true,
-                    user: userRes,
+                    user: user,
                 });
             }
         })
@@ -54,11 +50,10 @@ router.get('/google', async (req, res) => {
                     });
                 } else if (!user) {
                     user = new User({
+                        givenName: verifyRes.data.given_name,
+                        familyName: verifyRes.data.family_name,
                         email: verifyRes.data.email,
-                        // some options to think about for the future
-                        // username: profile.username,
-                        // provider: 'google',
-                        // account: something
+                        provider: 'google',
                     });
                     user.save(function (err) {
                         if (err) {
@@ -66,13 +61,27 @@ router.get('/google', async (req, res) => {
                                 success: false,
                                 error: err,
                             });
+                        } else {
+                            const tokenObject = issueJWT(user);
+                            res.status(200).json({
+                                success: true,
+                                user: user,
+                                token: tokenObject.token,
+                                expiresIn: tokenObject.expires,
+                            });
                         }
                     });
                 } else {
                     const tokenObject = issueJWT(user);
                     res.status(200).json({
                         success: true,
-                        user: { _id: user._id, email: user.email },
+                        user: {
+                            _id: user._id,
+                            givenName: user.givenName,
+                            familyName: user.familyName,
+                            email: user.email,
+                            provider: user.provider,
+                        },
                         token: tokenObject.token,
                         expiresIn: tokenObject.expires,
                     });
@@ -92,22 +101,28 @@ router.post('/login', function (req: Request, res: Response, next: NextFunction)
     User.findOne({ email: req.body.email })
         .then((user) => {
             if (!user) {
-                res.status(401).json({ success: false, msg: 'could not find user' });
+                res.status(401).json({ success: false, msg: 'User not found :(' });
                 return;
             } else {
                 const isValid = validatePassword(req.body.password, user.hash, user.salt);
 
                 if (isValid) {
                     const tokenObject = issueJWT(user);
-
+                    console.log(user);
                     res.status(200).json({
                         success: true,
-                        user: { _id: user._id, email: user.email },
+                        user: {
+                            _id: user._id,
+                            givenName: user.givenName,
+                            familyName: user.familyName,
+                            email: user.email,
+                            provider: user.provider,
+                        },
                         token: tokenObject.token,
                         expiresIn: tokenObject.expires,
                     });
                 } else {
-                    res.status(401).json({ success: false, msg: 'you entered the wrong password' });
+                    res.status(401).json({ success: false, msg: 'Invalid password :(' });
                 }
             }
         })
@@ -123,9 +138,12 @@ router.post('/register', function (req: Request, res: Response, next: NextFuncti
     const hash = saltHash.hash;
 
     const newUser = new User({
+        givenName: req.body.givenName,
+        familyName: req.body.familyName,
         email: req.body.email,
         hash: hash,
         salt: salt,
+        provider: 'local',
     });
 
     try {
@@ -133,14 +151,19 @@ router.post('/register', function (req: Request, res: Response, next: NextFuncti
             const tokenObject = issueJWT(user);
             res.status(200).json({
                 success: true,
-                user: user._id,
+                user: {
+                    _id: user._id,
+                    givenName: user.givenName,
+                    familyName: user.familyName,
+                    email: user.email,
+                    provider: user.provider,
+                },
                 token: tokenObject.token,
                 expiresIn: tokenObject.expires,
             });
         });
     } catch (err) {
         next(err);
-        // res.json({ success: false, msg: err });
     }
 });
 

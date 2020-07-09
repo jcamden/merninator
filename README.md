@@ -76,6 +76,8 @@ see especially:
 
 ##### [create-react-app](https://reactjs.org/docs/create-a-new-react-app.html) - [jest-dom](https://testing-library.com/docs/ecosystem-jest-dom) - [react-testing-library](https://testing-library.com/docs/react-testing-library/intro)<sup> [pss. obsolete vis-a-vis Storybook testing]</sup>
 
+#### [Auth FlowChart](https://app.lucidchart.com/invitations/accept/43ff9134-e37d-426f-8c0e-3ca44b4bab99)
+
 [Documentation](https://github.com/jcamden/merninator-monorepo/blob/master/packages/client/README.md)
 
 ## Getting Started

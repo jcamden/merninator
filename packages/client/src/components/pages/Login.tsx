@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
@@ -9,17 +9,27 @@ import LoadingLogo from '../layout/LoadingLogo';
 import DummyPage from '../layout/DummyPage';
 
 const Login: React.FC = ({}) => {
-  const { email, password, loading, error, user, checkedAuth } = useContext(AuthStateContext);
+  const { loading, error, user, checkedAuth } = useContext(AuthStateContext);
   const dispatch = useContext(AuthDispatchContext);
+
+  const [fields, setFields] = useState({
+    email: '',
+    password: '',
+  });
+
+  const { email, password } = fields;
+
+  const onChange = (e: React.FormEvent<HTMLInputElement>): void =>
+    setFields({ ...fields, [e.currentTarget.name]: e.currentTarget.value });
 
   const onSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
     try {
-      await login({ email, password }, dispatch);
-      dispatch({ type: 'success' });
-    } catch (error) {
-      dispatch({ type: 'error' });
+      login({ email, password }, dispatch);
+      // dispatch({ type: 'success' });
+    } catch (err) {
+      dispatch({ type: 'authError', payload: err.response.data.msg });
     }
   };
 
@@ -50,8 +60,8 @@ const Login: React.FC = ({}) => {
             payload: res.data,
           });
         })();
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        dispatch({ type: 'authError', payload: err.response.data.msg });
       }
       // this is from GoogleLoginResponseOffline
     } else {
@@ -67,47 +77,41 @@ const Login: React.FC = ({}) => {
           <div className="card pr-5 pb-5 pl-5 pt-4 mt-5 border shadow">
             {user ? (
               <>
-                <h1>Welcome {user.email}!</h1>
+                <h1>Welcome {user.givenName}!</h1>
                 <button className="btn btn-primary" onClick={(): void => dispatch({ type: 'logOut' })}>
                   Log Out
                 </button>
               </>
             ) : (
               <form onSubmit={onSubmit}>
-                {/* {error && <p className="error">{error}</p>} */}
                 <div className="h2 mb-3">Login</div>
 
                 <div className="form-group d-flex flex-column text-center">
                   <input
+                    name="email"
                     type="text"
                     placeholder="email"
                     value={email}
-                    onChange={(e): void =>
-                      dispatch({
-                        type: 'field',
-                        fieldName: 'email',
-                        payload: e.currentTarget.value,
-                      })
-                    }
+                    onChange={(e): void => onChange(e)}
                   />
                 </div>
 
                 <div className="form-group d-flex flex-column text-center">
                   <input
+                    name="password"
                     type="password"
                     placeholder="password"
                     autoComplete="new-password"
                     value={password}
-                    onChange={(e): void =>
-                      dispatch({
-                        type: 'field',
-                        fieldName: 'password',
-                        payload: e.currentTarget.value,
-                      })
-                    }
+                    onChange={(e): void => onChange(e)}
                   />
                 </div>
 
+                {error && (
+                  <div className="alert alert-danger" role="alert">
+                    {error}
+                  </div>
+                )}
                 <button className="submit btn btn-primary btn-block" type="submit" disabled={loading}>
                   {loading ? 'Logging in...' : 'Login'}
                 </button>

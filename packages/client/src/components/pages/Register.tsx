@@ -1,46 +1,51 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../settings';
+import { register } from '../../utils';
+import LoadingLogo from '../layout/LoadingLogo';
+import DummyPage from '../layout/DummyPage';
 
-const Register: React.FC = ({}) => {
-  const { email, password, loading, error, user } = useContext(AuthStateContext);
+const Login: React.FC = ({}) => {
+  const { loading, error, user, checkedAuth } = useContext(AuthStateContext);
   const dispatch = useContext(AuthDispatchContext);
 
-  const register = async (formData: { email: string; password: string }): Promise<void> => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
+  const [fields, setFields] = useState({
+    givenName: '',
+    familyName: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
+
+  const { givenName, familyName, email, password, password2 } = fields;
+
+  const onChange = (e: React.FormEvent<HTMLInputElement>): void =>
+    setFields({ ...fields, [e.currentTarget.name]: e.currentTarget.value });
+
+  const onSubmit = async (e: React.FormEvent): Promise<void> => {
+    e.preventDefault();
 
     try {
-      const res = await axios.post('http://localhost:5000/api/users', formData, config);
-
-      dispatch({
-        type: 'registerSuccess',
-        payload: res.data,
-      });
+      register({ givenName, familyName, email, password }, dispatch);
+      // dispatch({ type: 'success' });
     } catch (err) {
-      dispatch({
-        type: 'registerFail',
-        payload: err.response.data.msg,
-      });
+      dispatch({ type: 'authError', payload: err.response.data.msg });
     }
   };
 
-  // this totally blows, but I lied about this type to stop Typescript from complaining that it doesn't have a tokenID.
-  // I don't know how to do this correctly.
+  // This totally blows, but I lied about these type to stop Typescript from complaining that it doesn't have a tokenID.
   interface GoogleLoginResponseOfflineCheat extends GoogleLoginResponseOffline {
     tokenId?: string;
   }
-
   interface GoogleLoginResponseCheat extends GoogleLoginResponse {
     code?: string;
   }
 
+  // Also, I could not kick this out into a separate file
+  // because passing in dispatch as a param fails typecheck from react-google-login
   const responseGoogle = (response: GoogleLoginResponseCheat | GoogleLoginResponseOfflineCheat): void => {
     // this is from GoogleLoginResponse
     if (response.tokenId) {
@@ -52,13 +57,14 @@ const Register: React.FC = ({}) => {
               idToken: response.tokenId,
             },
           });
+
           dispatch({
             type: 'loginSuccess',
-            payload: res.data.user,
+            payload: res.data,
           });
         })();
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        dispatch({ type: 'authError', payload: err.response.data.msg });
       }
       // this is from GoogleLoginResponseOffline
     } else {
@@ -66,39 +72,7 @@ const Register: React.FC = ({}) => {
     }
   };
 
-  // Login User
-  const login = async (formData: { email: string; password: string }): Promise<void> => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    try {
-      const res = await axios.post('https://localhost:5000/auth/login', formData, config);
-      dispatch({
-        type: 'loginSuccess',
-        payload: res.data,
-      });
-    } catch (err) {
-      dispatch({
-        type: 'loginFail',
-        payload: err.response.data.msg,
-      });
-    }
-  };
-
-  const onSubmit = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
-
-    try {
-      await login({ email, password });
-      dispatch({ type: 'success' });
-    } catch (error) {
-      dispatch({ type: 'error' });
-    }
-  };
-  return (
+  const loginElement = (
     <div className="container">
       <div className="row">
         <div className="col"></div>
@@ -106,7 +80,7 @@ const Register: React.FC = ({}) => {
           <div className="card pr-5 pb-5 pl-5 pt-4 mt-5 border shadow">
             {user ? (
               <>
-                <h1>Welcome {user.email}!</h1>
+                <h1>Welcome {user.givenName}!</h1>
                 <button className="btn btn-primary" onClick={(): void => dispatch({ type: 'logOut' })}>
                   Log Out
                 </button>
@@ -114,41 +88,58 @@ const Register: React.FC = ({}) => {
             ) : (
               <form onSubmit={onSubmit}>
                 {/* {error && <p className="error">{error}</p>} */}
-                <div className="h2 mb-3">Login</div>
-
+                <div className="h2 mb-3">Register</div>
                 <div className="form-group d-flex flex-column text-center">
                   <input
+                    name="givenName"
+                    type="text"
+                    placeholder="given name"
+                    value={givenName}
+                    onChange={(e): void => onChange(e)}
+                  />
+                </div>
+                <div className="form-group d-flex flex-column text-center">
+                  <input
+                    name="familyName"
+                    type="text"
+                    placeholder="family name"
+                    value={familyName}
+                    onChange={(e): void => onChange(e)}
+                  />
+                </div>
+                <div className="form-group d-flex flex-column text-center">
+                  <input
+                    name="email"
                     type="text"
                     placeholder="email"
                     value={email}
-                    onChange={(e): void =>
-                      dispatch({
-                        type: 'field',
-                        fieldName: 'email',
-                        payload: e.currentTarget.value,
-                      })
-                    }
+                    onChange={(e): void => onChange(e)}
                   />
                 </div>
 
                 <div className="form-group d-flex flex-column text-center">
                   <input
+                    name="password"
                     type="password"
                     placeholder="password"
                     autoComplete="new-password"
                     value={password}
-                    onChange={(e): void =>
-                      dispatch({
-                        type: 'field',
-                        fieldName: 'password',
-                        payload: e.currentTarget.value,
-                      })
-                    }
+                    onChange={(e): void => onChange(e)}
+                  />
+                </div>
+                <div className="form-group d-flex flex-column text-center">
+                  <input
+                    name="password2"
+                    type="password"
+                    placeholder="confirm password"
+                    autoComplete="new-password"
+                    value={password2}
+                    onChange={(e): void => onChange(e)}
                   />
                 </div>
 
                 <button className="submit btn btn-primary btn-block" type="submit" disabled={loading}>
-                  {loading ? 'Logging in...' : 'Login'}
+                  {loading ? 'Registering...' : 'Register'}
                 </button>
                 <GoogleLogin
                   clientId={GOOGLE_CLIENT_ID}
@@ -159,15 +150,15 @@ const Register: React.FC = ({}) => {
                       disabled={renderProps.disabled}
                     >
                       <FontAwesomeIcon icon={['fab', 'google']} className="mr-2" />
-                      Login with Google
+                      Register with Google
                     </button>
                   )}
-                  buttonText="Login"
+                  buttonText="Register with Google"
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}
                   cookiePolicy={'single_host_origin'}
                 />
-                {/* We're gonna want to show this if the login was with Google. OnLogoutSuccess from Google token, perform logout from state. 
+                {/* We're gonna want to show this if the login was with Google. OnLogoutSuccess from Google token, perform logout from state.
                 <GoogleLogout
               clientId="799766289642-p9oii4nesmg5v7fiq06so41mrdgtjkdl.apps.googleusercontent.com"
               buttonText="Logout"
@@ -181,8 +172,21 @@ const Register: React.FC = ({}) => {
       </div>
     </div>
   );
+
+  return (
+    <>
+      {checkedAuth ? (
+        loginElement
+      ) : (
+        <DummyPage>
+          <div className="my-5"></div>
+          <LoadingLogo size={10} />
+        </DummyPage>
+      )}
+    </>
+  );
 };
 
-Register.propTypes = {};
+Login.propTypes = {};
 
-export default Register;
+export default Login;

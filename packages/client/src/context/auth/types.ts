@@ -5,25 +5,20 @@ export type Todos = {
 
 export type Login = (formData: { email: string; password: string }) => Promise<void>;
 
-export interface AuthStateInterface {
-  user?: {
-    _id: string;
-    email: string;
-    _v?: number;
-  };
-  token: string | null;
-  email: string;
-  password: string;
-  loading: boolean;
-  error: string;
-  variant: 'login' | 'forgetPassword';
-  todos: Todos;
-  checkedAuth: boolean;
-}
-
 export interface User {
   _id: string;
   email: string;
+  givenName: string;
+  familyName: string;
+  _v?: number;
+}
+
+export interface AuthStateInterface {
+  user?: User;
+  loading: boolean;
+  error: string;
+  todos: Todos;
+  checkedAuth: boolean;
 }
 
 export interface LoginSuccess {
@@ -35,16 +30,7 @@ export interface LoginSuccess {
 
 export type AuthActions =
   | {
-      type:
-        | 'login'
-        | 'logout'
-        | 'success'
-        | 'error'
-        | 'logOut'
-        | 'authError'
-        | 'registerFail'
-        | 'loading'
-        | 'isNotLoading';
+      type: 'login' | 'logOut' | 'registerFail' | 'loading' | 'noToken';
     }
   | { type: 'registerSuccess'; payload: LoginSuccess }
   | { type: 'registerFail'; payload: string }

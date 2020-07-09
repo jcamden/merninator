@@ -4,6 +4,7 @@ import { AuthState } from './context/auth/AuthState';
 import TodoPage from './components/pages/Todos/Todos';
 import Login from './components/pages/Login';
 import Home from './components/pages/Home';
+import ConditionalRoute from './components/auth/ConditionalRoute';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/layout/NavBar';
@@ -18,7 +19,9 @@ const App: React.FC = () => {
         <NavBar />
         <Router>
           <Switch>
+            {/* <ConditionalRoute path="/todos" noUser="/login" component={TodoPage} /> */}
             <ProtectedRoute path="/todos" unauthedRedirectPath="/login" component={TodoPage} />
+            {/* <ConditionalRoute path="/login" loggedIn="/home" component={Login} /> */}
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/" component={Home} />

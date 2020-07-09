@@ -57,7 +57,7 @@ import { ensureType } from '../utils';
 // };
 
 export const register = async (
-  formData: { email: string; password: string },
+  formData: { givenName: string; familyName: string; email: string; password: string },
   dispatch: Dispatch<AuthActions>,
 ): Promise<void> => {
   const config = {
@@ -67,7 +67,7 @@ export const register = async (
   };
 
   try {
-    const res = await axios.post('http://localhost:5000/api/users', formData, config);
+    const res = await axios.post('https://localhost:5000/auth/register', formData, config);
 
     dispatch({
       type: 'registerSuccess',
@@ -100,7 +100,7 @@ export const login = async (
     });
   } catch (err) {
     dispatch({
-      type: 'loginFail',
+      type: 'authError',
       payload: err.response.data.msg,
     });
   }
@@ -121,24 +121,19 @@ export const loadUser = async (dispatch: Dispatch<AuthActions>): Promise<void> =
     setAuthToken(localStorage.token);
     try {
       const res = await axios.get('https://localhost:5000/auth');
-
-      if (ensureType(res.data, { _id: '', email: '' })) {
-        dispatch({
-          type: 'userLoaded',
-          payload: {
-            user: {
-              _id: res.data.user,
-              email: res.data.email,
-            },
-          },
-        });
-      }
+      console.log(res.data.user);
+      dispatch({
+        type: 'userLoaded',
+        payload: {
+          user: res.data.user,
+        },
+      });
     } catch (err) {
       console.log('loadUser had the following error:');
       console.log(err);
-      dispatch({ type: 'authError', payload: err });
+      dispatch({ type: 'authError', payload: err.response.data.msg });
     }
   } else {
-    dispatch({ type: 'isNotLoading' });
+    dispatch({ type: 'noToken' });
   }
 };

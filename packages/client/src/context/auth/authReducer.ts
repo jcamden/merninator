@@ -2,43 +2,48 @@ import { AuthStateInterface, AuthActions } from './types';
 
 export default function authReducer(draft: AuthStateInterface, action: AuthActions): void {
   switch (action.type) {
-    case 'field': {
-      draft[action.fieldName] = action.payload;
-      return;
-    }
+    // Here is a super useful method of using single reducer action for multiple state objects (such as the values of inputs)
+    // For auth, I thought it made more sense to keep input state at the componenet level, but I left this example here for reference.
+    //
+    // case 'field': {
+    //   draft[action.fieldName] = action.payload;
+    //   return;
+    // }
     case 'loading': {
       draft.loading = true;
       return;
     }
-    case 'isNotLoading': {
+    case 'noToken': {
       draft.loading = false;
       draft.checkedAuth = true;
       return;
     }
-    case 'registerSuccess': {
-      localStorage.setItem('token', action.payload.token);
-      console.log('register success! Next, update state.');
-      return;
-    }
-    case 'loginSuccess':
-      localStorage.setItem('token', action.payload.token);
-      draft.user = action.payload.user;
-      return;
     case 'userLoaded': {
       draft.loading = false;
       draft.user = action.payload.user;
       draft.checkedAuth = true;
       return;
     }
-    case 'loginFail':
+    case 'registerSuccess': {
+      localStorage.setItem('token', action.payload.token);
+      draft.user = action.payload.user;
+      draft.loading = false;
+      return;
+    }
+    case 'loginSuccess': {
+      localStorage.setItem('token', action.payload.token);
+      draft.user = action.payload.user;
+      draft.loading = false;
+      return;
+    }
+    case 'loginFail': {
       console.log(action.payload);
       return;
-
+    }
     case 'authError': {
-      draft.error = 'There was an authorization error.';
+      draft.error = action.payload;
       draft.loading = false;
-      draft.email = '';
-      draft.password = '';
+      draft.checkedAuth = true;
       return;
     }
     case 'logOut': {
@@ -51,7 +56,8 @@ export default function authReducer(draft: AuthStateInterface, action: AuthActio
       draft.todos[index].completed = !draft.todos[index].completed;
       return;
     }
-    default:
+    default: {
       return;
+    }
   }
 }
