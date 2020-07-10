@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 interface NavLinkProps {
   text: string | JSX.Element;
-  href: string;
+  href?: string;
   onClick?: () => void;
 }
 

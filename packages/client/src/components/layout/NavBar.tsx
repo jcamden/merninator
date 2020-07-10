@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 // import PropTypes from 'prop-types';
-import { AuthStateContext } from '../../context/auth/AuthState';
+import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
 
 import NavLink from './NavLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar: React.FC = () => {
   const { user } = useContext(AuthStateContext);
+  const dispatch = useContext(AuthDispatchContext);
 
   //   const onLogout = () => {
   //     logout();
@@ -19,7 +20,10 @@ const NavBar: React.FC = () => {
       <h3 className="mt-1">|</h3>
       {user && <NavLink text={user.email} href={'/user'} />}
       <h3 className="mt-1">|</h3>
-      <NavLink text={<FontAwesomeIcon className="mr-2" icon="sign-out-alt" />} href={'#!'} />
+      <NavLink
+        text={<FontAwesomeIcon className="mr-2" icon="sign-out-alt" />}
+        onClick={(): void => dispatch({ type: 'logOut' })}
+      />
     </>
   );
 

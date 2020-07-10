@@ -1,34 +1,31 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../settings';
-import { login } from '../../utils';
+import { loginUser } from '../../utils';
 import LoadingLogo from '../layout/LoadingLogo';
 import DummyPage from '../layout/DummyPage';
+import { Redirect } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+
+interface FormData {
+  email: string;
+  password: string;
+}
 
 const Login: React.FC = ({}) => {
   const { loading, error, user, checkedAuth } = useContext(AuthStateContext);
   const dispatch = useContext(AuthDispatchContext);
 
-  const [fields, setFields] = useState({
-    email: '',
-    password: '',
-  });
+  const { register, handleSubmit, errors } = useForm<FormData>({ mode: 'onBlur' });
 
-  const { email, password } = fields;
-
-  const onChange = (e: React.FormEvent<HTMLInputElement>): void =>
-    setFields({ ...fields, [e.currentTarget.name]: e.currentTarget.value });
-
-  const onSubmit = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
-
+  const onSubmit = (data: FormData): void => {
     try {
-      login({ email, password }, dispatch);
-      // dispatch({ type: 'success' });
+      loginUser(data, dispatch);
     } catch (err) {
+      console.log(err);
       dispatch({ type: 'authError', payload: err.response.data.msg });
     }
   };
@@ -76,39 +73,42 @@ const Login: React.FC = ({}) => {
         <div className="col d-flex flex-column text-center">
           <div className="card pr-5 pb-5 pl-5 pt-4 mt-5 border shadow">
             {user ? (
-              <>
-                <h1>Welcome {user.givenName}!</h1>
-                <button className="btn btn-primary" onClick={(): void => dispatch({ type: 'logOut' })}>
-                  Log Out
-                </button>
-              </>
+              <Redirect to={{ pathname: '/' }} />
             ) : (
-              <form onSubmit={onSubmit}>
-                <div className="h2 mb-3">Login</div>
-
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="h2 mb-3 font-header">Login</div>
                 <div className="form-group d-flex flex-column text-center">
                   <input
                     name="email"
                     type="text"
                     placeholder="email"
-                    value={email}
-                    onChange={(e): void => onChange(e)}
+                    className={`${(errors.email || error === 'user not found') && 'inputError'}`}
+                    ref={register({
+                      required: 'email required',
+                      pattern: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
+                    })}
                   />
                 </div>
-
+                {error === 'user not found' && (
+                  <div className="alert alert-danger py-1" role="alert">
+                    {error}
+                  </div>
+                )}
                 <div className="form-group d-flex flex-column text-center">
                   <input
                     name="password"
                     type="password"
                     placeholder="password"
                     autoComplete="new-password"
-                    value={password}
-                    onChange={(e): void => onChange(e)}
+                    className={`${(errors.password || error === 'invalid password') && 'inputError'}`}
+                    ref={register({
+                      required: true,
+                      minLength: { value: 6, message: 'minimum of six characters' },
+                    })}
                   />
                 </div>
-
-                {error && (
-                  <div className="alert alert-danger" role="alert">
+                {error === 'invalid password' && (
+                  <div className="alert alert-danger py-1" role="alert">
                     {error}
                   </div>
                 )}

@@ -20,7 +20,7 @@ router.get('/', auth, (req: Request, res: Response, next: NextFunction) => {
     User.findOne({ _id: req.sub })
         .then((user) => {
             if (!user) {
-                res.status(401).json({ success: false, msg: 'User not found ;(' });
+                res.status(401).json({ success: false, msg: 'user not found' });
                 return;
             } else {
                 res.status(200).json({
@@ -101,7 +101,7 @@ router.post('/login', function (req: Request, res: Response, next: NextFunction)
     User.findOne({ email: req.body.email })
         .then((user) => {
             if (!user) {
-                res.status(401).json({ success: false, msg: 'User not found :(' });
+                res.status(401).json({ success: false, msg: 'user not found' });
                 return;
             } else {
                 const isValid = validatePassword(req.body.password, user.hash, user.salt);
@@ -122,7 +122,7 @@ router.post('/login', function (req: Request, res: Response, next: NextFunction)
                         expiresIn: tokenObject.expires,
                     });
                 } else {
-                    res.status(401).json({ success: false, msg: 'Invalid password :(' });
+                    res.status(401).json({ success: false, msg: 'invalid password' });
                 }
             }
         })
@@ -131,7 +131,7 @@ router.post('/login', function (req: Request, res: Response, next: NextFunction)
         });
 });
 
-router.post('/register', function (req: Request, res: Response, next: NextFunction): void {
+router.post('/register', function (req: Request, res: Response): void {
     const saltHash = genPassword(req.body.password);
 
     const salt = saltHash.salt;
@@ -146,8 +146,9 @@ router.post('/register', function (req: Request, res: Response, next: NextFuncti
         provider: 'local',
     });
 
-    try {
-        newUser.save().then((user) => {
+    newUser
+        .save()
+        .then((user) => {
             const tokenObject = issueJWT(user);
             res.status(200).json({
                 success: true,
@@ -161,10 +162,12 @@ router.post('/register', function (req: Request, res: Response, next: NextFuncti
                 token: tokenObject.token,
                 expiresIn: tokenObject.expires,
             });
+        })
+        .catch((err) => {
+            if (err.code === 11000) {
+                res.status(401).json({ success: false, msg: `email already registered`, err: err });
+            }
         });
-    } catch (err) {
-        next(err);
-    }
 });
 
 export default router;

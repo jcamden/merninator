@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-// @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
 $Pacifico: 'Pacifico', Helvetica, sans-serif;
+$Lobster: 'Lobster', Helvetica, sans-serif;
 
 .font-logo {
   font-family: $Pacifico;
+}
+
+.font-header {
+  font-family: $Lobster;
 }

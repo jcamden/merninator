@@ -1,3 +1,6 @@
+// These are all the FA icons which were used in the original Djinndex app.
+// Figured I'll proly be usin' em again.
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faSignOutAlt,
@@ -24,6 +27,8 @@ import {
   faMinusCircle,
   faPlusCircle,
   faInfinity,
+  faEyeSlash,
+  faEye,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
@@ -54,4 +59,6 @@ library.add(
   faMinusCircle,
   faPlusCircle,
   faInfinity,
+  faEyeSlash,
+  faEye,
 );

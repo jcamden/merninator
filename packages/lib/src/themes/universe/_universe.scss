@@ -5,3 +5,12 @@
 
 $primary: rgb(0, 44, 144);
 $navbar-dark-hover-color: #ffc107;
+
+.inputError {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  border-radius: 0.25rem;
+  padding: 0.2rem;
+  padding-left: 0.5rem;
+}

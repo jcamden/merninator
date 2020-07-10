@@ -13,6 +13,7 @@ const Home: React.FunctionComponent = () => {
         noUser={<div>No user, punk.</div>}
         component={<div>{`You are logged in! Welcome, ${user?.email}`}!</div>}
       />
+      {/* {user ? <div>no user</div> : <div>user</div>} */}
     </>
   );
 };

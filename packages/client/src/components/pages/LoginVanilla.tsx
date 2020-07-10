@@ -4,23 +4,21 @@ import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../settings';
-import { register } from '../../utils';
+import { loginUser } from '../../utils';
 import LoadingLogo from '../layout/LoadingLogo';
 import DummyPage from '../layout/DummyPage';
+import { Redirect } from 'react-router-dom';
 
 const Login: React.FC = ({}) => {
   const { loading, error, user, checkedAuth } = useContext(AuthStateContext);
   const dispatch = useContext(AuthDispatchContext);
 
   const [fields, setFields] = useState({
-    givenName: '',
-    familyName: '',
     email: '',
     password: '',
-    password2: '',
   });
 
-  const { givenName, familyName, email, password, password2 } = fields;
+  const { email, password } = fields;
 
   const onChange = (e: React.FormEvent<HTMLInputElement>): void =>
     setFields({ ...fields, [e.currentTarget.name]: e.currentTarget.value });
@@ -29,7 +27,7 @@ const Login: React.FC = ({}) => {
     e.preventDefault();
 
     try {
-      register({ givenName, familyName, email, password }, dispatch);
+      loginUser({ email, password }, dispatch);
       // dispatch({ type: 'success' });
     } catch (err) {
       dispatch({ type: 'authError', payload: err.response.data.msg });
@@ -79,34 +77,17 @@ const Login: React.FC = ({}) => {
         <div className="col d-flex flex-column text-center">
           <div className="card pr-5 pb-5 pl-5 pt-4 mt-5 border shadow">
             {user ? (
-              <>
-                <h1>Welcome {user.givenName}!</h1>
-                <button className="btn btn-primary" onClick={(): void => dispatch({ type: 'logOut' })}>
-                  Log Out
-                </button>
-              </>
+              // <>
+              //   <h1>Welcome {user.givenName}!</h1>
+              //   <button className="btn btn-primary" onClick={(): void => dispatch({ type: 'logOut' })}>
+              //     Log Out
+              //   </button>
+              // </>
+              <Redirect to={{ pathname: '/' }} />
             ) : (
               <form onSubmit={onSubmit}>
-                {/* {error && <p className="error">{error}</p>} */}
-                <div className="h2 mb-3">Register</div>
-                <div className="form-group d-flex flex-column text-center">
-                  <input
-                    name="givenName"
-                    type="text"
-                    placeholder="given name"
-                    value={givenName}
-                    onChange={(e): void => onChange(e)}
-                  />
-                </div>
-                <div className="form-group d-flex flex-column text-center">
-                  <input
-                    name="familyName"
-                    type="text"
-                    placeholder="family name"
-                    value={familyName}
-                    onChange={(e): void => onChange(e)}
-                  />
-                </div>
+                <div className="h2 mb-3 font-header">Login</div>
+
                 <div className="form-group d-flex flex-column text-center">
                   <input
                     name="email"
@@ -127,19 +108,14 @@ const Login: React.FC = ({}) => {
                     onChange={(e): void => onChange(e)}
                   />
                 </div>
-                <div className="form-group d-flex flex-column text-center">
-                  <input
-                    name="password2"
-                    type="password"
-                    placeholder="confirm password"
-                    autoComplete="new-password"
-                    value={password2}
-                    onChange={(e): void => onChange(e)}
-                  />
-                </div>
 
+                {error && (
+                  <div className="alert alert-danger" role="alert">
+                    {error}
+                  </div>
+                )}
                 <button className="submit btn btn-primary btn-block" type="submit" disabled={loading}>
-                  {loading ? 'Registering...' : 'Register'}
+                  {loading ? 'Logging in...' : 'Login'}
                 </button>
                 <GoogleLogin
                   clientId={GOOGLE_CLIENT_ID}
@@ -150,10 +126,10 @@ const Login: React.FC = ({}) => {
                       disabled={renderProps.disabled}
                     >
                       <FontAwesomeIcon icon={['fab', 'google']} className="mr-2" />
-                      Register with Google
+                      Login with Google
                     </button>
                   )}
-                  buttonText="Register with Google"
+                  buttonText="Login"
                   onSuccess={responseGoogle}
                   onFailure={responseGoogle}
                   cookiePolicy={'single_host_origin'}
