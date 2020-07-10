@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar: React.FC = () => {
   const { user } = useContext(AuthStateContext);
+  const id = user?._id;
   const dispatch = useContext(AuthDispatchContext);
 
   //   const onLogout = () => {
@@ -18,7 +19,7 @@ const NavBar: React.FC = () => {
     <>
       <NavLink text="Projects" href={'/'} />
       <h3 className="mt-1">|</h3>
-      {user && <NavLink text={user.email} href={'/user'} />}
+      {user && <NavLink text={`${user.givenName} ${user.familyName}`} href={'/user'} />}
       <h3 className="mt-1">|</h3>
       <NavLink
         text={<FontAwesomeIcon className="mr-2" icon="sign-out-alt" />}
@@ -42,7 +43,7 @@ const NavBar: React.FC = () => {
         <h3 className="font-logo pl-1 text-warning">Djinndex</h3>
       </a>
 
-      <div className="navbar-nav d-flex flex-row text-secondary">{user ? authLinks : guestLinks}</div>
+      <div className="navbar-nav d-flex flex-row text-secondary">{id !== 'guest' ? authLinks : guestLinks}</div>
     </nav>
   );
 };

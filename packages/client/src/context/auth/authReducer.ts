@@ -48,7 +48,12 @@ export default function authReducer(draft: AuthStateInterface, action: AuthActio
     }
     case 'logOut': {
       localStorage.removeItem('token');
-      draft.user = undefined;
+      draft.user = {
+        _id: 'guest',
+        email: 'guest',
+        givenName: 'guest',
+        familyName: 'guest',
+      };
       return;
     }
     case 'toggleTodoCompleted': {

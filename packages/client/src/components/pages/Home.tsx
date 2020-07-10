@@ -11,7 +11,7 @@ const Home: React.FunctionComponent = () => {
       <Check
         preInitAuth={<LoadingLogo />}
         noUser={<div>No user, punk.</div>}
-        component={<div>{`You are logged in! Welcome, ${user?.email}`}!</div>}
+        component={<div>{`You are logged in! Welcome, ${user?.givenName}`}!</div>}
       />
       {/* {user ? <div>no user</div> : <div>user</div>} */}
     </>

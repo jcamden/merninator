@@ -17,6 +17,7 @@ interface FormData {
 
 const Login: React.FC = ({}) => {
   const { loading, error, user, checkedAuth } = useContext(AuthStateContext);
+  const id = user?._id;
   const dispatch = useContext(AuthDispatchContext);
 
   const { register, handleSubmit, errors } = useForm<FormData>({ mode: 'onBlur' });
@@ -72,7 +73,7 @@ const Login: React.FC = ({}) => {
         <div className="col"></div>
         <div className="col d-flex flex-column text-center">
           <div className="card pr-5 pb-5 pl-5 pt-4 mt-5 border shadow">
-            {user ? (
+            {id !== 'guest' ? (
               <Redirect to={{ pathname: '/' }} />
             ) : (
               <form onSubmit={handleSubmit(onSubmit)}>

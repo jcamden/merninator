@@ -108,7 +108,6 @@ router.post('/login', function (req: Request, res: Response, next: NextFunction)
 
                 if (isValid) {
                     const tokenObject = issueJWT(user);
-                    console.log(user);
                     res.status(200).json({
                         success: true,
                         user: {

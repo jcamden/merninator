@@ -25,7 +25,12 @@ const todos = [
 
 const initialState: AuthStateInterface = {
   checkedAuth: false,
-  user: undefined,
+  user: {
+    _id: 'guest',
+    email: 'guest',
+    givenName: 'guest',
+    familyName: 'guest',
+  },
   loading: true,
   error: '',
   todos,

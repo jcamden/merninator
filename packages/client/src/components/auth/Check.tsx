@@ -10,13 +10,14 @@ interface CheckAuthProps {
 
 const CheckAuth: React.FC<CheckAuthProps> = ({ preInitAuth, noUser, component }) => {
   const { checkedAuth, user } = useContext(AuthStateContext);
+  const id = user?._id;
 
   if (preInitAuth && noUser) {
-    return <>{checkedAuth ? (user ? component : noUser) : preInitAuth}</>;
+    return <>{checkedAuth ? (id === 'guest' ? noUser : component) : preInitAuth}</>;
   } else if (preInitAuth) {
     return <>{checkedAuth ? component : preInitAuth}</>;
   } else if (noUser) {
-    return <>{user ? component : noUser}</>;
+    return <>{id === 'guest' ? noUser : component}</>;
   } else {
     return <>{component}</>;
   }
