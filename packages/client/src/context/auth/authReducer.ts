@@ -9,31 +9,35 @@ export default function authReducer(draft: AuthStateInterface, action: AuthActio
     //   draft[action.fieldName] = action.payload;
     //   return;
     // }
-    case 'loading': {
-      draft.loading = true;
+    case 'authLoading': {
+      draft.authLoading = true;
+      return;
+    }
+    case 'authNotLoading': {
+      draft.authLoading = false;
       return;
     }
     case 'noToken': {
-      draft.loading = false;
       draft.checkedAuth = true;
+      draft.authLoading = false;
       return;
     }
     case 'userLoaded': {
-      draft.loading = false;
       draft.user = action.payload.user;
       draft.checkedAuth = true;
+      draft.authLoading = false;
       return;
     }
     case 'registerSuccess': {
       localStorage.setItem('token', action.payload.token);
       draft.user = action.payload.user;
-      draft.loading = false;
+      draft.authLoading = false;
       return;
     }
     case 'loginSuccess': {
       localStorage.setItem('token', action.payload.token);
       draft.user = action.payload.user;
-      draft.loading = false;
+      draft.authLoading = false;
       return;
     }
     case 'loginFail': {
@@ -41,9 +45,9 @@ export default function authReducer(draft: AuthStateInterface, action: AuthActio
       return;
     }
     case 'authError': {
-      draft.error = action.payload;
-      draft.loading = false;
+      draft.authError = action.payload;
       draft.checkedAuth = true;
+      draft.authLoading = false;
       return;
     }
     case 'logOut': {

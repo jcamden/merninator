@@ -24,15 +24,15 @@ const todos = [
 ];
 
 const initialState: AuthStateInterface = {
-  checkedAuth: false,
   user: {
     _id: 'guest',
     email: 'guest',
     givenName: 'guest',
     familyName: 'guest',
   },
-  loading: true,
-  error: '',
+  authError: '',
+  checkedAuth: false,
+  authLoading: true,
   todos,
 };
 
@@ -44,15 +44,15 @@ export const AuthStateContext = createContext<AuthStateInterface>(initialState);
 export const AuthDispatchContext = createContext<Dispatch<AuthActions>>(() => undefined);
 
 export const AuthState = ({ children }: AuthStateProps): JSX.Element => {
-  const [state, dispatch] = useImmerReducer(authReducer, initialState);
+  const [authState, authDispatch] = useImmerReducer(authReducer, initialState);
 
   useEffect(() => {
-    loadUser(dispatch);
+    loadUser(authDispatch);
   }, []);
 
   return (
-    <AuthDispatchContext.Provider value={dispatch}>
-      <AuthStateContext.Provider value={{ ...state }}>{children}</AuthStateContext.Provider>
+    <AuthDispatchContext.Provider value={authDispatch}>
+      <AuthStateContext.Provider value={{ ...authState }}>{children}</AuthStateContext.Provider>
     </AuthDispatchContext.Provider>
   );
 };

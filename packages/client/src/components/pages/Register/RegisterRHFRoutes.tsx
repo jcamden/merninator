@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
+import { AuthStateContext, AuthDispatchContext } from '../../../context/auth/AuthState';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GOOGLE_CLIENT_ID } from '../../settings';
-import { registerUser } from '../../utils';
+import { GOOGLE_CLIENT_ID } from '../../../settings';
+import { registerUser } from '../../../utils';
 import { Redirect } from 'react-router-dom';
 
 interface FormData {
@@ -17,9 +17,9 @@ interface FormData {
 }
 
 const RegisterRHF: React.FC = () => {
-  const { loading, error, user } = useContext(AuthStateContext);
+  const { authLoading, authError, user } = useContext(AuthStateContext);
   const id = user?._id;
-  const dispatch = useContext(AuthDispatchContext);
+  const authDispatch = useContext(AuthDispatchContext);
 
   const [pw1Visible, setPw1Visible] = useState(false);
   const [pw2Visible, setPw2Visible] = useState(false);
@@ -28,10 +28,10 @@ const RegisterRHF: React.FC = () => {
 
   const onSubmit = (data: FormData): void => {
     try {
-      registerUser(data, dispatch);
+      registerUser(data, authDispatch);
     } catch (err) {
       console.log(err);
-      dispatch({ type: 'authError', payload: err.response.data.msg });
+      authDispatch({ type: 'authError', payload: err.response.data.msg });
     }
   };
 
@@ -44,7 +44,7 @@ const RegisterRHF: React.FC = () => {
   }
 
   // Also, I did not kick this out into a separate file
-  // because passing in dispatch as a param fails typecheck from react-google-login.
+  // because passing in authDispatch as a param fails typecheck from react-google-login.
   const responseGoogle = (response: GoogleLoginResponseCheat | GoogleLoginResponseOfflineCheat): void => {
     // this is from GoogleLoginResponse
     if (response.tokenId) {
@@ -57,13 +57,13 @@ const RegisterRHF: React.FC = () => {
             },
           });
 
-          dispatch({
+          authDispatch({
             type: 'loginSuccess',
             payload: res.data,
           });
         })();
       } catch (err) {
-        dispatch({ type: 'authError', payload: err.response.data.msg });
+        authDispatch({ type: 'authError', payload: err.response.data.msg });
       }
       // this is from GoogleLoginResponseOffline
     } else {
@@ -106,7 +106,7 @@ const RegisterRHF: React.FC = () => {
                     name="email"
                     type="text"
                     placeholder="email"
-                    className={`${(errors.email || error) && 'inputError'}`}
+                    className={`${(errors.email || authError) && 'inputError'}`}
                     ref={register({
                       required: 'email required',
                       pattern: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
@@ -172,13 +172,13 @@ const RegisterRHF: React.FC = () => {
                     {errors.password2.message}
                   </div>
                 )}
-                {error && (
+                {authError && (
                   <div className="alert alert-danger py-1" role="alert">
-                    {error}
+                    {authError}
                   </div>
                 )}
-                <button className="submit btn btn-primary btn-block" type="submit" disabled={loading}>
-                  {loading ? 'Registering...' : 'Register'}
+                <button className="submit btn btn-primary btn-block" type="submit" disabled={authLoading}>
+                  {authLoading ? 'Registering...' : 'Register'}
                 </button>
                 <GoogleLogin
                   clientId={GOOGLE_CLIENT_ID}

@@ -8,7 +8,7 @@ export type TodoItemProps = {
 };
 
 const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
-  const dispatch = useContext(AuthDispatchContext);
+  const authDispatch = useContext(AuthDispatchContext);
   const { user } = useContext(AuthStateContext);
 
   return (
@@ -23,9 +23,9 @@ const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
         }}
         onChange={(): void => {
           if (user) {
-            // Typescript wrongly thinks dispatch can be undefined.
+            // Typescript wrongly thinks authDispatch can be undefined.
             // Satsify her thusly:
-            dispatch({ type: 'toggleTodoCompleted', payload: title });
+            authDispatch({ type: 'toggleTodoCompleted', payload: title });
           }
         }}
       />

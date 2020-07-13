@@ -15,10 +15,10 @@ export interface User {
 
 export interface AuthStateInterface {
   user?: User;
-  loading: boolean;
-  error: string;
-  todos: Todos;
+  authError: string;
   checkedAuth: boolean;
+  authLoading: boolean;
+  todos: Todos;
 }
 
 export interface LoginSuccess {
@@ -30,7 +30,7 @@ export interface LoginSuccess {
 
 export type AuthActions =
   | {
-      type: 'login' | 'logOut' | 'registerFail' | 'loading' | 'noToken';
+      type: 'login' | 'logOut' | 'registerFail' | 'authLoading' | 'authNotLoading' | 'noToken';
     }
   | { type: 'registerSuccess'; payload: LoginSuccess }
   | { type: 'registerFail'; payload: string }

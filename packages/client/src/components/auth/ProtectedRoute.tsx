@@ -17,15 +17,15 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   path,
   component,
 }) => {
-  const { user, loading } = useContext(AuthStateContext);
-  const dispatch = useContext(AuthDispatchContext);
+  const { user, authLoading } = useContext(AuthStateContext);
+  const authDispatch = useContext(AuthDispatchContext);
 
-  dispatch({ type: 'loading' });
+  authDispatch({ type: 'authLoading' });
 
   const getRedirectPath = (): string | undefined => {
-    if (!user && !loading) {
+    if (user?._id === 'guest' && !authLoading) {
       return unauthedRedirectPath;
-    } else if (user && isAllowed === false) {
+    } else if (user?._id !== 'guest' && isAllowed === false) {
       return restrictedRedirectPath;
     }
   };
@@ -34,6 +34,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   if (redirectPath) {
     const redirectComponent: React.FC = () => <Redirect to={{ pathname: redirectPath }} />;
+    authDispatch({ type: 'authNotLoading' });
     return <Route exact component={redirectComponent} render={undefined} />;
   } else {
     return <Route exact path={path} component={component} />;

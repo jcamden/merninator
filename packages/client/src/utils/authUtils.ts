@@ -4,7 +4,7 @@ import { AuthActions } from '../context/auth/types';
 
 export const registerUser = async (
   data: { givenName: string; familyName: string; email: string; password: string; password2: string },
-  dispatch: Dispatch<AuthActions>,
+  authDispatch: Dispatch<AuthActions>,
 ): Promise<void> => {
   const config = {
     headers: {
@@ -15,12 +15,12 @@ export const registerUser = async (
   try {
     const res = await axios.post('https://localhost:5000/auth/register', data, config);
 
-    dispatch({
+    authDispatch({
       type: 'registerSuccess',
       payload: res.data,
     });
   } catch (err) {
-    dispatch({
+    authDispatch({
       type: 'authError',
       payload: err.response.data.msg,
     });
@@ -30,7 +30,7 @@ export const registerUser = async (
 // Login User
 export const loginUser = async (
   formData: { email: string; password: string },
-  dispatch: Dispatch<AuthActions>,
+  authDispatch: Dispatch<AuthActions>,
 ): Promise<void> => {
   const config = {
     headers: {
@@ -40,12 +40,12 @@ export const loginUser = async (
 
   try {
     const res = await axios.post('https://localhost:5000/auth/login', formData, config);
-    dispatch({
+    authDispatch({
       type: 'loginSuccess',
       payload: res.data,
     });
   } catch (err) {
-    dispatch({
+    authDispatch({
       type: 'authError',
       payload: err.response.data.msg,
     });
@@ -62,13 +62,13 @@ export const setAuthToken = (token: string): void => {
 };
 
 // Load User
-export const loadUser = async (dispatch: Dispatch<AuthActions>): Promise<void> => {
+export const loadUser = async (authDispatch: Dispatch<AuthActions>): Promise<void> => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
     try {
       const res = await axios.get('https://localhost:5000/auth');
       console.log(res.data.user);
-      dispatch({
+      authDispatch({
         type: 'userLoaded',
         payload: {
           user: res.data.user,
@@ -77,9 +77,9 @@ export const loadUser = async (dispatch: Dispatch<AuthActions>): Promise<void> =
     } catch (err) {
       console.log('loadUser had the following error:');
       console.log(err);
-      dispatch({ type: 'authError', payload: err.response.data.msg });
+      authDispatch({ type: 'authError', payload: err.response.data.msg });
     }
   } else {
-    dispatch({ type: 'noToken' });
+    authDispatch({ type: 'noToken' });
   }
 };

@@ -11,16 +11,16 @@ export interface ProtectedRouteProps extends RouteProps {
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ restricted, noUser, loggedIn, path, component }) => {
-  const { user, loading } = useContext(AuthStateContext);
-  const dispatch = useContext(AuthDispatchContext);
+  const { user, authLoading } = useContext(AuthStateContext);
+  const authDispatch = useContext(AuthDispatchContext);
 
-  dispatch({ type: 'loading' });
+  authDispatch({ type: 'authLoading' });
 
   console.log(loggedIn);
   console.log(user);
 
   const getRedirectPath = (): string | undefined => {
-    if (!user && !loading) {
+    if (!user && !authLoading) {
       return noUser;
     } else if (user && !restricted) {
       return restricted;

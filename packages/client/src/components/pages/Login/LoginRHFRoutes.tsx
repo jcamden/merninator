@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
+import { AuthStateContext, AuthDispatchContext } from '../../../context/auth/AuthState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GOOGLE_CLIENT_ID } from '../../settings';
-import { loginUser } from '../../utils';
-import LoadingLogo from '../layout/LoadingLogo';
-import DummyPage from '../layout/DummyPage';
+import { GOOGLE_CLIENT_ID } from '../../../settings';
+import { loginUser } from '../../../utils';
+import LoadingLogo from '../../layout/LoadingLogo';
+import DummyPage from '../../layout/DummyPage';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -15,19 +15,19 @@ interface FormData {
   password: string;
 }
 
-const Login: React.FC = ({}) => {
-  const { loading, error, user, checkedAuth } = useContext(AuthStateContext);
+const LoginRHF: React.FC = ({}) => {
+  const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
   const id = user?._id;
-  const dispatch = useContext(AuthDispatchContext);
+  const authDispatch = useContext(AuthDispatchContext);
 
   const { register, handleSubmit, errors } = useForm<FormData>({ mode: 'onBlur' });
 
   const onSubmit = (data: FormData): void => {
     try {
-      loginUser(data, dispatch);
+      loginUser(data, authDispatch);
     } catch (err) {
       console.log(err);
-      dispatch({ type: 'authError', payload: err.response.data.msg });
+      authDispatch({ type: 'authError', payload: err.response.data.msg });
     }
   };
 
@@ -40,7 +40,7 @@ const Login: React.FC = ({}) => {
   }
 
   // Also, I could not kick this out into a separate file
-  // because passing in dispatch as a param fails typecheck from react-google-login
+  // because passing in authDispatch as a param fails typecheck from react-google-login
   const responseGoogle = (response: GoogleLoginResponseCheat | GoogleLoginResponseOfflineCheat): void => {
     // this is from GoogleLoginResponse
     if (response.tokenId) {
@@ -53,13 +53,13 @@ const Login: React.FC = ({}) => {
             },
           });
 
-          dispatch({
+          authDispatch({
             type: 'loginSuccess',
             payload: res.data,
           });
         })();
       } catch (err) {
-        dispatch({ type: 'authError', payload: err.response.data.msg });
+        authDispatch({ type: 'authError', payload: err.response.data.msg });
       }
       // this is from GoogleLoginResponseOffline
     } else {
@@ -83,16 +83,16 @@ const Login: React.FC = ({}) => {
                     name="email"
                     type="text"
                     placeholder="email"
-                    className={`${(errors.email || error === 'user not found') && 'inputError'}`}
+                    className={`${(errors.email || authError === 'user not found') && 'inputError'}`}
                     ref={register({
                       required: 'email required',
                       pattern: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
                     })}
                   />
                 </div>
-                {error === 'user not found' && (
+                {authError === 'user not found' && (
                   <div className="alert alert-danger py-1" role="alert">
-                    {error}
+                    {authError}
                   </div>
                 )}
                 <div className="form-group d-flex flex-column text-center">
@@ -101,20 +101,20 @@ const Login: React.FC = ({}) => {
                     type="password"
                     placeholder="password"
                     autoComplete="new-password"
-                    className={`${(errors.password || error === 'invalid password') && 'inputError'}`}
+                    className={`${(errors.password || authError === 'invalid password') && 'inputError'}`}
                     ref={register({
                       required: true,
                       minLength: { value: 6, message: 'minimum of six characters' },
                     })}
                   />
                 </div>
-                {error === 'invalid password' && (
+                {authError === 'invalid password' && (
                   <div className="alert alert-danger py-1" role="alert">
-                    {error}
+                    {authError}
                   </div>
                 )}
-                <button className="submit btn btn-primary btn-block" type="submit" disabled={loading}>
-                  {loading ? 'Logging in...' : 'Login'}
+                <button className="submit btn btn-primary btn-block" type="submit" disabled={authLoading}>
+                  {authLoading ? 'Logging in...' : 'Login'}
                 </button>
                 <GoogleLogin
                   clientId={GOOGLE_CLIENT_ID}
@@ -162,6 +162,6 @@ const Login: React.FC = ({}) => {
   );
 };
 
-Login.propTypes = {};
+LoginRHF.propTypes = {};
 
-export default Login;
+export default LoginRHF;
