@@ -56,11 +56,6 @@ export default function authReducer(draft: AuthStateInterface, action: AuthActio
       };
       return;
     }
-    case 'toggleTodoCompleted': {
-      const index = draft.todos.findIndex(item => item.title === action.payload);
-      draft.todos[index].completed = !draft.todos[index].completed;
-      return;
-    }
     default: {
       return;
     }

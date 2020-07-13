@@ -2,7 +2,7 @@ import React from 'react';
 import '@merninator/lib/src/themes/index.scss';
 import { AuthState } from './context/auth/AuthState';
 import { AppState } from './context/app/AppState';
-import TodoPage from './components/pages/Todos/Todos';
+import TodoPage from './components/pages/Projects/Projects';
 import LoginRHF from './components/pages/Login/LoginRHFState';
 import RegisterRHF from './components/pages/Register/RegisterRHFRoutes';
 // import ConditionalRoute from './components/auth/ConditionalRoute';
@@ -11,23 +11,26 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './components/layout/NavBar';
 import './utils/faLib';
 import StateRouter from './components/pages/StateRouter';
+import { ProjectsState } from './context/projects/ProjectsState';
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <AuthState>
         <AppState>
-          <NavBar />
-          <Router>
-            <Switch>
-              {/* <ConditionalRoute path="/todos" noUser="/login" component={TodoPage} /> */}
-              {/* <ConditionalRoute path="/login" loggedIn="/home" component={Login} /> */}
-              <ProtectedRoute path="/todos" unauthedRedirectPath="/login" component={TodoPage} />
-              <Route exact path="/login" component={LoginRHF} />
-              <Route exact path="/register" component={RegisterRHF} />
-              <Route exact path="/" component={StateRouter} />
-            </Switch>
-          </Router>
+          <ProjectsState>
+            <NavBar />
+            <Router>
+              <Switch>
+                {/* <ConditionalRoute path="/todos" noUser="/login" component={TodoPage} /> */}
+                {/* <ConditionalRoute path="/login" loggedIn="/home" component={Login} /> */}
+                <ProtectedRoute path="/todos" unauthedRedirectPath="/login" component={TodoPage} />
+                <Route exact path="/login" component={LoginRHF} />
+                <Route exact path="/register" component={RegisterRHF} />
+                <Route exact path="/" component={StateRouter} />
+              </Switch>
+            </Router>
+          </ProjectsState>
         </AppState>
       </AuthState>
     </div>

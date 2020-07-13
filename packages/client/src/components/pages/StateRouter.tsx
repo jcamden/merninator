@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
-import { AppStateContext } from '../../context/app/AppState';
+import { AppStateContext, AppDispatchContext } from '../../context/app/AppState';
 import Home from './Home/Home';
 import LoginRHF from './Login/LoginRHFState';
 import RegisterRHF from './Register/RegisterRHFRoutes';
-import TodoPage from './Todos/Todos';
+import TodoPage from './Projects/Projects';
 import Profile from './Profile/Profile';
 
 const StateRouter: React.FC = () => {
   const { page } = useContext(AppStateContext);
+  const appDispatch = useContext(AppDispatchContext);
 
   switch (page) {
     case 'home': {
@@ -25,10 +26,11 @@ const StateRouter: React.FC = () => {
     case 'profile': {
       return <Profile />;
     }
-
-    default:
-      // probably want to set page to home if you wind up here
-      return <div>Something got messed up.</div>;
+    default: {
+      // shouldn't be possible, but just in case.
+      appDispatch({ type: 'changePage', payload: 'home' });
+      return <Home />;
+    }
   }
 };
 

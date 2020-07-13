@@ -1,8 +1,3 @@
-export type Todos = {
-  title: string;
-  completed: boolean;
-}[];
-
 export type Login = (formData: { email: string; password: string }) => Promise<void>;
 
 export interface User {
@@ -18,7 +13,6 @@ export interface AuthStateInterface {
   authError: string;
   checkedAuth: boolean;
   authLoading: boolean;
-  todos: Todos;
 }
 
 export interface LoginSuccess {
@@ -38,6 +32,5 @@ export type AuthActions =
   // | { type: 'googleLoginSuccess'; payload: { user: User } }
   | { type: 'loginFail'; payload: string }
   | { type: 'field'; fieldName: 'email' | 'password'; payload: string }
-  | { type: 'toggleTodoCompleted'; payload: string }
   | { type: 'userLoaded'; payload: { user: User } }
   | { type: 'authError'; payload: string };

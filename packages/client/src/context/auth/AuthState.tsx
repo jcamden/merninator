@@ -8,20 +8,6 @@ import { loadUser } from '../../utils/authUtils';
 // really todos belongs in a separate context
 // and it should be informed by a GET request
 // but eh, just for demo porpoises:
-const todos = [
-  {
-    title: 'milk the fish',
-    completed: true,
-  },
-  {
-    title: 'read the cheese',
-    completed: false,
-  },
-  {
-    title: 'oraganize the cat ninja',
-    completed: false,
-  },
-];
 
 const initialState: AuthStateInterface = {
   user: {
@@ -33,7 +19,6 @@ const initialState: AuthStateInterface = {
   authError: '',
   checkedAuth: false,
   authLoading: true,
-  todos,
 };
 
 interface AuthStateProps {
