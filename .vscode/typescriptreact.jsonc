@@ -10,27 +10,6 @@
     "body": ["console.log($1)"],
     "description": "console.log"
   },
-  "TS React arrow function component with PropTypes": {
-    "prefix": "tsrafcp",
-    "body": [
-      "import React from 'react'",
-      "import PropTypes from 'prop-types'",
-      "",
-      "interface ${TM_FILENAME_BASE}Props {",
-      "\t$1",
-      "}",
-      "",
-      "const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
-      "\t\treturn ( $2 );",
-      "}",
-      "",
-      " $TM_FILENAME_BASE.propTypes = {$0",
-      "\t${1/\\:.*;/: PropTypes./g}",
-      "};",
-      "export default $TM_FILENAME_BASE"
-    ],
-    "description": "tab stops (unlabeled): $1:props, $2:return, $0: PropTypes; Prettier recommended;"
-  },
   "TS React arrow function component": {
     "prefix": "tsrafc",
     "body": [

@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-// import PropTypes from 'prop-types';
 import { AppStateContext } from '../../../context/app/AppState';
 import Home from './Home';
 import LoginRHF from '../Login/LoginRHFState';
@@ -25,13 +24,4 @@ const StateRouter: React.FC = () => {
   }
 };
 
-// StateRouter.propTypes = {
-//   user: PropTypes.shape({
-//     _id: PropTypes.string.isRequired,
-//     email: PropTypes.string.isRequired,
-//     givenName: PropTypes.string.isRequired,
-//     familyName: PropTypes.string.isRequired,
-//     page: PropTypes.shape({ title: PropTypes.string.isRequired, state: PropTypes.arrayOf(PropTypes.string) }),
-//   }).isRequired,
-// };
 export default StateRouter;

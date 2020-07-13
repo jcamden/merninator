@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 interface LoadingLogoProps {
   size?: number;
@@ -14,10 +13,6 @@ const LoadingLogo: React.FC<LoadingLogoProps> = ({ size }) => {
       src={'https://localhost:5000/djinndexLogo.svg'}
     />
   );
-};
-
-LoadingLogo.propTypes = {
-  size: PropTypes.number,
 };
 
 export default LoadingLogo;

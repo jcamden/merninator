@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { AuthDispatchContext, AuthStateContext } from '../../../context/auth/AuthState';
 
 export type TodoItemProps = {
@@ -33,11 +32,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
       {title}
     </div>
   );
-};
-
-TodoItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  completed: PropTypes.bool.isRequired,
 };
 
 export default TodoItem;

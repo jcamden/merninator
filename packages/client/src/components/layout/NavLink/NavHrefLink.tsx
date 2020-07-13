@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
 interface NavLinkProps {
   text: string | JSX.Element;
@@ -20,12 +19,6 @@ const NavLink: React.FC<NavLinkProps> = ({ text, href, onClick }) => {
       {text}
     </a>
   );
-};
-
-NavLink.propTypes = {
-  text: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  href: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
 };
 
 export default NavLink;

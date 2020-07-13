@@ -1,6 +1,5 @@
 import React, { ReactNode, useContext } from 'react';
 import { AuthStateContext } from '../../context/auth/AuthState';
-import PropTypes from 'prop-types';
 
 interface CheckAuthProps {
   preInitAuth?: ReactNode;
@@ -23,9 +22,4 @@ const CheckAuth: React.FC<CheckAuthProps> = ({ preInitAuth, noUser, component })
   }
 };
 
-CheckAuth.propTypes = {
-  preInitAuth: PropTypes.node,
-  noUser: PropTypes.node,
-  component: PropTypes.node,
-};
 export default CheckAuth;

@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
-// import PropTypes from 'prop-types';
 import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
 
-import NavStateLink from './NavLink/NavStateLinkNew';
+import NavStateLink from './NavLink/NavStateLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar: React.FC = () => {
@@ -16,18 +15,24 @@ const NavBar: React.FC = () => {
 
   const authLinks = (
     <>
-      <NavStateLink text="Projects" page={'projects'} />
+      <NavStateLink text="Projects" appAction={{ type: 'changePage', payload: 'projects' }} />
       <h3 className="mt-1">|</h3>
-      {user?._id !== 'guest' && <NavStateLink text={`${user?.givenName} ${user?.familyName}`} page={'profile'} />}
+      {user?._id !== 'guest' && (
+        <NavStateLink
+          text={`${user?.givenName} ${user?.familyName}`}
+          appAction={{ type: 'changePage', payload: 'profile' }}
+        />
+      )}
       <h3 className="mt-1">|</h3>
+      <NavStateLink text={<FontAwesomeIcon className="mr-2" icon="sign-out-alt" />} authAction={{ type: 'logOut' }} />
     </>
   );
 
   const guestLinks = (
     <>
-      <NavStateLink text="Login" page="login" />
+      <NavStateLink text="Login" appAction={{ type: 'changePage', payload: 'login' }} />
       <h4 className="mt-1">|</h4>
-      <NavStateLink text="Register" page="register" />
+      <NavStateLink text="Register" appAction={{ type: 'changePage', payload: 'register' }} />
     </>
   );
 
@@ -42,14 +47,5 @@ const NavBar: React.FC = () => {
     </nav>
   );
 };
-
-// NavBar.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   logo: PropTypes.object,
-// };
-
-// NavBar.defaultProps = {
-//   title: 'Djinndex',
-// };
 
 export default NavBar;

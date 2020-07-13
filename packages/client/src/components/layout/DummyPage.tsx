@@ -1,11 +1,9 @@
 import React, { ReactNode } from 'react';
-import PropTypes from 'prop-types';
-
 interface DummyPageProps {
   children: ReactNode;
 }
 
-// I made this to present LoadingLogo.
+// I made this to present a LoadingLogo.
 // Could have other uses.
 
 const DummyPage: React.FC<DummyPageProps> = ({ children }) => {
@@ -19,7 +17,5 @@ const DummyPage: React.FC<DummyPageProps> = ({ children }) => {
     </div>
   );
 };
-
-DummyPage.propTypes = { children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired };
 
 export default DummyPage;
