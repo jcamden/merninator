@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthStateContext, AuthDispatchContext } from '../../../context/auth/AuthState';
+import { AppDispatchContext } from '../../../context/app/AppState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,12 +20,13 @@ const LoginRHF: React.FC = ({}) => {
   const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
   const id = user?._id;
   const authDispatch = useContext(AuthDispatchContext);
+  const appDispatch = useContext(AppDispatchContext);
 
   const { register, handleSubmit, errors } = useForm<FormData>({ mode: 'onBlur' });
 
   const onSubmit = (data: FormData): void => {
     try {
-      loginUser(data, authDispatch);
+      loginUser(data, authDispatch, appDispatch);
     } catch (err) {
       console.log(err);
       authDispatch({ type: 'authError', payload: err.response.data.msg });

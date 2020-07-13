@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AuthStateContext, AuthDispatchContext } from '../../../context/auth/AuthState';
+import { AppDispatchContext } from '../../../context/app/AppState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,6 +13,7 @@ import { Redirect } from 'react-router-dom';
 const Login: React.FC = ({}) => {
   const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
   const authDispatch = useContext(AuthDispatchContext);
+  const appDispatch = useContext(AppDispatchContext);
 
   const [fields, setFields] = useState({
     email: '',
@@ -27,7 +29,7 @@ const Login: React.FC = ({}) => {
     e.preventDefault();
 
     try {
-      loginUser({ email, password }, authDispatch);
+      loginUser({ email, password }, authDispatch, appDispatch);
       // authDispatch({ type: 'success' });
     } catch (err) {
       authDispatch({ type: 'authError', payload: err.response.data.msg });

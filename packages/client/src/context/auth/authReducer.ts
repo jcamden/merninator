@@ -40,10 +40,6 @@ export default function authReducer(draft: AuthStateInterface, action: AuthActio
       draft.authLoading = false;
       return;
     }
-    case 'loginFail': {
-      console.log(action.payload);
-      return;
-    }
     case 'authError': {
       draft.authError = action.payload;
       draft.checkedAuth = true;
