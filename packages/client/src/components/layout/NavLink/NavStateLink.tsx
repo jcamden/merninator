@@ -17,11 +17,14 @@ const NavLink: React.FC<NavLinkProps> = ({ text, appAction, authAction }) => {
     <span
       className={`h5 nav-item ${hovered ? 'text-light' : 'text-secondary'} nav-link px-2 mb-0`}
       onClick={(): void => {
-        if (appAction?.type === 'changePage' && appAction.payload) {
+        if (authAction?.type === 'logOut') {
+          authDispatch({ type: authAction?.type });
+          appDispatch({ type: 'changePage', payload: 'home' });
+        } else if (appAction?.type === 'changePage' && appAction.payload) {
           appDispatch({ type: appAction.type, payload: appAction.payload });
         } else if (appAction?.type === 'other') {
           appDispatch({ type: appAction.type });
-        } else if (authAction?.type === 'logOut') authDispatch({ type: authAction?.type });
+        }
       }}
       onMouseOver={(): void => setHovered(true)}
       onMouseLeave={(): void => setHovered(false)}
