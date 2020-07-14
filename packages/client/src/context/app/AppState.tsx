@@ -5,7 +5,7 @@ import { createContext, Dispatch } from 'react';
 import { AppStateInterface, AppActions } from './types';
 
 const initialState: AppStateInterface = {
-  page: 'login',
+  page: 'home',
 };
 
 interface AppStateProps {

@@ -14,7 +14,11 @@ const projects = [
     completed: false,
   },
   {
-    title: 'oraganize the cat ninja',
+    title: 'organize the cat ninja',
+    completed: false,
+  },
+  {
+    title: 'create todos in DB linked to User and appropriate routes',
     completed: false,
   },
 ];

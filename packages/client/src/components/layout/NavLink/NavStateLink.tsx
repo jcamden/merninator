@@ -22,6 +22,7 @@ const NavLink: React.FC<NavLinkProps> = ({ text, appAction, authAction }) => {
           appDispatch({ type: 'changePage', payload: 'home' });
         } else if (appAction?.type === 'changePage' && appAction.payload) {
           appDispatch({ type: appAction.type, payload: appAction.payload });
+          authDispatch({ type: 'authError', payload: '' });
         } else if (appAction?.type === 'other') {
           appDispatch({ type: appAction.type });
         }

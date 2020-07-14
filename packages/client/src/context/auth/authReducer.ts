@@ -32,12 +32,14 @@ export default function authReducer(draft: AuthStateInterface, action: AuthActio
       localStorage.setItem('token', action.payload.token);
       draft.user = action.payload.user;
       draft.authLoading = false;
+      draft.authError = '';
       return;
     }
     case 'loginSuccess': {
       localStorage.setItem('token', action.payload.token);
       draft.user = action.payload.user;
       draft.authLoading = false;
+      draft.authError = '';
       return;
     }
     case 'authError': {

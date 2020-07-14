@@ -6,6 +6,7 @@ import { AppActions } from '../context/app/types';
 export const registerUser = async (
   data: { givenName: string; familyName: string; email: string; password: string; password2: string },
   authDispatch: Dispatch<AuthActions>,
+  appDispatch: Dispatch<AppActions>,
 ): Promise<void> => {
   const config = {
     headers: {
@@ -19,6 +20,10 @@ export const registerUser = async (
     authDispatch({
       type: 'registerSuccess',
       payload: res.data,
+    });
+    appDispatch({
+      type: 'changePage',
+      payload: 'home',
     });
   } catch (err) {
     authDispatch({

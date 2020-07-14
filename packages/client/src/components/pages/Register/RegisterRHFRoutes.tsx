@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../../settings';
 import { registerUser } from '../../../utils';
 import { Redirect } from 'react-router-dom';
+import { AppDispatchContext } from '../../../context/app/AppState';
 
 interface FormData {
   givenName: string;
@@ -20,6 +21,7 @@ const RegisterRHF: React.FC = () => {
   const { authLoading, authError, user } = useContext(AuthStateContext);
   const id = user?._id;
   const authDispatch = useContext(AuthDispatchContext);
+  const appDispatch = useContext(AppDispatchContext);
 
   const [pw1Visible, setPw1Visible] = useState(false);
   const [pw2Visible, setPw2Visible] = useState(false);
@@ -28,7 +30,7 @@ const RegisterRHF: React.FC = () => {
 
   const onSubmit = (data: FormData): void => {
     try {
-      registerUser(data, authDispatch);
+      registerUser(data, authDispatch, appDispatch);
     } catch (err) {
       console.log(err);
       authDispatch({ type: 'authError', payload: err.response.data.msg });
@@ -48,23 +50,26 @@ const RegisterRHF: React.FC = () => {
   const responseGoogle = (response: GoogleLoginResponseCheat | GoogleLoginResponseOfflineCheat): void => {
     // this is from GoogleLoginResponse
     if (response.tokenId) {
-      try {
-        // self-invoking arrow function so I can use async await
-        (async (): Promise<void> => {
+      // self-invoking arrow function so I can use async await
+      (async (): Promise<void> => {
+        try {
           const res = await axios.get('https://localhost:5000/auth/google', {
             params: {
               idToken: response.tokenId,
             },
           });
-
           authDispatch({
             type: 'loginSuccess',
             payload: res.data,
           });
-        })();
-      } catch (err) {
-        authDispatch({ type: 'authError', payload: err.response.data.msg });
-      }
+          appDispatch({
+            type: 'changePage',
+            payload: 'home',
+          });
+        } catch (err) {
+          authDispatch({ type: 'authError', payload: err.response.data.msg });
+        }
+      })();
       // this is from GoogleLoginResponseOffline
     } else {
       console.log(response.code);

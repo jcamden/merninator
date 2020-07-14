@@ -7,11 +7,12 @@ import { GOOGLE_CLIENT_ID } from '../../../settings';
 import { registerUser } from '../../../utils';
 import LoadingLogo from '../../layout/LoadingLogo';
 import DummyPage from '../../layout/DummyPage';
+import { AppDispatchContext } from '../../../context/app/AppState';
 
 const Login: React.FC = ({}) => {
   const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
   const authDispatch = useContext(AuthDispatchContext);
-
+  const appDispatch = useContext(AppDispatchContext);
   const [fields, setFields] = useState({
     givenName: '',
     familyName: '',
@@ -40,7 +41,7 @@ const Login: React.FC = ({}) => {
       });
     } else {
       try {
-        registerUser({ givenName, familyName, email, password, password2 }, authDispatch);
+        registerUser({ givenName, familyName, email, password, password2 }, authDispatch, appDispatch);
         // authDispatch({ type: 'success' });
       } catch (err) {
         authDispatch({ type: 'authError', payload: err.response.data.msg });

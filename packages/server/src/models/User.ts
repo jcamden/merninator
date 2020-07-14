@@ -1,27 +1,34 @@
 import { Schema, model } from 'mongoose';
 
-const UserSchema = new Schema({
-    givenName: {
-        type: String,
-        required: true,
+const UserSchema = new Schema(
+    {
+        _id: {
+            type: String,
+            required: true,
+        },
+        givenName: {
+            type: String,
+            required: true,
+        },
+        familyName: {
+            type: String,
+            required: true,
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        hash: String,
+        salt: String,
+        provider: {
+            type: String,
+            required: true,
+            enum: ['local', 'google'],
+        },
     },
-    familyName: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    hash: String,
-    salt: String,
-    provider: {
-        type: String,
-        required: true,
-        enum: ['local', 'google'],
-    },
-});
+    { _id: false },
+);
 
 interface IUserSchema extends Document {
     _id: string;
