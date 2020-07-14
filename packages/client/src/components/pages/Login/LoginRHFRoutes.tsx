@@ -54,7 +54,6 @@ const LoginRHF: React.FC = ({}) => {
               idToken: response.tokenId,
             },
           });
-
           authDispatch({
             type: 'loginSuccess',
             payload: res.data,

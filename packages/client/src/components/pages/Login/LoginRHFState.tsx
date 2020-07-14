@@ -59,6 +59,10 @@ const LoginRHF: React.FC = ({}) => {
             type: 'loginSuccess',
             payload: res.data,
           });
+          appDispatch({
+            type: 'changePage',
+            payload: 'home',
+          });
         })();
       } catch (err) {
         authDispatch({ type: 'authError', payload: err.response.data.msg });
