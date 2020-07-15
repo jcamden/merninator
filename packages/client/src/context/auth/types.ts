@@ -1,7 +1,7 @@
 export type Login = (formData: { email: string; password: string }) => Promise<void>;
 
 export interface User {
-  _id: string;
+  self: string;
   email: string;
   givenName: string;
   familyName: string;

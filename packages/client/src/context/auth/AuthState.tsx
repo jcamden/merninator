@@ -11,7 +11,7 @@ import { loadUser } from '../../utils/authUtils';
 
 const initialState: AuthStateInterface = {
   user: {
-    _id: 'guest',
+    self: 'guest',
     email: 'guest',
     givenName: 'guest',
     familyName: 'guest',

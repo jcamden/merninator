@@ -51,7 +51,7 @@ export default function authReducer(draft: AuthStateInterface, action: AuthActio
     case 'logOut': {
       localStorage.removeItem('token');
       draft.user = {
-        _id: 'guest',
+        self: 'guest',
         email: 'guest',
         givenName: 'guest',
         familyName: 'guest',

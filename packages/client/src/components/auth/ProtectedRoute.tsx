@@ -23,9 +23,9 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   authDispatch({ type: 'authLoading' });
 
   const getRedirectPath = (): string | undefined => {
-    if (user?._id === 'guest' && !authLoading) {
+    if (user?.self === 'guest' && !authLoading) {
       return unauthedRedirectPath;
-    } else if (user?._id !== 'guest' && isAllowed === false) {
+    } else if (user?.self !== 'guest' && isAllowed === false) {
       return restrictedRedirectPath;
     }
   };

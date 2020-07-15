@@ -6,11 +6,19 @@ const router = Router();
 
 router.get('/', auth, async (req: Request, res: Response) => {
     try {
-        const user = await User.findById(req.user.id).select('-password');
-        res.json(user);
+        const user = await User.findOne({ _id: req.sub });
+        res.status(200).json({
+            success: true,
+            user: {
+                self: `/user/${user._id}`,
+                givenName: user.givenName,
+                familyName: user.familyName,
+                email: user.email,
+                provider: user.provider,
+            },
+        });
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('server error');
+        res.status(401).json({ success: false, msg: 'user not found', err: err });
     }
 });
 

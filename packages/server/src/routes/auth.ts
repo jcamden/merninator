@@ -1,21 +1,20 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { validatePassword, genPassword, issueJWT } from '../lib/utils';
 import User from '../models/User';
-import auth from '../middleware/auth';
 import axios from 'axios';
 import chalk from 'chalk';
 
 const router = Router();
 
-const createID = async (url, idBase, match) => {
-    try {
-        const results = await User.find(match);
-        const _id = `${url}/${idBase.toLowerCase()}${results.length > 0 ? results.length : ''}`;
-        return _id;
-    } catch (err) {
-        return;
-    }
-};
+// const createID = async (url, idBase, match) => {
+//     try {
+//         const results = await User.find(match);
+//         const _id = `${url}/${idBase.toLowerCase()}${results.length > 0 ? results.length : ''}`;
+//         return _id;
+//     } catch (err) {
+//         return;
+//     }
+// };
 
 // Here is an example of using custom JWT validation middleware (vs. Passport)
 // This is the middleware used in the root .../auth route (below)
@@ -26,18 +25,6 @@ const createID = async (url, idBase, match) => {
 //         msg: 'You are successfully authenticated to this route!',
 //     });
 // });
-
-router.get('/', auth, async (req: Request, res: Response) => {
-    try {
-        const user = await User.findOne({ _id: req.sub });
-        res.status(200).json({
-            success: true,
-            user: user,
-        });
-    } catch (err) {
-        res.status(401).json({ success: false, msg: 'user not found', err: err });
-    }
-});
 
 // if Google verifies the JWT from the front-end, then find or create User
 router.get(
@@ -59,12 +46,7 @@ router.get(
                         });
                     } else if (!user) {
                         try {
-                            const _id = await createID('/user', `${given_name}${family_name}`, {
-                                givenName: given_name,
-                                familyName: family_name,
-                            });
                             const newUser = new User({
-                                _id: _id,
                                 givenName: given_name,
                                 familyName: family_name,
                                 email: email,
@@ -79,7 +61,7 @@ router.get(
                                 res.status(200).json({
                                     success: true,
                                     user: {
-                                        _id: newUser._id,
+                                        self: `/user/${newUser._id}`,
                                         givenName: newUser.givenName,
                                         familyName: newUser.familyName,
                                         email: newUser.email,
@@ -118,7 +100,7 @@ router.get(
                         res.status(200).json({
                             success: true,
                             user: {
-                                _id: user._id,
+                                self: `/user/${user._id}`,
                                 givenName: user.givenName,
                                 familyName: user.familyName,
                                 email: user.email,
@@ -155,7 +137,7 @@ router.post('/login', (req: Request, res: Response, next: NextFunction): void =>
                     res.status(200).json({
                         success: true,
                         user: {
-                            _id: user._id,
+                            self: `/user/${user._id}`,
                             givenName: user.givenName,
                             familyName: user.familyName,
                             email: user.email,
@@ -183,12 +165,7 @@ router.post(
         const hash = saltHash.hash;
         // try to create _id
         try {
-            const _id = await createID('/user', `${givenName}${familyName}`, {
-                givenName: givenName,
-                familyName: familyName,
-            });
             const newUser = new User({
-                _id: _id,
                 givenName: givenName,
                 familyName: familyName,
                 email: email,
@@ -205,7 +182,7 @@ router.post(
                 res.status(200).json({
                     success: true,
                     user: {
-                        _id: newUser._id,
+                        self: `/user/${newUser._id}`,
                         givenName: newUser.givenName,
                         familyName: newUser.familyName,
                         email: newUser.email,

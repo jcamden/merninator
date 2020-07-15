@@ -1,23 +1,17 @@
 import React, { useContext } from 'react';
-import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
+import { AuthStateContext } from '../../context/auth/AuthState';
 
 import NavStateLink from './NavLink/NavStateLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar: React.FC = () => {
   const { user } = useContext(AuthStateContext);
-  const authDispatch = useContext(AuthDispatchContext);
-
-  //   const onLogout = () => {
-  //     logout();
-  //     clearProjects();
-  //   };
 
   const authLinks = (
     <>
       <NavStateLink text="Projects" appAction={{ type: 'changePage', payload: 'projects' }} />
       <h3 className="mt-1">|</h3>
-      {user?._id !== 'guest' && (
+      {user?.self !== 'guest' && (
         <NavStateLink
           text={`${user?.givenName} ${user?.familyName}`}
           appAction={{ type: 'changePage', payload: 'profile' }}
@@ -43,7 +37,7 @@ const NavBar: React.FC = () => {
         <h3 className="font-logo pl-1 text-warning">Djinndex</h3>
       </a>
 
-      <div className="navbar-nav d-flex flex-row text-secondary">{user?._id !== 'guest' ? authLinks : guestLinks}</div>
+      <div className="navbar-nav d-flex flex-row text-secondary">{user?.self !== 'guest' ? authLinks : guestLinks}</div>
     </nav>
   );
 };

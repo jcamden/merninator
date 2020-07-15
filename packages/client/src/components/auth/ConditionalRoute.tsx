@@ -2,6 +2,9 @@ import React, { useContext } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
 import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
 
+// I haven't used this anywhere.
+// I think I never got it to work how I wanted.
+
 export interface ProtectedRouteProps extends RouteProps {
   restricted?: string;
   noUser?: string;
