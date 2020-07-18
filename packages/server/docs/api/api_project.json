@@ -1,0 +1,16 @@
+{
+  "name": "@merninator/server",
+  "version": "0.1.0",
+  "description": "@merninator/server",
+  "title": "merninator server",
+  "url": "https://localhost:8000",
+  "sampleUrl": false,
+  "defaultVersion": "0.0.0",
+  "apidoc": "0.3.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2020-07-18T00:51:12.199Z",
+    "url": "http://apidocjs.com",
+    "version": "0.22.1"
+  }
+}

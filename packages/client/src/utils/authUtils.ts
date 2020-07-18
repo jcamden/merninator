@@ -77,7 +77,7 @@ export const loadUser = async (authDispatch: Dispatch<AuthActions>): Promise<voi
   if (localStorage.token) {
     setAuthToken(localStorage.token);
     try {
-      const res = await axios.get('https://localhost:5000/user');
+      const res = await axios.get('https://localhost:5000/auth');
       console.log(res.data.user);
       authDispatch({
         type: 'userLoaded',

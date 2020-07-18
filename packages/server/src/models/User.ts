@@ -23,7 +23,9 @@ const UserSchema = new Schema({
     },
 });
 
-interface IUserSchema extends Document {
+// using interface I-prefix here, cause I couldn't think of anything else
+// would be non-exported IUserSchema if I wanted so subsequently add methods and/or linked documents
+export interface IUser extends Document {
     _id: string;
     givenName: string;
     familyName: string;
@@ -35,10 +37,10 @@ interface IUserSchema extends Document {
 }
 
 // method types
-type IUserBase = IUserSchema;
+// interface IUserBase extends IUserSchema{};
 
 // linked document types
-export type IUser = IUserBase;
+// export interface IUser extends IUserBase{};
 
 const User = model<IUser>('User', UserSchema);
 export default User;
