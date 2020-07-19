@@ -21,6 +21,7 @@ router.post('/', [auth, [check('title', 'title is required').not().isEmpty()]], 
         });
 
         const project = await newProject.save();
+        console.log(project);
 
         res.json({ success: true, project: project });
     } catch (err) {

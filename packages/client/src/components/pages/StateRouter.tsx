@@ -3,7 +3,7 @@ import { AppStateContext, AppDispatchContext } from '../../context/app/AppState'
 import Home from './Home/Home';
 import LoginRHF from './Login/LoginRHFState';
 import RegisterRHF from './Register/RegisterRHFRoutes';
-import TodoPage from './Projects/Projects';
+import ProjectsPage from './Projects/ProjectsPage';
 import Profile from './Profile/Profile';
 
 const StateRouter: React.FC = () => {
@@ -21,7 +21,7 @@ const StateRouter: React.FC = () => {
       return <RegisterRHF />;
     }
     case 'projects': {
-      return <TodoPage />;
+      return <ProjectsPage />;
     }
     case 'profile': {
       return <Profile />;

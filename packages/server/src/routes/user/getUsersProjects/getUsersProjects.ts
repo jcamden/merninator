@@ -12,7 +12,7 @@ router.get('/:userId/projects', auth, async (req, res) => {
                 updatedAt: -1,
             });
             //respond with that array
-            res.json({ success: true, projects: projects });
+            res.json(projects);
         } catch (err) {
             console.error(err.message);
             res.status(500).send({ success: false, msg: 'mysterious server error', err: err });

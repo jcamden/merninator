@@ -1,6 +1,6 @@
 import { AuthStateInterface, AuthActions } from './types';
 
-export default function authReducer(draft: AuthStateInterface, action: AuthActions): void {
+const authReducer = (draft: AuthStateInterface, action: AuthActions): void => {
   switch (action.type) {
     // Here is a super useful method of using single reducer action for multiple state objects (such as the values of inputs)
     // For auth, I thought it made more sense to keep input state at the componenet level, but I left this example here for reference.
@@ -62,4 +62,6 @@ export default function authReducer(draft: AuthStateInterface, action: AuthActio
       return;
     }
   }
-}
+};
+
+export default authReducer;

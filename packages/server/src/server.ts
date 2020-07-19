@@ -30,10 +30,10 @@ app.use(passport.initialize());
 app.use(router);
 
 // error handler
-function errorHandler(err, req, res) {
+const errorHandler = (err, req, res) => {
     res.status(500);
     res.render('error', { error: err });
-}
+};
 
 app.use(errorHandler);
 

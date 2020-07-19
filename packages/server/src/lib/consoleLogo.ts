@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-export default function (): void {
+const consoleLogo = (): void => {
     console.log(' ');
     console.log(chalk.blue(`                   /// `));
     console.log(chalk.yellow(`           +       `) + chalk.blue(`\\\\\\  `));
@@ -12,4 +12,6 @@ export default function (): void {
     console.log(chalk.yellow(`         /___\\`));
     console.log(' ');
     console.log(' ');
-}
+};
+
+export default consoleLogo;

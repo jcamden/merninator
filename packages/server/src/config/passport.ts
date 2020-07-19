@@ -1,12 +1,12 @@
-import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
+// import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import fs from 'fs';
+// import fs from 'fs';
 import path from 'path';
 import { PassportStatic } from 'passport';
 import User from '../models/User';
 
 const pathToKey = path.join(__dirname, '../../security/jwt/', 'id_rsa_pub.pem');
-const PUB_KEY = fs.readFileSync(pathToKey, 'utf8');
+// const PUB_KEY = fs.readFileSync(pathToKey, 'utf8');
 
 // full passport options object
 // (options from jsonwebtoken package: secretOrKey, issuer, audience, algorithms, and jsonWebTokenOptions (yes, confusing))
@@ -28,11 +28,11 @@ const PUB_KEY = fs.readFileSync(pathToKey, 'utf8');
 // };
 
 // At a minimum, you must pass the `jwtFromRequest` and `secretOrKey` properties
-const jwtOptions = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-    secretOrKey: PUB_KEY,
-    algorithms: ['RS256'],
-};
+// const jwtOptions = {
+//     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+//     secretOrKey: PUB_KEY,
+//     algorithms: ['RS256'],
+// };
 
 const googleOptions = {
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -43,29 +43,13 @@ const googleOptions = {
 
 // app.js will pass the global passport object here, and this function will configure it
 export default (passport: PassportStatic): void => {
-    // The JWT payload is passed into the verify callback
     passport.use(
-        new JwtStrategy(jwtOptions, function (jwtPayload, done) {
-            // We will assign the `sub` property on the JWT to the database ID of user
-            User.findOne({ _id: jwtPayload.sub }, function (err, user) {
-                if (err) {
-                    return done(err, false);
-                }
-                if (user) {
-                    return done(null, user);
-                } else {
-                    return done(null, false);
-                }
-            });
-        }),
-    );
-    passport.use(
-        new GoogleStrategy(googleOptions, function (req, accessToken, refreshToken, profile, done) {
+        new GoogleStrategy(googleOptions, (req, accessToken, refreshToken, profile, done) => {
             User.findOne(
                 {
                     email: profile.emails[0].value,
                 },
-                function (err, user) {
+                (err, user) => {
                     if (err) {
                         console.log('THERE WAS AN ERROR');
                         return done(err);
@@ -76,7 +60,7 @@ export default (passport: PassportStatic): void => {
                         user = new User({
                             email: profile.emails[0].value,
                         });
-                        user.save(function (err) {
+                        user.save((err) => {
                             if (err) console.log(err);
                             return done(err, user);
                         });

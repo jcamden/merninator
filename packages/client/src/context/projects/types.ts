@@ -1,13 +1,26 @@
-export type Projects = { title: string; completed: boolean }[];
+export interface Project {
+  title: string;
+  completed: boolean;
+}
 
-export interface ProjectsStateInterface {
+export type Projects = Project[];
+
+// Using I-prefix because ProjectsState is a thing
+export interface IProjectsState {
   projects: Projects;
 }
 
 export type ProjectsActions =
   | {
-      type: 'changeProjects';
+      type: 'setProjects';
       payload: Projects;
     }
-  | { type: 'other' }
+  | {
+      type: 'addProject';
+      payload: Project;
+    }
+  | {
+      type: 'removeProject';
+      payload: Project;
+    }
   | { type: 'toggleProjectCompleted'; payload: string };

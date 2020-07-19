@@ -15,7 +15,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
         type="checkbox"
         checked={completed}
         onChange={(): void => {
-          console.log('meow');
           projectsDispatch({ type: 'toggleProjectCompleted', payload: title });
         }}
       />

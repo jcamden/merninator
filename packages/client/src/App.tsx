@@ -2,7 +2,7 @@ import React from 'react';
 import '@merninator/lib/src/themes/index.scss';
 import { AuthState } from './context/auth/AuthState';
 import { AppState } from './context/app/AppState';
-import TodoPage from './components/pages/Projects/Projects';
+import TodoPage from './components/pages/Projects/ProjectsPage';
 import LoginRHF from './components/pages/Login/LoginRHFState';
 import RegisterRHF from './components/pages/Register/RegisterRHFRoutes';
 // import ConditionalRoute from './components/auth/ConditionalRoute';
