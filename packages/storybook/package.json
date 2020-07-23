@@ -12,7 +12,10 @@
     "@storybook/addon-viewport": "^5.3.19",
     "node-sass": "^4.14.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-google-login": "^5.1.21",
+    "react-hook-form": "^6.0.8",
+    "use-immer": "^0.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",

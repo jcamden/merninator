@@ -12,6 +12,7 @@
     "add:client": "npx yarn@1.19.1 workspace @merninator/client add",
     "remove:server": "npx yarn@1.19.1 workspace @merninator/server remove",
     "remove:lib": "npx yarn@1.19.1 workspace @merninator/lib remove",
+    "remove:story": "npx yarn@1.19.1 workspace @merninator/storybook remove",
     "remove:client": "npx yarn@1.19.1 workspace @merninator/client remove",
     "apidoc": "yarn workspace @merninator/server apidoc",
     "deploy": "FORCE_COLOR=true lerna run deploy"

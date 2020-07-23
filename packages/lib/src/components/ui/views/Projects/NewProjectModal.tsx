@@ -1,9 +1,9 @@
 import React, { useState, Dispatch, SetStateAction, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { ProjectsDispatchContext } from '../../../context/projects/ProjectsState';
+import { ProjectsDispatchContext } from '../../../../context/projects/ProjectsState';
 import Axios from 'axios';
-import { AuthStateContext } from '../../../context/auth/AuthState';
-import { SERVER } from '../../../settings';
+import { AuthStateContext } from '../../../../context/auth/AuthState';
+import { SERVER } from '../../../../settings';
 
 interface NewProjectModalProps {
   setCreatingNewProject: Dispatch<SetStateAction<boolean>>;
@@ -14,6 +14,7 @@ interface FormData {
 }
 
 const Profile: React.FC<NewProjectModalProps> = ({ setCreatingNewProject }) => {
+  // consider the unused variable warnings reminders to implement features.
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const projectDispatch = useContext(ProjectsDispatchContext);
