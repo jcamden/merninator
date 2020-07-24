@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
-import putUser from './putUser/putUser';
-import deleteUser from './deleteUser/deleteUser';
-import getUsersProjects from './getUsersProjects/getUsersProjects';
+import { putUserRouter } from './putUser/putUser';
+import { deleteUserRouter } from './deleteUser/deleteUser';
+import { getUsersProjectsRouter } from './getUsersProjects/getUsersProjects';
 
 const router = Router();
 
-router.use('/', putUser);
-router.use('/', deleteUser);
-router.use('/', getUsersProjects);
+router.use('/', putUserRouter);
+router.use('/', deleteUserRouter);
+router.use('/', getUsersProjectsRouter);
 
 export default router;

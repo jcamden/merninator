@@ -1,12 +1,12 @@
 import { Router, Request, Response } from 'express';
-import User from '../../../models/User';
-import auth from '../../../middleware/auth';
+import { User } from '../../../models/User';
+import { auth } from '../../../middleware/auth';
 
-const router = Router();
+export const putUserRouter = Router();
 
 // You could do a get route here to expose users if you were doing, like, a social media network or something.
 
-router.put('/', auth, async (req: Request, res: Response) => {
+putUserRouter.put('/', auth, async (req: Request, res: Response) => {
     try {
         // find old user via token
         const oldUser = await User.findOne({ _id: req.sub });
@@ -28,5 +28,3 @@ router.put('/', auth, async (req: Request, res: Response) => {
         res.status(401).json({ success: false, msg: 'user not found', err: err });
     }
 });
-
-export default router;
