@@ -1,28 +1,24 @@
 import React, { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
 import { AuthStateContext } from '../../../../context/auth/AuthState';
-import { LoginRHF } from './LoginRHF';
-import { DummyPage } from '../../templates/DummyPage/DummyPage';
-import { LoadingLogo } from '../../atoms/LoadingLogo/LoadingLogo';
+import { LoginCheckdAuth } from './LoginCheckedAuth/LoginCheckdAuth';
+import { ensureType } from '../../../../utils/ensureType';
+import { LoginUncheckedAuth } from './LoginUncheckedAuth/LoginUncheckedAuth';
 
 interface LoginProps {}
 
 export const Login: React.FC<LoginProps> = () => {
   const { checkedAuth, user } = useContext(AuthStateContext);
-  const self = user?.self;
+  // so that LoginCheckAuth self prop doesn't have to include | undefined
+  const self = ensureType(user?.self, '');
+
+  const { authLoading, authError } = useContext(AuthStateContext);
+
   return (
     <>
       {checkedAuth ? (
-        <DummyPage>
-          <div className="card pr-5 pb-5 pl-5 pt-4 mt-5 border shadow">
-            {self !== 'guest' ? <Redirect to={{ pathname: '/' }} /> : <LoginRHF />}
-          </div>
-        </DummyPage>
+        <LoginCheckdAuth self={self} authError={authError} authLoading={authLoading} />
       ) : (
-        <DummyPage>
-          <div className="my-5"></div>
-          <LoadingLogo size={10} />
-        </DummyPage>
+        <LoginUncheckedAuth />
       )}
     </>
   );

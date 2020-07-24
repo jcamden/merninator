@@ -1,24 +1,28 @@
 import React, { useContext } from 'react';
-import { AuthStateContext, AuthDispatchContext } from '../../../../context/auth/AuthState';
-import { AppDispatchContext } from '../../../../context/app/AppState';
+import { AuthDispatchContext } from '../../../../../context/auth/AuthState';
+import { AppDispatchContext } from '../../../../../context/app/AppState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GOOGLE_CLIENT_ID } from '../../../../settings';
-import { loginUser } from '../../../../utils';
+import { GOOGLE_CLIENT_ID } from '../../../../../settings';
 import { useForm } from 'react-hook-form';
+import { loginUser } from '../../../../../utils';
+
+interface LoginRHFProps {
+  authError: string;
+  authLoading: boolean;
+}
 
 interface FormData {
   email: string;
   password: string;
 }
 
-export const LoginRHF: React.FC = () => {
-  const { authLoading, authError } = useContext(AuthStateContext);
+export const LoginRHF: React.FC<LoginRHFProps> = ({ authError, authLoading }) => {
+  const { register, handleSubmit, errors } = useForm<FormData>({ mode: 'onBlur' });
+
   const authDispatch = useContext(AuthDispatchContext);
   const appDispatch = useContext(AppDispatchContext);
-
-  const { register, handleSubmit, errors } = useForm<FormData>({ mode: 'onBlur' });
 
   const onSubmit = (data: FormData): void => {
     try {

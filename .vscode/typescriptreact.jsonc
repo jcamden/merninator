@@ -19,10 +19,9 @@
       "\t$1",
       "}",
       "",
-      "const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
+      "export const $TM_FILENAME_BASE: React.FC<${TM_FILENAME_BASE}Props> = ({${1/\\:.*;/,/g}}) => {",
       "\t\treturn ( $0 );",
-      "}",
-      "export default $TM_FILENAME_BASE"
+      "}"
     ],
     "description": "tab stops (unlabeled): $1:props, $0:return; Prettier recommended;"
   },
