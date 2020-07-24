@@ -6,8 +6,8 @@ import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 're
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../../../settings';
 import { loginUser } from '../../../../utils';
-import LoadingLogo from '../../atoms/LoadingLogo/LoadingLogo';
-import DummyPage from '../../templates/DummyPage/DummyPage';
+import { LoadingLogo } from '../../atoms/LoadingLogo/LoadingLogo';
+import { DummyPage } from '../../templates/DummyPage/DummyPage';
 import { Redirect } from 'react-router-dom';
 
 const Login: React.FC = () => {

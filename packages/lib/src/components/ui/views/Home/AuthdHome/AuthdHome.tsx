@@ -1,7 +1,5 @@
 import React from 'react';
 
-const Home: React.FunctionComponent = () => {
+export const AuthdHome: React.FunctionComponent = () => {
   return <>Welcome!</>;
 };
-
-export default Home;

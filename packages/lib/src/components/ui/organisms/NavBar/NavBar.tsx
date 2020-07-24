@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { AuthStateContext } from '../../../../context/auth/AuthState';
 
-import NavStateLink from './NavLink/NavStateLink';
+import { NavStateLink } from './NavLink/NavStateLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const NavBar: React.FC = () => {
+export const NavBar: React.FC = () => {
   const { user } = useContext(AuthStateContext);
 
   const authLinks = (
@@ -41,5 +41,3 @@ const NavBar: React.FC = () => {
     </nav>
   );
 };
-
-export default NavBar;

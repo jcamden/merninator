@@ -5,8 +5,8 @@ import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 're
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../../../settings';
 import { registerUser } from '../../../../utils';
-import LoadingLogo from '../../atoms/LoadingLogo/LoadingLogo';
-import DummyPage from '../../templates/DummyPage/DummyPage';
+import { LoadingLogo } from '../../atoms/LoadingLogo/LoadingLogo';
+import { DummyPage } from '../../templates/DummyPage/DummyPage';
 import { AppDispatchContext } from '../../../../context/app/AppState';
 
 const Login: React.FC = () => {

@@ -13,7 +13,7 @@ interface FormData {
   title: string;
 }
 
-const Profile: React.FC<NewProjectModalProps> = ({ setCreatingNewProject }) => {
+export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNewProject }) => {
   // consider the unused variable warnings reminders to implement features.
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -87,5 +87,3 @@ const Profile: React.FC<NewProjectModalProps> = ({ setCreatingNewProject }) => {
     </div>
   );
 };
-
-export default Profile;

@@ -1,11 +1,11 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { validatePassword, issueJWT } from '../../../lib/utils';
-import User from '../../../models/User';
+import { User } from '../../../models/User';
 
-const router = Router();
+export const loginRouter = Router();
 
 // validate an existing user and issue a JWT
-router.post('/', (req: Request, res: Response, next: NextFunction): void => {
+loginRouter.post('/', (req: Request, res: Response, next: NextFunction): void => {
     User.findOne({ email: req.body.email })
         .then((user) => {
             if (!user) {
@@ -37,5 +37,3 @@ router.post('/', (req: Request, res: Response, next: NextFunction): void => {
             next(err);
         });
 });
-
-export default router;

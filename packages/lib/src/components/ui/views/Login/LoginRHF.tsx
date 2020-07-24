@@ -6,8 +6,6 @@ import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 're
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../../../settings';
 import { loginUser } from '../../../../utils';
-import LoadingLogo from '../../atoms/LoadingLogo/LoadingLogo';
-import DummyPage from '../../templates/DummyPage/DummyPage';
 import { useForm } from 'react-hook-form';
 
 interface FormData {
@@ -15,8 +13,8 @@ interface FormData {
   password: string;
 }
 
-const LoginRHF: React.FC = () => {
-  const { authLoading, authError, checkedAuth } = useContext(AuthStateContext);
+export const LoginRHF: React.FC = () => {
+  const { authLoading, authError } = useContext(AuthStateContext);
   const authDispatch = useContext(AuthDispatchContext);
   const appDispatch = useContext(AppDispatchContext);
 
@@ -132,7 +130,3 @@ const LoginRHF: React.FC = () => {
     </form>
   );
 };
-
-LoginRHF.propTypes = {};
-
-export default LoginRHF;

@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { AuthStateContext } from '../../../../context/auth/AuthState';
-import LoginRHF from './LoginRHF';
-import DummyPage from '../../templates/DummyPage/DummyPage';
-import LoadingLogo from '../../atoms/LoadingLogo/LoadingLogo';
+import { LoginRHF } from './LoginRHF';
+import { DummyPage } from '../../templates/DummyPage/DummyPage';
+import { LoadingLogo } from '../../atoms/LoadingLogo/LoadingLogo';
 
 interface LoginProps {}
 
-export const Login: React.FC<LoginProps> = ({}) => {
+export const Login: React.FC<LoginProps> = () => {
   const { checkedAuth, user } = useContext(AuthStateContext);
   const self = user?.self;
   return (

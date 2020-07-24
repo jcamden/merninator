@@ -5,7 +5,7 @@ interface NewProjectButtonProps {
   setCreatingNewProject: Dispatch<SetStateAction<boolean>>;
 }
 
-const NewProjectButton: React.FC<NewProjectButtonProps> = ({ children, setCreatingNewProject }) => {
+export const NewProjectButton: React.FC<NewProjectButtonProps> = ({ children, setCreatingNewProject }) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -22,4 +22,3 @@ const NewProjectButton: React.FC<NewProjectButtonProps> = ({ children, setCreati
     </h1>
   );
 };
-export default NewProjectButton;

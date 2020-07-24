@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useImmerReducer } from 'use-immer';
-import authReducer from './authReducer';
+import { authReducer } from './authReducer';
 import { createContext, Dispatch } from 'react';
 import { AuthStateInterface, AuthActions } from './types';
 import { loadUser } from '../../utils/authUtils';
@@ -33,7 +33,7 @@ export const AuthState = ({ children }: AuthStateProps): JSX.Element => {
 
   useEffect(() => {
     loadUser(authDispatch);
-  }, []);
+  }, [authDispatch]);
 
   return (
     <AuthDispatchContext.Provider value={authDispatch}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import LoadingLogo from './LoadingLogo';
+import { LoadingLogo } from './LoadingLogo';
 
 export default {
   title: 'atoms',

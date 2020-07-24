@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { issueJWT } from '../../../lib/utils';
-import User from '../../../models/User';
+import { User } from '../../../models/User';
 import axios from 'axios';
 import chalk from 'chalk';
 
-const router = Router();
+export const googleRouter = Router();
 
-router.get(
+googleRouter.get(
     '/',
     async (req, res): Promise<void> => {
         try {
@@ -92,5 +92,3 @@ router.get(
         }
     },
 );
-
-export default router;

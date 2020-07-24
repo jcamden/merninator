@@ -1,15 +1,13 @@
 import { Router } from 'express';
 
-import auth from './auth/auth';
-import google from './google/google';
-import login from './login/login';
-import register from './register/register';
+import { authRootRouter } from './auth/auth';
+import { googleRouter } from './google/google';
+import { loginRouter } from './login/login';
+import { registerRouter } from './register/register';
 
-const router = Router();
+export const authRouter = Router();
 
-router.use('/', auth);
-router.use('/google', google);
-router.use('/login', login);
-router.use('/register', register);
-
-export default router;
+authRouter.use('/', authRootRouter);
+authRouter.use('/google', googleRouter);
+authRouter.use('/login', loginRouter);
+authRouter.use('/register', registerRouter);

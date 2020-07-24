@@ -3,13 +3,13 @@ import { AppDispatchContext } from '../../../../../context/app/AppState';
 import { AuthDispatchContext } from '../../../../../context/auth/AuthState';
 import { Page } from '../../../../../context/app/types';
 
-interface NavLinkProps {
+interface NavStateLinkProps {
   text: string | JSX.Element;
   appAction?: { type: 'changePage'; payload: Page } | { type: 'other' };
   authAction?: { type: 'logOut' };
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ text, appAction, authAction }) => {
+export const NavStateLink: React.FC<NavStateLinkProps> = ({ text, appAction, authAction }) => {
   const [hovered, setHovered] = useState(false);
   const appDispatch = useContext(AppDispatchContext);
   const authDispatch = useContext(AuthDispatchContext);
@@ -34,5 +34,3 @@ const NavLink: React.FC<NavLinkProps> = ({ text, appAction, authAction }) => {
     </span>
   );
 };
-
-export default NavLink;

@@ -6,7 +6,7 @@ interface DummyPageProps {
 // I made this to present a LoadingLogo.
 // Could have other uses.
 
-const DummyPage: React.FC<DummyPageProps> = ({ children }) => {
+export const DummyPage: React.FC<DummyPageProps> = ({ children }) => {
   return (
     <div className="container">
       <div className="row">
@@ -17,5 +17,3 @@ const DummyPage: React.FC<DummyPageProps> = ({ children }) => {
     </div>
   );
 };
-
-export default DummyPage;

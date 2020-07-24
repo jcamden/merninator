@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
 
-const auth = (req: Request, res: Response, next: NextFunction): void => {
+export const auth = (req: Request, res: Response, next: NextFunction): void => {
     // get token from header
     // added x-auth-token if header is composed that way for some reason
     const token = req.header('Authorization') || req.headers['x-auth-token'];
@@ -30,5 +30,3 @@ const auth = (req: Request, res: Response, next: NextFunction): void => {
         });
     }
 };
-
-export default auth;

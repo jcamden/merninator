@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectsPage from './ProjectsPage';
+import { ProjectsPage } from './ProjectsPage';
 
 export default {
   title: 'views/Projects',

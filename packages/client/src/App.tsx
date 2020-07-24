@@ -13,7 +13,7 @@ import './utils/faLib';
 import StateRouter from './components/pages/StateRouter';
 import { ProjectsState } from './context/projects/ProjectsState';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
     <div className="App">
       <AuthState>
@@ -36,5 +36,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;

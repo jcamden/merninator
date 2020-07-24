@@ -1,7 +1,5 @@
 import React from 'react';
 
-const Home: React.FunctionComponent = () => {
+export const UnauthdHome: React.FunctionComponent = () => {
   return <>No user, punk!</>;
 };
-
-export default Home;

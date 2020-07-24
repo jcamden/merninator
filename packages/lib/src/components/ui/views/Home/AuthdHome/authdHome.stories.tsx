@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthdHome from './AuthdHome';
+import {AuthdHome} from './AuthdHome';
 
 export default {
   title: 'views',

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-interface NavLinkProps {
+interface NavHrefLinkProps {
   text: string | JSX.Element;
   href?: string;
   onClick?: () => void;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ text, href, onClick }) => {
+export const NavHrefLink: React.FC<NavHrefLinkProps> = ({ text, href, onClick }) => {
   const [hovered, setHovered] = useState(false);
   return (
     <a
@@ -20,5 +20,3 @@ const NavLink: React.FC<NavLinkProps> = ({ text, href, onClick }) => {
     </a>
   );
 };
-
-export default NavLink;

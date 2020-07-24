@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import TodoItem from './Project';
+import { Project } from './Project';
 import { ProjectsStateContext, ProjectsDispatchContext } from '../../../../context/projects/ProjectsState';
 import { AuthStateContext } from '../../../../context/auth/AuthState';
 import { Projects } from '../../../../context/projects/types';
 import { SERVER } from '../../../../settings';
-import NewProjectButton from './NewProjectButton';
+import { NewProjectButton } from './NewProjectButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import NewProjectModal from './NewProjectModal';
+import { NewProjectModal } from './NewProjectModal';
 
-const ProjectsPage: React.FC = () => {
+export const ProjectsPage: React.FC = () => {
   const { projects } = useContext(ProjectsStateContext);
   const projectsDispatch = useContext(ProjectsDispatchContext);
   const { user } = useContext(AuthStateContext);
@@ -43,12 +43,10 @@ const ProjectsPage: React.FC = () => {
               icon="plus-square"
             />
           </NewProjectButton>
-          {projects && projects.map(project => <TodoItem key={project.title} {...project} />)}
+          {projects && projects.map(project => <Project key={project.title} {...project} />)}
         </div>
       </div>
       {creatingNewProject && <NewProjectModal setCreatingNewProject={setCreatingNewProject} />}
     </>
   );
 };
-
-export default ProjectsPage;

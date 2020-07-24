@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import { ProjectsDispatchContext } from '../../../../context/projects/ProjectsState';
 
-export type TodoItemProps = {
+export type ProjectProps = {
   title: string;
   completed: boolean;
 };
 
-const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
+export const Project: React.FC<ProjectProps> = ({ title, completed }) => {
   const projectsDispatch = useContext(ProjectsDispatchContext);
 
   return (
-    <div className="todoItem">
+    <div>
       <input
         type="checkbox"
         checked={completed}
@@ -23,5 +23,3 @@ const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
     </div>
   );
 };
-
-export default TodoItem;

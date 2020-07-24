@@ -42,5 +42,4 @@ export interface IUser extends Document {
 // linked document types
 // export interface IUser extends IUserBase{};
 
-const User = model<IUser>('User', UserSchema);
-export default User;
+export const User = model<IUser>('User', UserSchema);

@@ -17,7 +17,7 @@ interface FormData {
   password2: string;
 }
 
-const RegisterRHF: React.FC = () => {
+export const RegisterRHF: React.FC = () => {
   const { authLoading, authError, user } = useContext(AuthStateContext);
   const self = user?.self;
   const authDispatch = useContext(AuthDispatchContext);
@@ -211,4 +211,3 @@ const RegisterRHF: React.FC = () => {
     </div>
   );
 };
-export default RegisterRHF;

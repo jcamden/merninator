@@ -36,5 +36,4 @@ export interface IProject extends IProjectBase {
     user: IUser['_id'];
 }
 
-const Project = model<IProject>('Project', ProjectSchema);
-export default Project;
+export const Project = model<IProject>('Project', ProjectSchema);

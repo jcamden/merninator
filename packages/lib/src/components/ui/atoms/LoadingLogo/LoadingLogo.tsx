@@ -4,7 +4,7 @@ interface LoadingLogoProps {
   size?: number;
 }
 
-const LoadingLogo: React.FC<LoadingLogoProps> = ({ size }) => {
+export const LoadingLogo: React.FC<LoadingLogoProps> = ({ size }) => {
   return (
     <img
       style={{ height: `${size}em` }}
@@ -14,5 +14,3 @@ const LoadingLogo: React.FC<LoadingLogoProps> = ({ size }) => {
     />
   );
 };
-
-export default LoadingLogo;

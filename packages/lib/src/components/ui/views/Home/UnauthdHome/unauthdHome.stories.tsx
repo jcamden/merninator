@@ -1,5 +1,5 @@
 import React from 'react';
-import UnauthdHome from './UnauthdHome';
+import { UnauthdHome } from './UnauthdHome';
 
 export default {
   title: 'views',

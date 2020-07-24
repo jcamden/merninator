@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express';
-import Project from '../../../models/Project';
-import auth from '../../../middleware/auth';
+import { Project } from '../../../models/Project';
+import { auth } from '../../../middleware/auth';
 
-const router = Router();
+export const putProjectRouter = Router();
 
-router.put('/:projectId', auth, async (req: Request, res: Response) => {
+putProjectRouter.put('/:projectId', auth, async (req: Request, res: Response) => {
     try {
         const oldProject = await Project.findOne({ _id: req.params.projectId });
         if (oldProject.user === req.sub) {
@@ -33,5 +33,3 @@ router.put('/:projectId', auth, async (req: Request, res: Response) => {
         res.status(404).json({ success: false, msg: 'project not found', err: err });
     }
 });
-
-export default router;

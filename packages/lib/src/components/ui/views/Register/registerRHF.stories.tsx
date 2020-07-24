@@ -1,9 +1,9 @@
 import React from 'react';
-import RegisterRHFState from './RegisterRHF';
+import { RegisterRHF } from './RegisterRHF';
 
 export default {
   title: 'views/Projects',
-  component: RegisterRHFState,
+  component: RegisterRHF,
 };
 
-export const projectsPage = () => <RegisterRHFState />;
+export const projectsPage = () => <RegisterRHF />;

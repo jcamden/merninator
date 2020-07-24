@@ -1,27 +1,8 @@
 import React, { ReactNode } from 'react';
 import { useImmerReducer } from 'use-immer';
-import projectsReducer from './projectsReducer';
+import { projectsReducer } from './projectsReducer';
 import { createContext, Dispatch } from 'react';
 import { IProjectsState, ProjectsActions } from './types';
-
-// const projects = [
-//   {
-//     title: 'milk the fish',
-//     completed: true,
-//   },
-//   {
-//     title: 'read the cheese',
-//     completed: false,
-//   },
-//   {
-//     title: 'organize the cat-ninjas',
-//     completed: false,
-//   }
-//   {
-//     title: 'scold someone',
-//     completed: false,
-//   },
-// ];
 
 const initialState: IProjectsState = {
   projects: [],

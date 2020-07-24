@@ -1,10 +1,10 @@
 import { Router, Request, Response } from 'express';
-import User from '../../../models/User';
-import auth from '../../../middleware/auth';
+import { User } from '../../../models/User';
+import { auth } from '../../../middleware/auth';
 
-const router = Router();
+export const authRootRouter = Router();
 
-router.get('/', auth, async (req: Request, res: Response) => {
+authRootRouter.get('/', auth, async (req: Request, res: Response) => {
     try {
         const user = await User.findOne({ _id: req.sub });
         res.status(200).json({
@@ -21,5 +21,3 @@ router.get('/', auth, async (req: Request, res: Response) => {
         res.status(404).json({ success: false, msg: 'user not found', err: err });
     }
 });
-
-export default router;

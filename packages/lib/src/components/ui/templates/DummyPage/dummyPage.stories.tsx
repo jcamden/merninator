@@ -1,5 +1,5 @@
 import React from 'react';
-import DummyPage from './DummyPage';
+import { DummyPage } from './DummyPage';
 
 export default {
   title: 'templates',

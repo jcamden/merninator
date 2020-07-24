@@ -1,11 +1,11 @@
 import { Router, Request, Response } from 'express';
 import { genPassword, issueJWT } from '../../../lib/utils';
-import User from '../../../models/User';
+import { User } from '../../../models/User';
 import chalk from 'chalk';
 
-const router = Router();
+export const registerRouter = Router();
 
-router.post(
+registerRouter.post(
     '/',
     async (req: Request, res: Response): Promise<void> => {
         const { password, givenName, familyName, email } = req.body;
@@ -53,5 +53,3 @@ router.post(
         }
     },
 );
-
-export default router;

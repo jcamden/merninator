@@ -1,11 +1,11 @@
 // import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 // import fs from 'fs';
-import path from 'path';
+// import path from 'path';
 import { PassportStatic } from 'passport';
-import User from '../models/User';
+import { User } from '../models/User';
 
-const pathToKey = path.join(__dirname, '../../security/jwt/', 'id_rsa_pub.pem');
+// const pathToKey = path.join(__dirname, '../../security/jwt/', 'id_rsa_pub.pem');
 // const PUB_KEY = fs.readFileSync(pathToKey, 'utf8');
 
 // full passport options object
@@ -42,7 +42,7 @@ const googleOptions = {
 };
 
 // app.js will pass the global passport object here, and this function will configure it
-export default (passport: PassportStatic): void => {
+export const configPassport = (passport: PassportStatic): void => {
     passport.use(
         new GoogleStrategy(googleOptions, (req, accessToken, refreshToken, profile, done) => {
             User.findOne(

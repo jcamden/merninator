@@ -1,5 +1,5 @@
 import React from 'react';
-import Profile from './Profile';
+import { Profile } from './Profile';
 
 export default {
   title: 'views',

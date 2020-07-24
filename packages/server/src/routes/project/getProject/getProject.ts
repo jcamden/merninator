@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import Project from '../../../models/Project';
-import auth from '../../../middleware/auth';
+import { Project } from '../../../models/Project';
+import { auth } from '../../../middleware/auth';
 
-const router = Router();
+export const getProjectRouter = Router();
 
-router.get('/:projectId', auth, async (req, res) => {
+getProjectRouter.get('/:projectId', auth, async (req, res) => {
     try {
         //get array of projects with user matching req.user.id; sort newest first
         const project = await Project.findOne({ user: req.sub, _id: req.params.projectId }).sort({
@@ -17,5 +17,3 @@ router.get('/:projectId', auth, async (req, res) => {
         res.status(500).send({ success: false, msg: 'mysterious server error', err: err });
     }
 });
-
-export default router;

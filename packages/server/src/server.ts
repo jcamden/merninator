@@ -1,11 +1,11 @@
 import express from 'express';
-import options from './config/corsOptions';
+import { corsOptions } from './config/corsOptions';
 import cors from 'cors';
 import passport from 'passport';
-import configurePassport from './config/passport';
+import { configPassport } from './config/passport';
 import router from './routes/routes';
 import './config/database';
-import consoleLogo from './lib/consoleLogo';
+import { consoleLogo } from './lib/consoleLogo';
 import https from 'https';
 import { readFileSync } from 'fs';
 import { resolve, join } from 'path';
@@ -15,14 +15,14 @@ import chalk from 'chalk';
 const app = express();
 
 // init middleware
-app.use(cors(options));
+app.use(cors(corsOptions));
 app.use(express.static(__dirname + '/../public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // init passport
 // pass the global passport object into the configuration function
-configurePassport(passport);
+configPassport(passport);
 // init passport object on every request
 app.use(passport.initialize());
 

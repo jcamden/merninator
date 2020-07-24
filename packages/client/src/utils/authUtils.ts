@@ -85,10 +85,12 @@ export const loadUser = async (authDispatch: Dispatch<AuthActions>): Promise<voi
           user: res.data.user,
         },
       });
+      // Probably need to make this error handling more specific:
+      // Is the server offline, or was the token bad, etc.?
     } catch (err) {
       console.log('loadUser had the following error:');
       console.log(err);
-      authDispatch({ type: 'authError', payload: err.response.data.msg });
+      authDispatch({ type: 'authError', payload: err });
     }
   } else {
     authDispatch({ type: 'noToken' });
