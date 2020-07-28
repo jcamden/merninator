@@ -2,7 +2,6 @@ import React, { useState, Dispatch, SetStateAction, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { ProjectsDispatchContext } from '../../../context/projects/ProjectsState';
 import Axios from 'axios';
-import { AuthStateContext } from '../../../context/auth/AuthState';
 import { SERVER } from '../../../settings';
 
 interface NewProjectModalProps {
@@ -16,22 +15,31 @@ interface FormData {
 export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNewProject }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  // need to add project dispatch to dispatch provider
   const projectDispatch = useContext(ProjectsDispatchContext);
-  const { user } = useContext(AuthStateContext);
 
   const { register, handleSubmit, errors } = useForm<FormData>({ mode: 'onBlur' });
 
-  const onSubmit = async (data: FormData): Promise<void> => {
-    try {
-      await Axios.post(`${SERVER}/project`, data);
-
-      projectDispatch({ type: 'addProject', payload: { ...data, completed: false } });
-      setCreatingNewProject(false);
-    } catch (error) {}
+  const close = (): void => {
+    setCreatingNewProject(false);
   };
 
-  const close = () => {
-    setCreatingNewProject(false);
+  const onSubmit = async (data: FormData): Promise<void> => {
+    if (success) {
+      close();
+    } else {
+      try {
+        setLoading(true);
+        await Axios.post(`${SERVER}/project`, data);
+        console.log({ date: new Date() });
+        projectDispatch({
+          type: 'addProject',
+          payload: { _id: 'placeholder', ...data, completed: false, createdAt: "placeholder", updatedAt: "placeholder" },
+        });
+        setLoading(false);
+        setSuccess(true);
+      } catch (error) {}
+    }
   };
 
   return (
@@ -50,13 +58,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNew
         <div className="modal-content">
           <div className="modal-header font-header">
             <h3 className="modal-title">Create a Project</h3>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-label="Close"
-              onClick={(): void => close()}
-            >
+            <button type="button" className="close" onClick={(): void => close()}>
               <span aria-hidden="true" style={{ fontSize: '2rem' }}>
                 &times;
               </span>
@@ -75,8 +77,12 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNew
               />
             </div>
             <div className="modal-footer">
-              <button className="submit btn btn-primary btn-block" type="submit" disabled={loading}>
-                {success ? 'Created' : loading ? 'Creating...' : 'Create'}
+              <button
+                className={`submit btn btn-block ${success ? 'btn-success' : 'btn-primary'}`}
+                type="submit"
+                disabled={loading}
+              >
+                {success ? 'Project Created' : loading ? 'Creating Project...' : 'Create Project'}
               </button>
             </div>
           </form>

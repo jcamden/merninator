@@ -1,6 +1,9 @@
 export interface Project {
+  _id: string;
   title: string;
   completed: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type Projects = Project[];

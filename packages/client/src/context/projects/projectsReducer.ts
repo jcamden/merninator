@@ -1,5 +1,4 @@
 import { IProjectsState, ProjectsActions } from './types';
-import Axios from 'axios';
 
 export const projectsReducer = (draft: IProjectsState, action: ProjectsActions): void => {
   switch (action.type) {

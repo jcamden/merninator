@@ -29,7 +29,11 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch }) => {
         return body;
       }
       const usersProjects = await get<Projects>(`${SERVER}${user?.self}/projects`);
-      projectsDispatch({ type: 'setProjects', payload: usersProjects });
+      console.log(usersProjects);
+      projectsDispatch({
+        type: 'setProjects',
+        payload: usersProjects.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt)),
+      });
     })();
   }, []);
 
