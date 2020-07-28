@@ -1,7 +1,7 @@
 import { IProjectsState, ProjectsActions } from './types';
 import Axios from 'axios';
 
-const projectsReducer = (draft: IProjectsState, action: ProjectsActions): void => {
+export const projectsReducer = (draft: IProjectsState, action: ProjectsActions): void => {
   switch (action.type) {
     // Set projects is called when the projects page loads
     // If there are no projects matching the User._id, the state.projects ends up undefined
@@ -25,5 +25,3 @@ const projectsReducer = (draft: IProjectsState, action: ProjectsActions): void =
     }
   }
 };
-
-export default projectsReducer;

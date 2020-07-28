@@ -40,5 +40,3 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return <Route exact path={path} component={component} />;
   }
 };
-
-export default ProtectedRoute;

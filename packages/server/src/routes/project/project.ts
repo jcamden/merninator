@@ -4,11 +4,9 @@ import { putProjectRouter } from './putProject/putProject';
 import { deleteProjectRouter } from './deleteProject/deleteProject';
 import { postProjectRouter } from './postProject/postProject';
 
-const router = Router();
+export const projectRouter = Router();
 
-router.use('/', getProjectRouter);
-router.use('/', postProjectRouter);
-router.use('/', putProjectRouter);
-router.use('/', deleteProjectRouter);
-
-export default router;
+projectRouter.use('/', getProjectRouter);
+projectRouter.use('/', postProjectRouter);
+projectRouter.use('/', putProjectRouter);
+projectRouter.use('/', deleteProjectRouter);

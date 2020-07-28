@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useImmerReducer } from 'use-immer';
-import projectsReducer from './projectsReducer';
+import { projectsReducer } from './projectsReducer';
 import { createContext, Dispatch } from 'react';
 import { IProjectsState, ProjectsActions } from './types';
 

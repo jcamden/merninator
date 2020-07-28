@@ -10,7 +10,7 @@ import { LoadingLogo } from '../../atoms/LoadingLogo/LoadingLogo';
 import { DummyPage } from '../../templates/DummyPage/DummyPage';
 import { Redirect } from 'react-router-dom';
 
-const Login: React.FC = () => {
+export const LoginVanillaLegacy: React.FC = () => {
   const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
   const authDispatch = useContext(AuthDispatchContext);
   const appDispatch = useContext(AppDispatchContext);
@@ -164,7 +164,3 @@ const Login: React.FC = () => {
     </>
   );
 };
-
-Login.propTypes = {};
-
-export default Login;

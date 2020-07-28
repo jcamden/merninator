@@ -1,35 +1,38 @@
 import React, { useContext } from 'react';
-import { AuthStateContext, AuthDispatchContext } from '../../../context/auth/AuthState';
-import { AppDispatchContext } from '../../../context/app/AppState';
+import { AuthStateContext } from '../../../context/auth/AuthState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../../settings';
 import { loginUser } from '../../../utils';
-import LoadingLogo from '../../layout/LoadingLogo';
-import DummyPage from '../../layout/DummyPage';
+import {LoadingLogo} from '../../layout/LoadingLogo';
+import {DummyPage} from '../../layout/DummyPage';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { AuthActions, AuthActionTypes } from '../../../context/auth/types';
+import { AppActions, AppActionTypes } from '../../../context/app/types';
 
 interface FormData {
   email: string;
   password: string;
 }
 
-const LoginRHF: React.FC = ({}) => {
+interface LoginRHFProps {
+  dispatch: (arg0: AuthActions | AppActions) => void;
+}
+
+export const LoginRHF: React.FC<LoginRHFProps> = ({ dispatch }) => {
   const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
   const self = user?.self;
-  const authDispatch = useContext(AuthDispatchContext);
-  const appDispatch = useContext(AppDispatchContext);
 
   const { register, handleSubmit, errors } = useForm<FormData>({ mode: 'onBlur' });
 
   const onSubmit = (data: FormData): void => {
     try {
-      loginUser(data, authDispatch, appDispatch);
+      loginUser(data, dispatch);
     } catch (err) {
       console.log(err);
-      authDispatch({ type: 'authError', payload: err.response.data.msg });
+      dispatch({ type: AuthActionTypes.authError, payload: err.response.data.msg });
     }
   };
 
@@ -54,17 +57,17 @@ const LoginRHF: React.FC = ({}) => {
               idToken: response.tokenId,
             },
           });
-          authDispatch({
-            type: 'loginSuccess',
+          dispatch({
+            type: AuthActionTypes.loginSuccess,
             payload: res.data,
           });
-          appDispatch({
-            type: 'changePage',
+          dispatch({
+            type: AppActionTypes.changePage,
             payload: 'home',
           });
         })();
       } catch (err) {
-        authDispatch({ type: 'authError', payload: err.response.data.msg });
+        dispatch({ type: AuthActionTypes.authError, payload: err.response.data.msg });
       }
       // this is from GoogleLoginResponseOffline
     } else {
@@ -166,7 +169,3 @@ const LoginRHF: React.FC = ({}) => {
     </>
   );
 };
-
-LoginRHF.propTypes = {};
-
-export default LoginRHF;

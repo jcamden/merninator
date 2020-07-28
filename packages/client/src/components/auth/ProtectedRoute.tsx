@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
 import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
+import { AuthActionTypes } from '../../context/auth/types';
 
 export interface ProtectedRouteProps extends RouteProps {
   isAllowed?: boolean;
@@ -20,7 +21,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const { user, authLoading } = useContext(AuthStateContext);
   const authDispatch = useContext(AuthDispatchContext);
 
-  authDispatch({ type: 'authLoading' });
+  authDispatch({ type: AuthActionTypes.authLoading, payload: {} });
 
   const getRedirectPath = (): string | undefined => {
     if (user?.self === 'guest' && !authLoading) {
@@ -34,11 +35,9 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   if (redirectPath) {
     const redirectComponent: React.FC = () => <Redirect to={{ pathname: redirectPath }} />;
-    authDispatch({ type: 'authNotLoading' });
+    authDispatch({ type: AuthActionTypes.authNotLoading, payload: {} });
     return <Route exact component={redirectComponent} render={undefined} />;
   } else {
     return <Route exact path={path} component={component} />;
   }
 };
-
-export default ProtectedRoute;

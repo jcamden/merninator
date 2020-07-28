@@ -4,10 +4,8 @@ import { putUserRouter } from './putUser/putUser';
 import { deleteUserRouter } from './deleteUser/deleteUser';
 import { getUsersProjectsRouter } from './getUsersProjects/getUsersProjects';
 
-const router = Router();
+export const userRouter = Router();
 
-router.use('/', putUserRouter);
-router.use('/', deleteUserRouter);
-router.use('/', getUsersProjectsRouter);
-
-export default router;
+userRouter.use('/', putUserRouter);
+userRouter.use('/', deleteUserRouter);
+userRouter.use('/', getUsersProjectsRouter);

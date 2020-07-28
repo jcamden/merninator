@@ -1,9 +1,9 @@
 import React, { ReactNode, useEffect } from 'react';
 import { useImmerReducer } from 'use-immer';
-import authReducer from './authReducer';
+import { authReducer } from './authReducer';
 import { createContext, Dispatch } from 'react';
 import { AuthStateInterface, AuthActions } from './types';
-import { loadUser } from '../../utils/authUtils';
+import { loadUserAuthDispatch } from '../../utils/authUtils';
 
 // really todos belongs in a separate context
 // and it should be informed by a GET request
@@ -32,7 +32,7 @@ export const AuthState = ({ children }: AuthStateProps): JSX.Element => {
   const [authState, authDispatch] = useImmerReducer(authReducer, initialState);
 
   useEffect(() => {
-    loadUser(authDispatch);
+    loadUserAuthDispatch(authDispatch);
   }, []);
 
   return (

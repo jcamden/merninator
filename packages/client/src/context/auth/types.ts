@@ -22,15 +22,37 @@ export interface LoginSuccess {
   expiresIn: string;
 }
 
+export enum AuthActionTypes {
+  login = 'login',
+  logOut = 'logOut',
+  registerFail = 'registerFail',
+  authLoading = 'authLoading',
+  authNotLoading = 'authNotLoading',
+  noToken = 'noToken',
+  registerSuccess = 'registerSuccess',
+  loginSuccess = 'loginSuccess',
+  loginFail = 'loginFail',
+  field = 'field',
+  userLoaded = 'userLoaded',
+  authError = 'authError',
+}
+
 export type AuthActions =
   | {
-      type: 'login' | 'logOut' | 'registerFail' | 'authLoading' | 'authNotLoading' | 'noToken';
+      type:
+        | AuthActionTypes.login
+        | AuthActionTypes.logOut
+        | AuthActionTypes.registerFail
+        | AuthActionTypes.authLoading
+        | AuthActionTypes.authNotLoading
+        | AuthActionTypes.noToken;
+      payload: {};
     }
-  | { type: 'registerSuccess'; payload: LoginSuccess }
-  | { type: 'registerFail'; payload: string }
-  | { type: 'loginSuccess'; payload: LoginSuccess }
-  // | { type: 'googleLoginSuccess'; payload: { user: User } }
-  | { type: 'loginFail'; payload: string }
-  | { type: 'field'; fieldName: 'email' | 'password'; payload: string }
-  | { type: 'userLoaded'; payload: { user: User } }
-  | { type: 'authError'; payload: string };
+  | { type: AuthActionTypes.registerSuccess; payload: LoginSuccess }
+  | { type: AuthActionTypes.registerFail; payload: string }
+  | { type: AuthActionTypes.loginSuccess; payload: LoginSuccess }
+  | { type: AuthActionTypes.loginFail; payload: string }
+  // gonna need to move fieldName to payload
+  | { type: AuthActionTypes.field; payload: { fieldName: 'email' | 'password'; value: string } }
+  | { type: AuthActionTypes.userLoaded; payload: { user: User } }
+  | { type: AuthActionTypes.authError; payload: string };

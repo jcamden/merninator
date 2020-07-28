@@ -3,7 +3,7 @@ import { corsOptions } from './config/corsOptions';
 import cors from 'cors';
 import passport from 'passport';
 import { configPassport } from './config/passport';
-import router from './routes/routes';
+import { router } from './routes/routes';
 import './config/database';
 import { consoleLogo } from './lib/consoleLogo';
 import https from 'https';

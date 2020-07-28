@@ -1,16 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import TodoItem from './Project';
+import { Project } from './Project';
 import { ProjectsStateContext, ProjectsDispatchContext } from '../../../context/projects/ProjectsState';
-import axios, { AxiosError } from 'axios';
 import { AuthStateContext } from '../../../context/auth/AuthState';
 import { Projects } from '../../../context/projects/types';
 import { SERVER } from '../../../settings';
-import NewProjectButton from './NewProjectButton';
+import { NewProjectButton } from './NewProjectButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import NewProjectModal from './NewProjectModal';
-import { ensureType } from '../../../utils';
+import { NewProjectModal } from './NewProjectModal';
+import { AuthActions } from '../../../context/auth/types';
+import { AppActions } from '../../../context/app/types';
 
-const ProjectsPage: React.FC = () => {
+interface ProjectsPageProps {
+  dispatch: (arg0: AuthActions | AppActions) => void;
+}
+
+export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch }) => {
   const { projects } = useContext(ProjectsStateContext);
   const projectsDispatch = useContext(ProjectsDispatchContext);
   const { user } = useContext(AuthStateContext);
@@ -45,12 +49,10 @@ const ProjectsPage: React.FC = () => {
               icon="plus-square"
             />
           </NewProjectButton>
-          {projects && projects.map(project => <TodoItem key={project.title} {...project} />)}
+          {projects && projects.map(project => <Project key={project.title} {...project} dispatch={dispatch} />)}
         </div>
       </div>
       {creatingNewProject && <NewProjectModal setCreatingNewProject={setCreatingNewProject} />}
     </>
   );
 };
-
-export default ProjectsPage;

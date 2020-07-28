@@ -9,7 +9,7 @@ import { LoadingLogo } from '../../atoms/LoadingLogo/LoadingLogo';
 import { DummyPage } from '../../templates/DummyPage/DummyPage';
 import { AppDispatchContext } from '../../../../context/app/AppState';
 
-const Login: React.FC = () => {
+export const RegisterVanilla: React.FC = () => {
   const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
   const authDispatch = useContext(AuthDispatchContext);
   const appDispatch = useContext(AppDispatchContext);
@@ -201,7 +201,3 @@ const Login: React.FC = () => {
     </>
   );
 };
-
-Login.propTypes = {};
-
-export default Login;

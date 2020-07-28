@@ -22,9 +22,14 @@ export interface LoginSuccess {
   expiresIn: string;
 }
 
+export enum AuthActionTypes {
+  login = 'login',
+  logout = 'logout',
+}
+
 export type AuthActions =
   | {
-      type: 'login' | 'logOut' | 'registerFail' | 'authLoading' | 'authNotLoading' | 'noToken';
+      type: AuthActionTypes.login | 'logOut' | 'registerFail' | 'authLoading' | 'authNotLoading' | 'noToken';
     }
   | { type: 'registerSuccess'; payload: LoginSuccess }
   | { type: 'registerFail'; payload: string }

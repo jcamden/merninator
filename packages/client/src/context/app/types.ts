@@ -4,9 +4,14 @@ export interface AppStateInterface {
   page: Page;
 }
 
+export enum AppActionTypes {
+  changePage = 'changePage',
+  other = 'other',
+}
+
 export type AppActions =
   | {
-      type: 'changePage';
+      type: AppActionTypes.changePage;
       payload: Page;
     }
-  | { type: 'other' };
+  | { type: AppActionTypes.other; payload: {} };

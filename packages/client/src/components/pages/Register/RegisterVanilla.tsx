@@ -1,18 +1,22 @@
 import React, { useContext, useState } from 'react';
-import { AuthStateContext, AuthDispatchContext } from '../../../context/auth/AuthState';
+import { AuthStateContext } from '../../../context/auth/AuthState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../../settings';
 import { registerUser } from '../../../utils';
-import LoadingLogo from '../../layout/LoadingLogo';
-import DummyPage from '../../layout/DummyPage';
-import { AppDispatchContext } from '../../../context/app/AppState';
+import { LoadingLogo } from '../../layout/LoadingLogo';
+import { DummyPage } from '../../layout/DummyPage';
+import { AuthActions, AuthActionTypes } from '../../../context/auth/types';
+import { AppActions } from '../../../context/app/types';
 
-const Login: React.FC = ({}) => {
+interface LoginVanillaProps {
+  dispatch: (arg0: AuthActions | AppActions) => void;
+}
+
+export const LoginVanilla: React.FC<LoginVanillaProps> = ({ dispatch }) => {
   const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
-  const authDispatch = useContext(AuthDispatchContext);
-  const appDispatch = useContext(AppDispatchContext);
+
   const [fields, setFields] = useState({
     givenName: '',
     familyName: '',
@@ -30,21 +34,21 @@ const Login: React.FC = ({}) => {
     e.preventDefault();
     if (givenName === '' || familyName === '' || email === '' || password === '') {
       console.log('hello');
-      authDispatch({
-        type: 'authError',
+      dispatch({
+        type: AuthActionTypes.authError,
         payload: 'Missing fields :(',
       });
     } else if (password !== password2) {
-      authDispatch({
-        type: 'authError',
+      dispatch({
+        type: AuthActionTypes.authError,
         payload: 'Passwords do not match :(',
       });
     } else {
       try {
-        registerUser({ givenName, familyName, email, password, password2 }, authDispatch, appDispatch);
+        registerUser({ givenName, familyName, email, password, password2 }, dispatch);
         // authDispatch({ type: 'success' });
       } catch (err) {
-        authDispatch({ type: 'authError', payload: err.response.data.msg });
+        dispatch({ type: AuthActionTypes.authError, payload: err.response.data.msg });
       }
     }
   };
@@ -71,13 +75,13 @@ const Login: React.FC = ({}) => {
             },
           });
 
-          authDispatch({
-            type: 'loginSuccess',
+          dispatch({
+            type: AuthActionTypes.loginSuccess,
             payload: res.data,
           });
         })();
       } catch (err) {
-        authDispatch({ type: 'authError', payload: err.response.data.msg });
+        dispatch({ type: AuthActionTypes.authError, payload: err.response.data.msg });
       }
       // this is from GoogleLoginResponseOffline
     } else {
@@ -94,7 +98,10 @@ const Login: React.FC = ({}) => {
             {user ? (
               <>
                 <h1>Welcome {user.givenName}!</h1>
-                <button className="btn btn-primary" onClick={(): void => authDispatch({ type: 'logOut' })}>
+                <button
+                  className="btn btn-primary"
+                  onClick={(): void => dispatch({ type: AuthActionTypes.logOut, payload: {} })}
+                >
                   Log Out
                 </button>
               </>
@@ -201,7 +208,3 @@ const Login: React.FC = ({}) => {
     </>
   );
 };
-
-Login.propTypes = {};
-
-export default Login;

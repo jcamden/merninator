@@ -1,18 +1,23 @@
 import React, { useContext } from 'react';
-import { AppStateContext, AppDispatchContext } from '../../context/app/AppState';
-import Home from './Home/AuthdHome';
-import LoginRHF from './Login/LoginRHF';
-import RegisterRHF from './Register/RegisterRHF';
-import ProjectsPage from './Projects/ProjectsPage';
-import Profile from './Profile/Profile';
-import Check from '../auth/Check';
-import LoadingLogo from '../layout/LoadingLogo';
-import UnauthdHome from './Home/UnauthdHome';
-import AuthdHome from './Home/AuthdHome';
+import { AppStateContext } from '../../context/app/AppState';
+import { LoginRHF } from './Login/LoginRHF';
+import { RegisterRHF } from './Register/RegisterRHF';
+import { ProjectsPage } from './Projects/ProjectsPage';
+import { Profile } from './Profile/Profile';
+import { CheckAuth } from '../auth/CheckAuth';
+import { LoadingLogo } from '../layout/LoadingLogo';
+import { UnauthdHome } from './Home/UnauthdHome';
+import { AuthdHome } from './Home/AuthdHome';
+import { AuthActions } from '../../context/auth/types';
+import { AppActions, AppActionTypes } from '../../context/app/types';
 
-const StateRouter: React.FC = () => {
+interface StateRouterProps {
+  dispatch: (arg0: AuthActions | AppActions) => void;
+}
+
+export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
   const { page } = useContext(AppStateContext);
-  const appDispatch = useContext(AppDispatchContext);
+  // const appDispatch = useContext(AppDispatchContext);
 
   switch (page) {
     case 'home': {
@@ -20,26 +25,36 @@ const StateRouter: React.FC = () => {
       // It nests the state routing essentially. The preInitAuth component prop is good for a landing page,
       // although it might actually be smart to move the preInitAuth component rendering to the global StateRouter.
       // Maybe I'll do that, actually.
-      return <Check preInitAuth={<LoadingLogo />} noUser={<UnauthdHome />} component={<AuthdHome />} />;
+      return (
+        <CheckAuth
+          preInitAuth={<LoadingLogo />}
+          noUser={<UnauthdHome dispatch={dispatch} />}
+          component={<AuthdHome dispatch={dispatch} />}
+        />
+      );
     }
     case 'login': {
-      return <LoginRHF />;
+      return <LoginRHF dispatch={dispatch} />;
     }
     case 'register': {
-      return <RegisterRHF />;
+      return <RegisterRHF dispatch={dispatch} />;
     }
     case 'projects': {
-      return <ProjectsPage />;
+      return <ProjectsPage dispatch={dispatch} />;
     }
     case 'profile': {
-      return <Profile />;
+      return <Profile dispatch={dispatch} />;
     }
     default: {
       // shouldn't be possible, but just in case.
-      appDispatch({ type: 'changePage', payload: 'home' });
-      return <Home />;
+      dispatch({ type: AppActionTypes.changePage, payload: 'home' });
+      return (
+        <CheckAuth
+          preInitAuth={<LoadingLogo />}
+          noUser={<UnauthdHome dispatch={dispatch} />}
+          component={<AuthdHome dispatch={dispatch} />}
+        />
+      );
     }
   }
 };
-
-export default StateRouter;

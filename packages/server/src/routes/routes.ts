@@ -1,13 +1,11 @@
 import express from 'express';
 
 import { authRouter } from './auth/auth';
-import user from './user/user';
-import project from './project/project';
+import { userRouter } from './user/user';
+import { projectRouter } from './project/project';
 
-const router = express.Router();
+export const router = express.Router();
 
 router.use('/auth', authRouter);
-router.use('/user', user);
-router.use('/project', project);
-
-export default router;
+router.use('/user', userRouter);
+router.use('/project', projectRouter);

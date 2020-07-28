@@ -1,12 +1,11 @@
 import { Dispatch } from 'react';
 import axios from 'axios';
-import { AuthActions } from '../context/auth/types';
-import { AppActions } from '../context/app/types';
+import { AuthActions, AuthActionTypes } from '../context/auth/types';
+import { AppActions, AppActionTypes } from '../context/app/types';
 
 export const registerUser = async (
   data: { givenName: string; familyName: string; email: string; password: string; password2: string },
-  authDispatch: Dispatch<AuthActions>,
-  appDispatch: Dispatch<AppActions>,
+  dispatch: (arg0: AuthActions | AppActions) => void,
 ): Promise<void> => {
   const config = {
     headers: {
@@ -17,17 +16,17 @@ export const registerUser = async (
   try {
     const res = await axios.post('https://localhost:5000/auth/register', data, config);
 
-    authDispatch({
-      type: 'registerSuccess',
+    dispatch({
+      type: AuthActionTypes.registerSuccess,
       payload: res.data,
     });
-    appDispatch({
-      type: 'changePage',
+    dispatch({
+      type: AppActionTypes.changePage,
       payload: 'home',
     });
   } catch (err) {
-    authDispatch({
-      type: 'authError',
+    dispatch({
+      type: AuthActionTypes.authError,
       payload: err.response.data.msg,
     });
   }
@@ -36,8 +35,7 @@ export const registerUser = async (
 // Login User
 export const loginUser = async (
   formData: { email: string; password: string },
-  authDispatch: Dispatch<AuthActions>,
-  appDispatch: Dispatch<AppActions>,
+  dispatch: (arg0: AuthActions | AppActions) => void,
 ): Promise<void> => {
   const config = {
     headers: {
@@ -47,17 +45,17 @@ export const loginUser = async (
 
   try {
     const res = await axios.post('https://localhost:5000/auth/login', formData, config);
-    authDispatch({
-      type: 'loginSuccess',
+    dispatch({
+      type: AuthActionTypes.loginSuccess,
       payload: res.data,
     });
-    appDispatch({
-      type: 'changePage',
+    dispatch({
+      type: AppActionTypes.changePage,
       payload: 'home',
     });
   } catch (err) {
-    authDispatch({
-      type: 'authError',
+    dispatch({
+      type: AuthActionTypes.authError,
       payload: err.response.data.msg,
     });
   }
@@ -73,14 +71,14 @@ export const setAuthToken = (token: string): void => {
 };
 
 // Load User
-export const loadUser = async (authDispatch: Dispatch<AuthActions>): Promise<void> => {
+export const loadUser = async (dispatch: (arg0: AuthActions | AppActions) => void): Promise<void> => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
     try {
       const res = await axios.get('https://localhost:5000/auth');
       console.log(res.data.user);
-      authDispatch({
-        type: 'userLoaded',
+      dispatch({
+        type: AuthActionTypes.userLoaded,
         payload: {
           user: res.data.user,
         },
@@ -90,9 +88,35 @@ export const loadUser = async (authDispatch: Dispatch<AuthActions>): Promise<voi
     } catch (err) {
       console.log('loadUser had the following error:');
       console.log(err);
-      authDispatch({ type: 'authError', payload: err });
+      dispatch({ type: AuthActionTypes.authError, payload: err });
     }
   } else {
-    authDispatch({ type: 'noToken' });
+    dispatch({ type: AuthActionTypes.noToken, payload: {} });
+  }
+};
+
+// Load User via AuthDispatch
+// The generic dispatch is not yet available when initializing the authState
+export const loadUserAuthDispatch = async (authDispatch: Dispatch<AuthActions>): Promise<void> => {
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+    try {
+      const res = await axios.get('https://localhost:5000/auth');
+      console.log(res.data.user);
+      authDispatch({
+        type: AuthActionTypes.userLoaded,
+        payload: {
+          user: res.data.user,
+        },
+      });
+      // Probably need to make this error handling more specific:
+      // Is the server offline, or was the token bad, etc.?
+    } catch (err) {
+      console.log('loadUser had the following error:');
+      console.log(err);
+      authDispatch({ type: AuthActionTypes.authError, payload: err });
+    }
+  } else {
+    authDispatch({ type: AuthActionTypes.noToken, payload: {} });
   }
 };

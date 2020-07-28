@@ -13,7 +13,7 @@ interface FormData {
   title: string;
 }
 
-const Profile: React.FC<NewProjectModalProps> = ({ setCreatingNewProject }) => {
+export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNewProject }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const projectDispatch = useContext(ProjectsDispatchContext);
@@ -86,5 +86,3 @@ const Profile: React.FC<NewProjectModalProps> = ({ setCreatingNewProject }) => {
     </div>
   );
 };
-
-export default Profile;

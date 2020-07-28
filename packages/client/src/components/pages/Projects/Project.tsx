@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import { ProjectsDispatchContext } from '../../../context/projects/ProjectsState';
+import { AuthActions } from '../../../context/auth/types';
+import { AppActions } from '../../../context/app/types';
 
-export type TodoItemProps = {
+interface ProjectProps {
   title: string;
   completed: boolean;
-};
+  dispatch: (arg0: AuthActions | AppActions) => void;
+}
 
-const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
+export const Project: React.FC<ProjectProps> = ({ title, completed }) => {
   const projectsDispatch = useContext(ProjectsDispatchContext);
 
   return (
@@ -23,5 +26,3 @@ const TodoItem: React.FC<TodoItemProps> = ({ title, completed }) => {
     </div>
   );
 };
-
-export default TodoItem;

@@ -1,19 +1,22 @@
 import React, { useContext, useState } from 'react';
-import { AuthStateContext, AuthDispatchContext } from '../../../context/auth/AuthState';
-import { AppDispatchContext } from '../../../context/app/AppState';
+import { AuthStateContext } from '../../../context/auth/AuthState';
 import axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../../settings';
 import { loginUser } from '../../../utils';
-import LoadingLogo from '../../layout/LoadingLogo';
-import DummyPage from '../../layout/DummyPage';
+import { LoadingLogo } from '../../layout/LoadingLogo';
+import { DummyPage } from '../../layout/DummyPage';
 import { Redirect } from 'react-router-dom';
+import { AuthActions, AuthActionTypes } from '../../../context/auth/types';
+import { AppActions } from '../../../context/app/types';
 
-const Login: React.FC = ({}) => {
+interface LoginRHFProps {
+  dispatch: (arg0: AuthActions | AppActions) => void;
+}
+
+export const LoginRHF: React.FC<LoginRHFProps> = ({ dispatch }) => {
   const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
-  const authDispatch = useContext(AuthDispatchContext);
-  const appDispatch = useContext(AppDispatchContext);
 
   const [fields, setFields] = useState({
     email: '',
@@ -29,10 +32,10 @@ const Login: React.FC = ({}) => {
     e.preventDefault();
 
     try {
-      loginUser({ email, password }, authDispatch, appDispatch);
+      loginUser({ email, password }, dispatch);
       // authDispatch({ type: 'success' });
     } catch (err) {
-      authDispatch({ type: 'authError', payload: err.response.data.msg });
+      dispatch({ type: AuthActionTypes.authError, payload: err.response.data.msg });
     }
   };
 
@@ -58,13 +61,13 @@ const Login: React.FC = ({}) => {
             },
           });
 
-          authDispatch({
-            type: 'loginSuccess',
+          dispatch({
+            type: AuthActionTypes.loginSuccess,
             payload: res.data,
           });
         })();
       } catch (err) {
-        authDispatch({ type: 'authError', payload: err.response.data.msg });
+        dispatch({ type: AuthActionTypes.authError, payload: err.response.data.msg });
       }
       // this is from GoogleLoginResponseOffline
     } else {
@@ -164,7 +167,3 @@ const Login: React.FC = ({}) => {
     </>
   );
 };
-
-Login.propTypes = {};
-
-export default Login;

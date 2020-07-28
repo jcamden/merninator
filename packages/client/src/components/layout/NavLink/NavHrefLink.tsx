@@ -6,7 +6,7 @@ interface NavLinkProps {
   onClick?: () => void;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ text, href, onClick }) => {
+export const NavLink: React.FC<NavLinkProps> = ({ text, href, onClick }) => {
   const [hovered, setHovered] = useState(false);
   return (
     <a
@@ -20,5 +20,3 @@ const NavLink: React.FC<NavLinkProps> = ({ text, href, onClick }) => {
     </a>
   );
 };
-
-export default NavLink;

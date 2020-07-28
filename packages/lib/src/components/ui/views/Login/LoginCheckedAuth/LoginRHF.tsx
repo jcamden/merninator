@@ -7,10 +7,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../../../../settings';
 import { useForm } from 'react-hook-form';
 import { loginUser } from '../../../../../utils';
+import { AuthActions } from '../../../../../context/auth/types';
+import { AppActions } from '../../../../../context/app/types';
 
 interface LoginRHFProps {
   authError: string;
   authLoading: boolean;
+  dispatch: (
+    action: Extract<AuthActions, { type: 'authError' | 'loginSuccess' } | Extract<AppActions, { type: '' }>>,
+  ) => void;
 }
 
 interface FormData {

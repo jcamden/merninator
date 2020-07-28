@@ -7,7 +7,7 @@ interface CheckAuthProps {
   component: ReactNode;
 }
 
-const CheckAuth: React.FC<CheckAuthProps> = ({ preInitAuth, noUser, component }) => {
+export const CheckAuth: React.FC<CheckAuthProps> = ({ preInitAuth, noUser, component }) => {
   const { checkedAuth, user } = useContext(AuthStateContext);
   const self = user?.self;
 
@@ -21,5 +21,3 @@ const CheckAuth: React.FC<CheckAuthProps> = ({ preInitAuth, noUser, component })
     return <>{component}</>;
   }
 };
-
-export default CheckAuth;

@@ -1,4 +1,4 @@
-const ensureType = <ToCheck, ExpectedType>(
+export const ensureType = <ToCheck, ExpectedType>(
   toCheck: ToCheck | undefined | null,
   expectedType?: ExpectedType,
 ): ToCheck => {
@@ -10,5 +10,3 @@ const ensureType = <ToCheck, ExpectedType>(
     return toCheck;
   }
 };
-
-export default ensureType;
