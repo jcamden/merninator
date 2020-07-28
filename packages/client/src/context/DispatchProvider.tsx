@@ -1,9 +1,7 @@
 import React, { Children, cloneElement, useContext } from 'react';
 import { AuthDispatchContext } from './auth/AuthState';
 import { AppDispatchContext } from './app/AppState';
-// import { AuthActions, ActionTypes as AuthActionTypes } from './auth/types';
-import { AuthActions, AuthActionTypes } from './auth/types';
-import { AppActions, AppActionTypes } from './app/types';
+import { AuthActions, AuthActionTypes, AppActions, AppActionTypes } from '@merninator/types';
 
 interface DispatchProviderProps {
   // changed from type ReactNode to satisfy TS error:

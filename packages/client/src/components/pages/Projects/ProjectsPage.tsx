@@ -2,13 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Project } from './Project';
 import { ProjectsStateContext, ProjectsDispatchContext } from '../../../context/projects/ProjectsState';
 import { AuthStateContext } from '../../../context/auth/AuthState';
-import { Projects } from '../../../context/projects/types';
+import { Projects } from '@merninator/types';
 import { SERVER } from '../../../settings';
 import { NewProjectButton } from './NewProjectButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NewProjectModal } from './NewProjectModal';
-import { AuthActions } from '../../../context/auth/types';
-import { AppActions } from '../../../context/app/types';
+import { AuthActions, AppActions } from '@merninator/types';
 
 interface ProjectsPageProps {
   dispatch: (arg0: AuthActions | AppActions) => void;

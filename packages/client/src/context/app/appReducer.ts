@@ -1,4 +1,4 @@
-import { AppStateInterface, AppActions } from './types';
+import { AppStateInterface, AppActions } from '@merninator/types';
 
 export const appReducer = (draft: AppStateInterface, action: AppActions): void => {
   switch (action.type) {

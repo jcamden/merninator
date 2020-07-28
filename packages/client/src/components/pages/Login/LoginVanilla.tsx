@@ -8,8 +8,7 @@ import { loginUser } from '../../../utils';
 import { LoadingLogo } from '../../layout/LoadingLogo';
 import { DummyPage } from '../../layout/DummyPage';
 import { Redirect } from 'react-router-dom';
-import { AuthActions, AuthActionTypes } from '../../../context/auth/types';
-import { AppActions } from '../../../context/app/types';
+import { AuthActions, AuthActionTypes, AppActions } from '@merninator/types';
 
 interface LoginRHFProps {
   dispatch: (arg0: AuthActions | AppActions) => void;

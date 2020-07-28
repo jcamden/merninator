@@ -1,6 +1,5 @@
 import React from 'react';
-import { AuthActions } from '../../../context/auth/types';
-import { AppActions } from '../../../context/app/types';
+import { AuthActions, AppActions } from '@merninator/types';
 
 interface AuthdHomeProps {
   dispatch: (arg0: AuthActions | AppActions) => void;

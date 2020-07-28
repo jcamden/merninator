@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
 import { AuthStateContext, AuthDispatchContext } from '../../context/auth/AuthState';
-import { AuthActionTypes } from '../../context/auth/types';
+import { AuthActionTypes } from '@merninator/types';
 
 export interface ProtectedRouteProps extends RouteProps {
   isAllowed?: boolean;

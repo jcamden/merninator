@@ -8,6 +8,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.10",
     "@merninator/lib": "1.0.0",
+    "@merninator/types": "1.0.0",
     "@react-workspaces/react-scripts": "^3.3.0-alpha-08",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",

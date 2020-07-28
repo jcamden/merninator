@@ -1,4 +1,4 @@
-import { IProjectsState, ProjectsActions } from './types';
+import { IProjectsState, ProjectsActions } from '@merninator/types';
 
 export const projectsReducer = (draft: IProjectsState, action: ProjectsActions): void => {
   switch (action.type) {

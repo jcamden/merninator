@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { ProjectsDispatchContext } from '../../../context/projects/ProjectsState';
-import { AuthActions } from '../../../context/auth/types';
-import { AppActions } from '../../../context/app/types';
+import { AuthActions, AppActions } from '@merninator/types';
 
 interface ProjectProps {
   title: string;

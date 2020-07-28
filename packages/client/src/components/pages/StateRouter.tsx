@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import { AppStateContext } from '../../context/app/AppState';
 import { LoginRHF } from './Login/LoginRHF';
-import { RegisterRHF } from './Register/RegisterRHF';
+import { RegisterRHF } from '@merninator/lib';
 import { ProjectsPage } from './Projects/ProjectsPage';
 import { Profile } from './Profile/Profile';
 import { CheckAuth } from '../auth/CheckAuth';
 import { LoadingLogo } from '../layout/LoadingLogo';
 import { UnauthdHome } from './Home/UnauthdHome';
 import { AuthdHome } from './Home/AuthdHome';
-import { AuthActions } from '../../context/auth/types';
-import { AppActions, AppActionTypes } from '../../context/app/types';
+import { AuthActions, AppActions, AppActionTypes  } from '@merninator/types';
 
 interface StateRouterProps {
   dispatch: (arg0: AuthActions | AppActions) => void;

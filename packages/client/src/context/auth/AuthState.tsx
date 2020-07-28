@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect } from 'react';
 import { useImmerReducer } from 'use-immer';
 import { authReducer } from './authReducer';
 import { createContext, Dispatch } from 'react';
-import { AuthStateInterface, AuthActions } from './types';
+import { AuthStateInterface, AuthActions } from '@merninator/types';
 import { loadUserAuthDispatch } from '../../utils/authUtils';
 
 // really todos belongs in a separate context

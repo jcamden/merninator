@@ -1,7 +1,6 @@
 import { Dispatch } from 'react';
 import axios from 'axios';
-import { AuthActions, AuthActionTypes } from '../context/auth/types';
-import { AppActions, AppActionTypes } from '../context/app/types';
+import { AuthActions, AuthActionTypes, AppActions, AppActionTypes } from '@merninator/types';
 
 export const registerUser = async (
   data: { givenName: string; familyName: string; email: string; password: string; password2: string },

@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { useImmerReducer } from 'use-immer';
 import { appReducer } from './appReducer';
 import { createContext, Dispatch } from 'react';
-import { AppStateInterface, AppActions } from './types';
+import { AppStateInterface, AppActions } from '@merninator/types';
 
 const initialState: AppStateInterface = {
   page: 'home',

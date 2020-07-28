@@ -4,8 +4,7 @@ import { AuthStateContext } from '../../context/auth/AuthState';
 import { NavStateLink } from './NavLink/NavStateLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { AuthActions, AuthActionTypes } from '../../context/auth/types';
-import { AppActions, AppActionTypes } from '../../context/app/types';
+import { AuthActions, AuthActionTypes, AppActions, AppActionTypes } from '@merninator/types';
 
 interface NavBarProps {
   dispatch: (arg0: AuthActions | AppActions) => void;

@@ -1,4 +1,4 @@
-import { AuthStateInterface, AuthActions } from './types';
+import { AuthStateInterface, AuthActions } from '@merninator/types';
 
 export const authReducer = (draft: AuthStateInterface, action: AuthActions): void => {
   switch (action.type) {

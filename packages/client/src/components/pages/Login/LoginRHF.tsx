@@ -5,12 +5,11 @@ import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 're
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../../settings';
 import { loginUser } from '../../../utils';
-import {LoadingLogo} from '../../layout/LoadingLogo';
-import {DummyPage} from '../../layout/DummyPage';
+import { LoadingLogo } from '../../layout/LoadingLogo';
+import { DummyPage } from '../../layout/DummyPage';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { AuthActions, AuthActionTypes } from '../../../context/auth/types';
-import { AppActions, AppActionTypes } from '../../../context/app/types';
+import { AuthActions, AuthActionTypes, AppActions, AppActionTypes } from '@merninator/types';
 
 interface FormData {
   email: string;

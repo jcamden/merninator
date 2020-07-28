@@ -13,7 +13,6 @@ import { NavBar } from './components/layout/NavBar';
 import { ProjectsState } from './context/projects/ProjectsState';
 import { DispatchWrappedStateRouter } from './components/pages/DispatchWrappedStateRouter';
 import { DispatchProviderSingleChild } from './context/DispatchProviderSingleChild';
-import { DispatchProvider } from './context/DispatchProvider';
 
 export const App: React.FC = () => {
   return (

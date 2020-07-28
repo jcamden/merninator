@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { Page } from '../../../context/app/types';
-import { AuthActions, AuthActionTypes } from '../../../context/auth/types';
-import { AppActions, AppActionTypes } from '../../../context/app/types';
+import { AuthActions, AuthActionTypes, AppActions, AppActionTypes, Page } from '@merninator/types';
 
 interface NavStateLinkProps {
   text: string | JSX.Element;
