@@ -6,5 +6,5 @@ interface UnauthdHomeProps {
 }
 
 export const UnauthdHome: React.FC<UnauthdHomeProps> = ({ dispatch }) => {
-  return <>Welcome!</>;
+  return <>No user, punk!</>;
 };

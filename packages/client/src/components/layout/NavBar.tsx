@@ -17,21 +17,24 @@ export const NavBar: React.FC<NavBarProps> = ({ dispatch }) => {
     <>
       <NavStateLink
         text="Projects"
-        action={{ type: AppActionTypes.changePage, payload: 'projects' }}
+        actions={[{ type: AppActionTypes.changePage, payload: 'projects' }]}
         dispatch={dispatch}
       />
       <h3 className="mt-1">|</h3>
       {user?.self !== 'guest' && (
         <NavStateLink
           text={`${user?.givenName} ${user?.familyName}`}
-          action={{ type: AppActionTypes.changePage, payload: 'profile' }}
+          actions={[{ type: AppActionTypes.changePage, payload: 'profile' }]}
           dispatch={dispatch}
         />
       )}
       <h3 className="mt-1">|</h3>
       <NavStateLink
         text={<FontAwesomeIcon className="mr-2" icon="sign-out-alt" />}
-        action={{ type: AuthActionTypes.logOut, payload: {} }}
+        actions={[
+          { type: AuthActionTypes.logOut, payload: {} },
+          { type: AppActionTypes.changePage, payload: 'home' },
+        ]}
         dispatch={dispatch}
       />
     </>
@@ -39,11 +42,15 @@ export const NavBar: React.FC<NavBarProps> = ({ dispatch }) => {
 
   const guestLinks = (
     <>
-      <NavStateLink text="Login" action={{ type: AppActionTypes.changePage, payload: 'login' }} dispatch={dispatch} />
+      <NavStateLink
+        text="Login"
+        actions={[{ type: AppActionTypes.changePage, payload: 'login' }]}
+        dispatch={dispatch}
+      />
       <h4 className="mt-1">|</h4>
       <NavStateLink
         text="Register"
-        action={{ type: AppActionTypes.changePage, payload: 'register' }}
+        actions={[{ type: AppActionTypes.changePage, payload: 'register' }]}
         dispatch={dispatch}
       />
     </>

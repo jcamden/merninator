@@ -116,7 +116,7 @@ export const RegisterRHF: React.FC<RegisterRHFProps> = ({ dispatch }) => {
                     className={`${(errors.email || authError) && 'inputError'}`}
                     ref={register({
                       required: 'email required',
-                      pattern: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
+                      pattern: /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/,
                     })}
                   />
                 </div>
