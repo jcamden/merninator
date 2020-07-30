@@ -16,7 +16,7 @@ const PRIV_KEY = fs.readFileSync(pathToKey, 'utf8');
  * This function uses the crypto library to decrypt the hash using the salt and then compares
  * the decrypted hash/salt with the password that the user provided at login
  */
-const validatePassword = (password: crypto.BinaryLike, hash: string, salt: crypto.BinaryLike): boolean => {
+export const validatePassword = (password: crypto.BinaryLike, hash: string, salt: crypto.BinaryLike): boolean => {
     const hashVerify = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
     return hash === hashVerify;
 };
@@ -31,7 +31,7 @@ const validatePassword = (password: crypto.BinaryLike, hash: string, salt: crypt
  * ALTERNATIVE: It would also be acceptable to just use a hashing algorithm to make a hash of the plain text password.
  * You would then store the hashed password in the database and then re-hash it to verify later (similar to what we do here)
  */
-const genPassword = (password: crypto.BinaryLike): { salt: string; hash: string } => {
+export const genPassword = (password: crypto.BinaryLike): { salt: string; hash: string } => {
     const salt = crypto.randomBytes(32).toString('hex');
     const genHash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
 
@@ -44,7 +44,7 @@ const genPassword = (password: crypto.BinaryLike): { salt: string; hash: string 
 /**
  * @param {*} user - The user document object.  We need this to set the JWT `sub` payload property to the MongoDB user ID
  */
-const issueJWT = (user: IUser): { token: string; expires: string } => {
+export const issueJWT = (user: IUser): { token: string; expires: string } => {
     const _id = user._id;
 
     const expiresIn = '14d';
@@ -68,4 +68,27 @@ const issueJWT = (user: IUser): { token: string; expires: string } => {
     };
 };
 
-export { validatePassword, genPassword, issueJWT };
+interface Has_id {
+    _id: string;
+}
+
+interface Has_self {
+    self: string;
+}
+
+/**
+ *
+ * @param {*} object - a document with a natural Mongo _id prop
+ * @param {*} route - a URL segment used to compose (in conjunction with object._id) the relative URL where the object is exposed in the API
+ *
+ * This function takes a Mongo document and a route string and returns a new object which has a self prop in the place of the document's _id prop.
+ * The self prop is the relative URL where the object is exposed in the API (e.g. "/projects/asdasdasdasdasd")
+ *
+ *
+ **/
+
+export const id2Self = <T extends Has_id>(object: T, route: string): Omit<T, '_id'> & Has_self => {
+    const { _id, ...no_id } = object;
+    const resObject = { self: `${route}/${_id}`, ...no_id };
+    return resObject;
+};

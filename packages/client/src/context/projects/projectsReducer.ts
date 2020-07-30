@@ -18,8 +18,12 @@ export const projectsReducer = (draft: IProjectsState, action: ProjectsActions):
       return;
     }
     case 'toggleProjectCompleted': {
-      const index = draft.projects.findIndex(item => item.title === action.payload);
-      draft.projects[index].completed = !draft.projects[index].completed;
+      try {
+        const index = draft.projects.findIndex(item => item.self === action.payload);
+        draft.projects[index].completed = !draft.projects[index].completed;
+      } catch (error) {
+        console.log("The appropriate project could not be found. That's weird!");
+      }
       return;
     }
   }

@@ -1,22 +1,21 @@
-import React, { useState, Dispatch, SetStateAction, useContext } from 'react';
+import React, { Dispatch, useState, SetStateAction } from 'react';
 import { useForm } from 'react-hook-form';
-import { ProjectsDispatchContext } from '../../../context/projects/ProjectsState';
 import Axios from 'axios';
 import { SERVER } from '../../../settings';
+import { AuthActions, AppActions, ProjectsActions, ProjectsActionTypes } from '@merninator/types';
 
 interface NewProjectModalProps {
   setCreatingNewProject: Dispatch<SetStateAction<boolean>>;
+  dispatch: (arg0: AuthActions | AppActions | ProjectsActions) => void;
 }
 
 interface FormData {
   title: string;
 }
 
-export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNewProject }) => {
+export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNewProject, dispatch }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  // need to add project dispatch to dispatch provider
-  const projectDispatch = useContext(ProjectsDispatchContext);
 
   const { register, handleSubmit, errors } = useForm<FormData>({ mode: 'onBlur' });
 
@@ -32,9 +31,15 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNew
         setLoading(true);
         await Axios.post(`${SERVER}/project`, data);
         console.log({ date: new Date() });
-        projectDispatch({
-          type: 'addProject',
-          payload: { _id: 'placeholder', ...data, completed: false, createdAt: "placeholder", updatedAt: "placeholder" },
+        dispatch({
+          type: ProjectsActionTypes.addProject,
+          payload: {
+            self: 'placeholder',
+            ...data,
+            completed: false,
+            createdAt: 'placeholder',
+            updatedAt: 'placeholder',
+          },
         });
         setLoading(false);
         setSuccess(true);

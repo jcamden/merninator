@@ -8,10 +8,10 @@ import { CheckAuth } from '../auth/CheckAuth';
 import { LoadingLogo } from '../layout/LoadingLogo';
 import { UnauthdHome } from './Home/UnauthdHome';
 import { AuthdHome } from './Home/AuthdHome';
-import { AuthActions, AppActions, AppActionTypes  } from '@merninator/types';
+import { AuthActions, AppActions, AppActionTypes, ProjectsActions } from '@merninator/types';
 
 interface StateRouterProps {
-  dispatch: (arg0: AuthActions | AppActions) => void;
+  dispatch: (arg0: AuthActions | AppActions | ProjectsActions) => void;
 }
 
 export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {

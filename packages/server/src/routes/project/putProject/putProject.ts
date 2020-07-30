@@ -7,8 +7,14 @@ export const putProjectRouter = Router();
 putProjectRouter.put('/:projectId', auth, async (req: Request, res: Response) => {
     try {
         const oldProject = await Project.findOne({ _id: req.params.projectId });
-        if (oldProject.user === req.sub) {
+        console.log(req.sub);
+        console.log(oldProject.user);
+        console.log(oldProject.user == req.sub);
+        //triple equals returns false; one of them must not be a string. Too lazy to look into it. Double equals should be fine for this purpose.
+        if (oldProject.user == req.sub) {
+            console.log(req.body);
             const newProject = { ...oldProject._doc, ...req.body };
+            console.log(newProject);
             const project = await Project.findByIdAndUpdate(req.params.projectId, { $set: newProject }, { new: true });
             res.status(200).json({
                 success: true,

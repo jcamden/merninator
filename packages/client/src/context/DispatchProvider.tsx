@@ -25,6 +25,7 @@ const isAuthAction = (action: AuthActions | AppActions): action is AuthActions =
   // This not only returns the actionType parameter
   // but also a boolean stating whether or not the actionType is an auth action.
   Object.values(AuthActionTypes).includes(action.type as AuthActionTypes);
+
 const isAppAction = (action: AuthActions | AppActions): action is AppActions =>
   Object.values(AppActionTypes).includes(action.type as AppActionTypes);
 

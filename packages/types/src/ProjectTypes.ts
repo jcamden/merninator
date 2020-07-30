@@ -1,5 +1,5 @@
 export interface Project {
-  _id: string;
+  self: string;
   title: string;
   completed: boolean;
   createdAt: string;
@@ -13,17 +13,24 @@ export interface IProjectsState {
   projects: Projects;
 }
 
+export enum ProjectsActionTypes {
+  setProjects = 'setProjects',
+  addProject = 'addProject',
+  removeProject = 'removeProject',
+  toggleProjectCompleted = 'toggleProjectCompleted',
+}
+
 export type ProjectsActions =
   | {
-      type: 'setProjects';
+      type: ProjectsActionTypes.setProjects;
       payload: Projects;
     }
   | {
-      type: 'addProject';
+      type: ProjectsActionTypes.addProject;
       payload: Project;
     }
   | {
-      type: 'removeProject';
+      type: ProjectsActionTypes.removeProject;
       payload: Project;
     }
-  | { type: 'toggleProjectCompleted'; payload: string };
+  | { type: ProjectsActionTypes.toggleProjectCompleted; payload: string };

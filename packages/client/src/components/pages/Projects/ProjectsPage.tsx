@@ -2,15 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Project } from './Project';
 import { ProjectsStateContext, ProjectsDispatchContext } from '../../../context/projects/ProjectsState';
 import { AuthStateContext } from '../../../context/auth/AuthState';
-import { Projects } from '@merninator/types';
 import { SERVER } from '../../../settings';
 import { NewProjectButton } from './NewProjectButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NewProjectModal } from './NewProjectModal';
-import { AuthActions, AppActions } from '@merninator/types';
+import { AuthActions, AppActions, Projects, ProjectsActions, ProjectsActionTypes } from '@merninator/types';
 
 interface ProjectsPageProps {
-  dispatch: (arg0: AuthActions | AppActions) => void;
+  dispatch: (arg0: AuthActions | AppActions | ProjectsActions) => void;
 }
 
 export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch }) => {
@@ -22,6 +21,9 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch }) => {
 
   useEffect(() => {
     (async (): Promise<void> => {
+      // Wrote this to use fetch instead of Axios so that I could specify the type of the response without crazy acrobatics.
+      // I had intended to make this a util and convert all other types of Axios requests to fetch as well.
+      // Will do that soon.
       async function get<T>(request: RequestInfo): Promise<T> {
         const response = await fetch(request, { headers: { Authorization: localStorage.token } });
         const body = await response.json();
@@ -29,9 +31,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch }) => {
       }
       const usersProjects = await get<Projects>(`${SERVER}${user?.self}/projects`);
       console.log(usersProjects);
+      const sortedProjects = usersProjects.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
       projectsDispatch({
-        type: 'setProjects',
-        payload: usersProjects.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt)),
+        type: ProjectsActionTypes.setProjects,
+        payload: sortedProjects,
       });
     })();
   }, []);
@@ -52,10 +55,10 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch }) => {
               icon="plus-square"
             />
           </NewProjectButton>
-          {projects && projects.map(project => <Project key={project.title} {...project} dispatch={dispatch} />)}
+          {projects && projects.map(project => <Project key={project.self} {...project} dispatch={dispatch} />)}
         </div>
       </div>
-      {creatingNewProject && <NewProjectModal setCreatingNewProject={setCreatingNewProject} />}
+      {creatingNewProject && <NewProjectModal setCreatingNewProject={setCreatingNewProject} dispatch={dispatch} />}
     </>
   );
 };

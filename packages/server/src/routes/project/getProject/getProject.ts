@@ -11,6 +11,7 @@ getProjectRouter.get('/:projectId', auth, async (req, res) => {
             updatedAt: -1,
         });
         //respond with that array
+        // need to edit response to include self
         res.json({ success: true, project: project });
     } catch (err) {
         console.error(err.message);

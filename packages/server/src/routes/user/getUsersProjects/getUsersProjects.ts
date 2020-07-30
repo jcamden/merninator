@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { Project } from '../../../models/Project';
 import { auth } from '../../../middleware/auth';
+import { id2Self } from '../../../lib/utils';
 
 export const getUsersProjectsRouter = Router();
 
@@ -11,8 +12,11 @@ getUsersProjectsRouter.get('/:userId/projects', auth, async (req, res) => {
             const projects = await Project.find({ user: req.sub }).sort({
                 updatedAt: -1,
             });
+
+            const terrificallySimpleJSONifiedProjects = projects.map((project) => id2Self(project._doc, '/project'));
+
             //respond with that array
-            res.json(projects);
+            res.json(terrificallySimpleJSONifiedProjects);
         } catch (err) {
             console.error(err.message);
             res.status(500).send({ success: false, msg: 'mysterious server error', err: err });
