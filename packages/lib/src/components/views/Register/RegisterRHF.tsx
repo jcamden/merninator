@@ -1,13 +1,17 @@
-import React, { useContext, useState } from 'react';
-import { AuthStateContext } from '../../../../../../client/src/context/auth/AuthState';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GOOGLE_CLIENT_ID } from '../../../../../../client/src/settings';
-import { registerUser } from '../../../../../../client/src/utils';
 import { Redirect } from 'react-router-dom';
-import { AuthActions, AuthActionTypes, AppActions, AppActionTypes } from '@merninator/types';
+import {
+  AuthActions,
+  AuthActionTypes,
+  AppActions,
+  AppActionTypes,
+  AuthStateInterface,
+  RegisterUser,
+} from '../../../types/index';
 
 interface FormData {
   givenName: string;
@@ -19,10 +23,21 @@ interface FormData {
 
 interface RegisterRHFProps {
   dispatch: (arg0: AuthActions | AppActions) => void;
+  registerUser: RegisterUser;
+  googleClientId: string;
+  authLoading: AuthStateInterface['authLoading'];
+  authError: AuthStateInterface['authError'];
+  user: AuthStateInterface['user'];
 }
 
-export const RegisterRHF: React.FC<RegisterRHFProps> = ({ dispatch }) => {
-  const { authLoading, authError, user } = useContext(AuthStateContext);
+export const RegisterRHF: React.FC<RegisterRHFProps> = ({
+  dispatch,
+  registerUser,
+  googleClientId,
+  authLoading,
+  authError,
+  user,
+}) => {
   const self = user?.self;
 
   const [pw1Visible, setPw1Visible] = useState(false);
@@ -188,7 +203,7 @@ export const RegisterRHF: React.FC<RegisterRHFProps> = ({ dispatch }) => {
                   {authLoading ? 'Registering...' : 'Register'}
                 </button>
                 <GoogleLogin
-                  clientId={GOOGLE_CLIENT_ID}
+                  clientId={googleClientId}
                   render={(renderProps): JSX.Element => (
                     <button
                       className="btn btn-danger btn-block mt-3"

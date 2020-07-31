@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { AppStateContext } from '../../context/app/AppState';
 import { LoginRHF } from './Login/LoginRHF';
-import { RegisterRHF } from '@merninator/lib';
+// import { RegisterRHF } from '@merninator/lib';
 import { ProjectsPage } from './Projects/ProjectsPage';
 import { Profile } from './Profile/Profile';
 import { CheckAuth } from '../auth/CheckAuth';
@@ -35,9 +35,9 @@ export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
     case 'login': {
       return <LoginRHF dispatch={dispatch} />;
     }
-    case 'register': {
-      return <RegisterRHF dispatch={dispatch} />;
-    }
+    // case 'register': {
+    //   return <RegisterRHF dispatch={dispatch} />;
+    // }
     case 'projects': {
       return <ProjectsPage dispatch={dispatch} />;
     }

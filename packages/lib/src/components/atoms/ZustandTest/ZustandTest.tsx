@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { zustandTestState, ZustandTestStateProps } from '../../../../zustand/store';
+import { zustandTestState, ZustandTestStateProps } from '../../../zustand/store';
 
 interface ZustandTestProps {
   children?: string;

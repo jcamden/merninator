@@ -15,8 +15,8 @@
         "url": "https://localhost:8000"
     },
     "dependencies": {
+        "axios": "^0.19.2",
         "bcrypt": "^5.0.0",
-        "bcryptjs": "^2.4.3",
         "chalk": "^4.1.0",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",
