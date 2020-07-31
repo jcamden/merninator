@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { issueJWT } from '../../../lib/utils';
 import { User } from '../../../models/User';
-import axios from 'axios';
+import Axios from 'axios';
 import chalk from 'chalk';
 
 export const googleRouter = Router();
@@ -11,7 +11,7 @@ googleRouter.get(
     async (req, res): Promise<void> => {
         try {
             // send Google token off to Google
-            const verifyRes = await axios.get(`https://oauth2.googleapis.com/tokeninfo?id_token=${req.query.idToken}`);
+            const verifyRes = await Axios.get(`https://oauth2.googleapis.com/tokeninfo?id_token=${req.query.idToken}`);
             const { email, given_name, family_name } = verifyRes.data;
             User.findOne(
                 {

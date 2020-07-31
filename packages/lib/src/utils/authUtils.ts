@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import axios from 'axios';
+import Axios from 'Axios';
 import { AuthActions } from '../context/auth/types';
 import { AppActions } from '../context/app/types';
 
@@ -15,7 +15,7 @@ export const registerUser = async (
   };
 
   try {
-    const res = await axios.post('https://localhost:5000/auth/register', data, config);
+    const res = await Axios.post('https://localhost:5000/auth/register', data, config);
 
     authDispatch({
       type: 'registerSuccess',
@@ -46,7 +46,7 @@ export const loginUser = async (
   };
 
   try {
-    const res = await axios.post('https://localhost:5000/auth/login', formData, config);
+    const res = await Axios.post('https://localhost:5000/auth/login', formData, config);
     authDispatch({
       type: 'loginSuccess',
       payload: res.data,
@@ -66,9 +66,9 @@ export const loginUser = async (
 // Set Auth Token
 export const setAuthToken = (token: string): void => {
   if (token) {
-    axios.defaults.headers.common['Authorization'] = token;
+    Axios.defaults.headers.common['Authorization'] = token;
   } else {
-    delete axios.defaults.headers.common['Authorization'];
+    delete Axios.defaults.headers.common['Authorization'];
   }
 };
 
@@ -77,7 +77,7 @@ export const loadUser = async (authDispatch: Dispatch<AuthActions>): Promise<voi
   if (localStorage.token) {
     setAuthToken(localStorage.token);
     try {
-      const res = await axios.get('https://localhost:5000/auth');
+      const res = await Axios.get('https://localhost:5000/auth');
       console.log(res.data.user);
       authDispatch({
         type: 'userLoaded',

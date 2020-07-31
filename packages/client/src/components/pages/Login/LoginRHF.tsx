@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthStateContext } from '../../../context/auth/AuthState';
-import axios from 'axios';
+import Axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GOOGLE_CLIENT_ID } from '../../../settings';
@@ -51,7 +51,8 @@ export const LoginRHF: React.FC<LoginRHFProps> = ({ dispatch }) => {
       try {
         // self-invoking arrow function so I can use async await
         (async (): Promise<void> => {
-          const res = await axios.get('https://localhost:5000/auth/google', {
+          // thought about replacing Axios with fetch, but honestly, fetch support for query params is crap;
+          const res = await Axios.get('https://localhost:5000/auth/google', {
             params: {
               idToken: response.tokenId,
             },
