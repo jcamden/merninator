@@ -9,6 +9,7 @@ export interface Project {
 export type Projects = Project[];
 
 // Using I-prefix because ProjectsState is a thing
+// eslint-disable-next-line @typescript-eslint/interface-name-prefix
 export interface IProjectsState {
   projects: Projects;
 }

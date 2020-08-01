@@ -29,8 +29,11 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNew
     } else {
       try {
         setLoading(true);
-        await Axios.post(`${SERVER}/project`, data);
-        console.log({ date: new Date() });
+        await Axios.post(`${SERVER}/project`, data, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
         dispatch({
           type: ProjectsActionTypes.addProject,
           payload: {
