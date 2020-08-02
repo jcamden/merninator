@@ -10,6 +10,11 @@
     "body": ["console.log($1)"],
     "description": "console.log"
   },
+  "eslint disable next line": {
+    "prefix": "esld",
+    "body": ["// eslint-disable-next-line"],
+    "description": "Use responsibly (euphemism for 'danger'). Disables eslint for next line; can specify a rule (e.h. @typescript-eslint/explicit-function-return-type"
+  },
   "TS React arrow function component": {
     "prefix": "tsrafc",
     "body": [

@@ -3,14 +3,9 @@ import { useForm } from 'react-hook-form';
 import Axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  AuthActions,
-  AuthActionTypes,
-  AppActions,
-  AppActionTypes,
-  AuthStateInterface,
-  RegisterUser,
-} from '@merninator/types';
+import { AuthActionTypes, AppActionTypes, AuthStateInterface, IDispatch, FormWithDispatch } from '@merninator/types';
+import { DummyPage } from '../../templates/DummyPage';
+import { LoadingLogo } from '../../atoms/LoadingLogo/LoadingLogo';
 
 interface FormData {
   givenName: string;
@@ -21,12 +16,13 @@ interface FormData {
 }
 
 interface RegisterRHFProps {
-  dispatch: (arg0: AuthActions | AppActions) => void;
-  registerUser: RegisterUser;
+  dispatch: IDispatch;
+  registerUser: FormWithDispatch<FormData>;
   googleClientId: string;
   authLoading: AuthStateInterface['authLoading'];
   authError: AuthStateInterface['authError'];
   user: AuthStateInterface['user'];
+  checkedAuth: AuthStateInterface['checkedAuth'];
 }
 
 export const RegisterRHF: React.FC<RegisterRHFProps> = ({
@@ -36,6 +32,7 @@ export const RegisterRHF: React.FC<RegisterRHFProps> = ({
   authLoading,
   authError,
   user,
+  checkedAuth,
 }) => {
   useEffect(() => {
     const self = user?.self;
@@ -96,7 +93,7 @@ export const RegisterRHF: React.FC<RegisterRHFProps> = ({
     }
   };
 
-  return (
+  const registerElement = (
     <div className="container">
       <div className="row">
         <div className="col"></div>
@@ -207,6 +204,7 @@ export const RegisterRHF: React.FC<RegisterRHFProps> = ({
                 render={(renderProps): JSX.Element => (
                   <button
                     className="btn btn-danger btn-block mt-3"
+                    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
                     onClick={() => renderProps.onClick}
                     disabled={renderProps.disabled}
                   >
@@ -225,5 +223,18 @@ export const RegisterRHF: React.FC<RegisterRHFProps> = ({
         <div className="col"></div>
       </div>
     </div>
+  );
+
+  return (
+    <>
+      {checkedAuth ? (
+        registerElement
+      ) : (
+        <DummyPage>
+          <div className="my-5"></div>
+          <LoadingLogo size={10} />
+        </DummyPage>
+      )}
+    </>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AppStateContext } from '../../context/app/AppState';
-import { LoginRHF } from './Login/LoginRHF';
+import { LoginRHF } from '@merninator/lib';
 import { RegisterRHF } from '@merninator/lib';
 import { ProjectsPage } from './Projects/ProjectsPage';
 import { Profile } from './Profile/Profile';
@@ -11,7 +11,7 @@ import { AuthdHome } from './Home/AuthdHome';
 import { AuthActions, AppActions, AppActionTypes, ProjectsActions } from '@merninator/types';
 import { GOOGLE_CLIENT_ID } from '../../settings';
 import { AuthStateContext } from '../../context/auth/AuthState';
-import { registerUser } from '../../utils/authUtils';
+import { registerUser, loginUser } from '../../utils/authUtils';
 
 interface StateRouterProps {
   dispatch: (arg0: AuthActions | AppActions | ProjectsActions) => void;
@@ -20,7 +20,7 @@ interface StateRouterProps {
 export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
   const { page } = useContext(AppStateContext);
   // const appDispatch = useContext(AppDispatchContext);
-  const { authLoading, authError, user } = useContext(AuthStateContext);
+  const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
 
   switch (page) {
     case 'home': {
@@ -37,7 +37,17 @@ export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
       );
     }
     case 'login': {
-      return <LoginRHF dispatch={dispatch} />;
+      return (
+        <LoginRHF
+          dispatch={dispatch}
+          loginUser={loginUser}
+          googleClientId={GOOGLE_CLIENT_ID}
+          authLoading={authLoading}
+          authError={authError}
+          user={user}
+          checkedAuth={checkedAuth}
+        />
+      );
     }
     case 'register': {
       return (

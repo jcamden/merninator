@@ -1,15 +1,12 @@
-import React, { useContext } from 'react';
-import { AuthStateContext } from '../../../context/auth/AuthState';
+import React from 'react';
 import Axios from 'axios';
 import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { GOOGLE_CLIENT_ID } from '../../../settings';
-import { loginUser } from '../../../utils';
-import { LoadingLogo } from '../../layout/LoadingLogo';
-import { DummyPage } from '../../layout/DummyPage';
+import { LoadingLogo } from '../../atoms/LoadingLogo/LoadingLogo';
+import { DummyPage } from '../../templates/DummyPage';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { AuthActions, AuthActionTypes, AppActions, AppActionTypes } from '@merninator/types';
+import { AuthActionTypes, AppActionTypes, AuthStateInterface, IDispatch, FormWithDispatch } from '@merninator/types';
 
 interface FormData {
   email: string;
@@ -17,11 +14,24 @@ interface FormData {
 }
 
 interface LoginRHFProps {
-  dispatch: (arg0: AuthActions | AppActions) => void;
+  dispatch: IDispatch;
+  loginUser: FormWithDispatch<FormData>;
+  googleClientId: string;
+  authLoading: AuthStateInterface['authLoading'];
+  authError: AuthStateInterface['authError'];
+  user: AuthStateInterface['user'];
+  checkedAuth: AuthStateInterface['checkedAuth'];
 }
 
-export const LoginRHF: React.FC<LoginRHFProps> = ({ dispatch }) => {
-  const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
+export const LoginRHF: React.FC<LoginRHFProps> = ({
+  dispatch,
+  loginUser,
+  authLoading,
+  authError,
+  user,
+  checkedAuth,
+  googleClientId,
+}) => {
   const self = user?.self;
 
   const { register, handleSubmit, errors } = useForm<FormData>({ mode: 'onBlur' });
@@ -94,7 +104,7 @@ export const LoginRHF: React.FC<LoginRHFProps> = ({ dispatch }) => {
                     className={`${(errors.email || authError === 'user not found') && 'inputError'}`}
                     ref={register({
                       required: 'email required',
-                      pattern: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/,
+                      pattern: /^([a-zA-Z0-9_\-.]+)@([a-zA-Z0-9_\-.]+)\.([a-zA-Z]{2,5})$/,
                     })}
                   />
                 </div>
@@ -125,7 +135,7 @@ export const LoginRHF: React.FC<LoginRHFProps> = ({ dispatch }) => {
                   {authLoading ? 'Logging in...' : 'Login'}
                 </button>
                 <GoogleLogin
-                  clientId={GOOGLE_CLIENT_ID}
+                  clientId={googleClientId}
                   render={(renderProps): JSX.Element => (
                     <button
                       className="btn btn-danger btn-block mt-3"

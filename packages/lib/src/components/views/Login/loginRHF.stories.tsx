@@ -1,15 +1,12 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import { RegisterRHF } from './RegisterRHF';
+import { LoginRHF } from './LoginRHF';
 import { initialUser } from '../../../utils/index';
-import { AuthActions, AppActions, AuthActionTypes, AppActionTypes } from '@merninator/types';
+import { AuthActionTypes, AppActionTypes, IDispatch } from '@merninator/types';
 import Axios from 'axios';
 import { GOOGLE_CLIENT_ID } from '../../../settings';
 
-const registerUserTest = async (
-  data: { givenName: string; familyName: string; email: string; password: string; password2: string },
-  dispatch: (arg0: AuthActions | AppActions) => void,
-): Promise<void> => {
+const loginUserTest = async (formData: { email: string; password: string }, dispatch: IDispatch): Promise<void> => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -17,10 +14,9 @@ const registerUserTest = async (
   };
 
   try {
-    const res = await Axios.post('https://localhost:5000/auth/register', data, config);
-
+    const res = await Axios.post('https://localhost:5000/auth/login', formData, config);
     dispatch({
-      type: AuthActionTypes.registerSuccess,
+      type: AuthActionTypes.loginSuccess,
       payload: res.data,
     });
     dispatch({
@@ -36,14 +32,14 @@ const registerUserTest = async (
 };
 
 export default {
-  title: 'views/Register',
-  component: RegisterRHF,
+  title: 'views/Login',
+  component: LoginRHF,
 };
 
-export const registerRHF = () => (
-  <RegisterRHF
+export const loginRHF = () => (
+  <LoginRHF
     dispatch={action('dispatch')}
-    registerUser={registerUserTest}
+    loginUser={loginUserTest}
     googleClientId={GOOGLE_CLIENT_ID}
     authLoading={false}
     authError=""
@@ -52,10 +48,10 @@ export const registerRHF = () => (
   />
 );
 
-export const registerRHFLoading = () => (
-  <RegisterRHF
+export const loginRHFLoading = () => (
+  <LoginRHF
     dispatch={action('dispatch')}
-    registerUser={registerUserTest}
+    loginUser={loginUserTest}
     googleClientId={GOOGLE_CLIENT_ID}
     authLoading={true}
     authError=""
@@ -64,25 +60,37 @@ export const registerRHFLoading = () => (
   />
 );
 
-export const registerRHFAuthError = () => (
-  <RegisterRHF
+export const loginRHFUserNotFound = () => (
+  <LoginRHF
     dispatch={action('dispatch')}
-    registerUser={registerUserTest}
+    loginUser={loginUserTest}
     googleClientId={GOOGLE_CLIENT_ID}
     authLoading={false}
-    authError="email already registered"
+    authError="user not found"
     user={initialUser}
     checkedAuth={true}
   />
 );
 
-export const registerRHFInitAuthCheck = () => (
-  <RegisterRHF
+export const loginRHFInvalidPW = () => (
+  <LoginRHF
     dispatch={action('dispatch')}
-    registerUser={registerUserTest}
+    loginUser={loginUserTest}
     googleClientId={GOOGLE_CLIENT_ID}
     authLoading={false}
-    authError="email already registered"
+    authError="invalid password"
+    user={initialUser}
+    checkedAuth={true}
+  />
+);
+
+export const loginRHFInitAuthCheck = () => (
+  <LoginRHF
+    dispatch={action('dispatch')}
+    loginUser={loginUserTest}
+    googleClientId={GOOGLE_CLIENT_ID}
+    authLoading={false}
+    authError=""
     user={initialUser}
     checkedAuth={false}
   />
