@@ -15,5 +15,5 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["./.storybook/*"]
+  "include": ["./.storybook/*", "../lib/src/faLib.ts"]
 }
