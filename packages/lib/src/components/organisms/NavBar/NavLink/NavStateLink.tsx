@@ -15,6 +15,9 @@ export const NavStateLink: React.FC<NavStateLinkProps> = ({ text, actions, dispa
   const [hovered, setHovered] = useState(false);
   return (
     <span
+      style={{
+        cursor: hovered ? 'pointer' : 'default',
+      }}
       className={`h5 nav-item ${hovered ? 'text-light' : 'text-secondary'} nav-link px-2 mb-0`}
       onClick={(): void => {
         actions.forEach(action => dispatch(action));
