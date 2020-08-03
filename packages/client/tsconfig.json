@@ -15,5 +15,10 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src", "../lib/src/components/organisms/NavLink"]
+  "include": [
+    "src",
+    "../lib/src/components/organisms/NavLink",
+    "../lib/src/components/views/Profile",
+    "../lib/src/components/views/Projects"
+  ]
 }

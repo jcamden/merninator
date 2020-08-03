@@ -1,6 +1,7 @@
 import React from 'react';
-import { StateRouter } from './StateRouter';
-import { DispatchProviderSingleChild } from '../../context/DispatchProviderSingleChild';
+
+import { StateRouter } from '../StateRouter';
+import { DispatchProviderSingleChild } from './DispatchProviderSingleChild';
 
 export const DispatchWrappedStateRouter: React.FC = () => {
   return (

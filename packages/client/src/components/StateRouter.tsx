@@ -1,17 +1,13 @@
+import { AuthdHome, LoadingLogo, LoginRHF, Profile, ProjectsPage, RegisterRHF, UnauthdHome } from '@merninator/lib';
+import { AppActionTypes, AppActions, AuthActions, ProjectsActions } from '@merninator/types';
 import React, { useContext } from 'react';
-import { AppStateContext } from '../../context/app/AppState';
-import { LoginRHF } from '@merninator/lib';
-import { RegisterRHF } from '@merninator/lib';
-import { ProjectsPage } from './Projects/ProjectsPage';
-import { Profile } from './Profile/Profile';
-import { CheckAuth } from '../auth/CheckAuth';
-import { LoadingLogo } from '../layout/LoadingLogo';
-import { UnauthdHome } from './Home/UnauthdHome';
-import { AuthdHome } from './Home/AuthdHome';
-import { AuthActions, AppActions, AppActionTypes, ProjectsActions } from '@merninator/types';
-import { GOOGLE_CLIENT_ID } from '../../settings';
-import { AuthStateContext } from '../../context/auth/AuthState';
-import { registerUser, loginUser } from '../../utils/authUtils';
+
+import { AppStateContext } from '../context/app/AppState';
+import { AuthStateContext } from '../context/auth/AuthState';
+import { ProjectsStateContext } from '../context/projects/ProjectsState';
+import { GOOGLE_CLIENT_ID, SERVER } from '../settings';
+import { loginUser, registerUser } from '../utils/authUtils';
+import { CheckAuth } from './auth/CheckAuth';
 
 interface StateRouterProps {
   dispatch: (arg0: AuthActions | AppActions | ProjectsActions) => void;
@@ -21,6 +17,7 @@ export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
   const { page } = useContext(AppStateContext);
   // const appDispatch = useContext(AppDispatchContext);
   const { authLoading, authError, user, checkedAuth } = useContext(AuthStateContext);
+  const { projects } = useContext(ProjectsStateContext);
 
   switch (page) {
     case 'home': {
@@ -63,7 +60,7 @@ export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
       );
     }
     case 'projects': {
-      return <ProjectsPage dispatch={dispatch} />;
+      return <ProjectsPage dispatch={dispatch} user={user} projects={projects} server={SERVER} />;
     }
     case 'profile': {
       return <Profile dispatch={dispatch} />;

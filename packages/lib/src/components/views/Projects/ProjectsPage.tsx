@@ -1,22 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Project } from './Project';
-import { ProjectsStateContext, ProjectsDispatchContext } from '../../../context/projects/ProjectsState';
-import { AuthStateContext } from '../../../context/auth/AuthState';
-import { SERVER } from '../../../settings';
-import { NewProjectButton } from './NewProjectButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AuthStateInterface, IDispatch, Projects, ProjectsActionTypes } from '@merninator/types';
+import React, { useEffect, useState } from 'react';
+
+import { NewProjectButton } from './NewProjectButton';
 import { NewProjectModal } from './NewProjectModal';
-import { AuthActions, AppActions, Projects, ProjectsActions, ProjectsActionTypes } from '@merninator/types';
+import { Project } from './Project';
 
 interface ProjectsPageProps {
-  dispatch: (arg0: AuthActions | AppActions | ProjectsActions) => void;
+  dispatch: IDispatch;
+  server: string;
+  projects: Projects;
+  user: AuthStateInterface['user'];
 }
 
-export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch }) => {
-  const { projects } = useContext(ProjectsStateContext);
-  const projectsDispatch = useContext(ProjectsDispatchContext);
-  const { user } = useContext(AuthStateContext);
-
+export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch, server, projects, user }) => {
   const [creatingNewProject, setCreatingNewProject] = useState(false);
 
   useEffect(() => {
@@ -29,15 +26,15 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch }) => {
         const body = await response.json();
         return body;
       }
-      const usersProjects = await get<Projects>(`${SERVER}${user?.self}/projects`);
+      const usersProjects = await get<Projects>(`${server}${user?.self}/projects`);
       console.log(usersProjects);
       const sortedProjects = usersProjects.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
-      projectsDispatch({
+      dispatch({
         type: ProjectsActionTypes.setProjects,
         payload: sortedProjects,
       });
     })();
-  }, []);
+  }, [dispatch, server, user]);
 
   return (
     <>
@@ -55,10 +52,13 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch }) => {
               icon="plus-square"
             />
           </NewProjectButton>
-          {projects && projects.map(project => <Project key={project.self} {...project} dispatch={dispatch} />)}
+          {projects &&
+            projects.map(project => <Project key={project.self} {...project} dispatch={dispatch} server={server} />)}
         </div>
       </div>
-      {creatingNewProject && <NewProjectModal setCreatingNewProject={setCreatingNewProject} dispatch={dispatch} />}
+      {creatingNewProject && (
+        <NewProjectModal setCreatingNewProject={setCreatingNewProject} dispatch={dispatch} server={server} />
+      )}
     </>
   );
 };

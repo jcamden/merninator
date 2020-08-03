@@ -56,7 +56,7 @@ export const NavBar: React.FC<NavBarProps> = ({ dispatch, user }) => {
 
   return (
     <nav className="py-3 px-2 d-flex flex-row bg-primary justify-content-between align-items-center shadow">
-      <a className="d-flex flex-row text-decoration-none" href={'/about'}>
+      <a className="d-flex flex-row text-decoration-none" href={'/'}>
         <img className="logo-img ml-2" alt="no ordinary lamp" src={'https://localhost:5000/djinndexLogo.svg'} />
         <h3 className="font-logo pl-1 text-warning">Djinndex</h3>
       </a>

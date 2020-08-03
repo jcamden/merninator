@@ -1,15 +1,18 @@
-import express from 'express';
-import { corsOptions } from './config/corsOptions';
-import cors from 'cors';
-import passport from 'passport';
-import { configPassport } from './config/passport';
-import { router } from './routes/routes';
 import './config/database';
-import { consoleLogo } from './lib/consoleLogo';
-import https from 'https';
+
 import { readFileSync } from 'fs';
-import { resolve, join } from 'path';
+import https from 'https';
+import { join, resolve } from 'path';
+
 import chalk from 'chalk';
+import cors from 'cors';
+import express from 'express';
+import passport from 'passport';
+
+import { corsOptions } from './config/corsOptions';
+import { configPassport } from './config/passport';
+import { consoleLogo } from './lib/consoleLogo';
+import { router } from './routes/routes';
 
 // init Express application
 const app = express();

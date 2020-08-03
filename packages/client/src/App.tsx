@@ -1,18 +1,21 @@
-import React from 'react';
 import '@merninator/lib/src/themes/index.scss';
+
 import './utils/faLib';
-import { AuthState } from './context/auth/AuthState';
-import { AppState } from './context/app/AppState';
+
+import { NavBar } from '@merninator/lib';
+import React from 'react';
 // import TodoPage from './components/pages/Projects/ProjectsPage';
 // import LoginRHF from './components/pages/Login/LoginRHF';
 // import RegisterRHF from './components/pages/Register/RegisterRHF';
 // import ConditionalRoute from './components/auth/ConditionalRoute';
 // import ProtectedRoute from './components/auth/ProtectedRoute';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { NavBar } from '@merninator/lib';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+
+import { DispatchWrappedStateRouter } from './components/hoc/DispatchWrappedStateRouter';
+import { NavBarPropProvider } from './components/hoc/NavBarPropProvider';
+import { AppState } from './context/app/AppState';
+import { AuthState } from './context/auth/AuthState';
 import { ProjectsState } from './context/projects/ProjectsState';
-import { DispatchWrappedStateRouter } from './components/pages/DispatchWrappedStateRouter';
-import { NavBarPropProvider } from './components/NavBarPropProvider';
 
 export const App: React.FC = () => {
   return (

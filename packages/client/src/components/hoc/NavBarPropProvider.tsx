@@ -1,17 +1,19 @@
-import React, { cloneElement, useContext } from 'react';
-import { AuthDispatchContext } from './auth/AuthState';
-import { AppDispatchContext } from './app/AppState';
 import {
-  AuthActions,
-  AuthActionTypes,
-  AppActions,
   AppActionTypes,
-  ProjectsActions,
+  AppActions,
+  AuthActionTypes,
+  AuthActions,
   ProjectsActionTypes,
+  ProjectsActions,
 } from '@merninator/types';
-import { ProjectsDispatchContext } from './projects/ProjectsState';
+import React, { cloneElement, useContext } from 'react';
 
-interface DispatchProviderSingleChildProps {
+import { AppDispatchContext } from '../../context/app/AppState';
+import { AuthDispatchContext } from '../../context/auth/AuthState';
+import { AuthStateContext } from '../../context/auth/AuthState';
+import { ProjectsDispatchContext } from '../../context/projects/ProjectsState';
+
+interface NavBarPropProviderProps {
   // changed from type ReactNode to satisfy TS error:
   // type 'ReactNode' is not assignable to parameter of type 'ReactElement
   children: JSX.Element;
@@ -27,10 +29,11 @@ const isAppAction = (action: AppActions | ProjectsActions): action is AppActions
 const isProjectAction = (action: ProjectsActions): action is ProjectsActions =>
   Object.values(ProjectsActionTypes).includes(action.type as ProjectsActionTypes);
 
-export const DispatchProviderSingleChild: React.FC<DispatchProviderSingleChildProps> = ({ children }) => {
+export const NavBarPropProvider: React.FC<NavBarPropProviderProps> = ({ children }) => {
   const authDispatch = useContext(AuthDispatchContext);
   const appDispatch = useContext(AppDispatchContext);
   const projectsDispatch = useContext(ProjectsDispatchContext);
+  const { user } = useContext(AuthStateContext);
 
   const dispatch = (action: AuthActions | AppActions): void | Error => {
     // If the action is of the auth action type, dispatch
@@ -43,7 +46,7 @@ export const DispatchProviderSingleChild: React.FC<DispatchProviderSingleChildPr
       : new Error('Bad action: there is no reducer which handles that action.');
   };
 
-  const childrenWithDispatch = cloneElement(children, { dispatch: dispatch });
+  const navBarWithProps = cloneElement(children, { dispatch: dispatch, user: user });
 
-  return <>{childrenWithDispatch}</>;
+  return <>{navBarWithProps}</>;
 };

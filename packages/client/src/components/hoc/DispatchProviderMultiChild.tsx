@@ -1,7 +1,8 @@
+import { AppActionTypes, AppActions, AuthActionTypes, AuthActions } from '@merninator/types';
 import React, { Children, cloneElement, useContext } from 'react';
-import { AuthDispatchContext } from './auth/AuthState';
-import { AppDispatchContext } from './app/AppState';
-import { AuthActions, AuthActionTypes, AppActions, AppActionTypes } from '@merninator/types';
+
+import { AppDispatchContext } from '../../context/app/AppState';
+import { AuthDispatchContext } from '../../context/auth/AuthState';
 
 interface DispatchProviderProps {
   // changed from type ReactNode to satisfy TS error:

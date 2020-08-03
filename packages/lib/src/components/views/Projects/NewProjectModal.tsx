@@ -1,19 +1,19 @@
-import React, { Dispatch, useState, SetStateAction } from 'react';
-import { useForm } from 'react-hook-form';
+import { IDispatch, ProjectsActionTypes } from '@merninator/types';
 import Axios from 'axios';
-import { SERVER } from '../../../settings';
-import { AuthActions, AppActions, ProjectsActions, ProjectsActionTypes } from '@merninator/types';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 interface NewProjectModalProps {
   setCreatingNewProject: Dispatch<SetStateAction<boolean>>;
-  dispatch: (arg0: AuthActions | AppActions | ProjectsActions) => void;
+  dispatch: IDispatch;
+  server: string;
 }
 
 interface FormData {
   title: string;
 }
 
-export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNewProject, dispatch }) => {
+export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNewProject, dispatch, server }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -29,7 +29,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNew
     } else {
       try {
         setLoading(true);
-        await Axios.post(`${SERVER}/project`, data, {
+        await Axios.post(`${server}/project`, data, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -37,11 +37,11 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({ setCreatingNew
         dispatch({
           type: ProjectsActionTypes.addProject,
           payload: {
-            self: 'placeholder',
+            self: `placeholder: ${new Date().toString()}`,
             ...data,
             completed: false,
-            createdAt: 'placeholder',
-            updatedAt: 'placeholder',
+            createdAt: `placeholder: ${new Date().toString()}`,
+            updatedAt: `placeholder: ${new Date().toString()}`,
           },
         });
         setLoading(false);
