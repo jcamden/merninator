@@ -9,10 +9,10 @@ import { AppState } from './context/app/AppState';
 // import ConditionalRoute from './components/auth/ConditionalRoute';
 // import ProtectedRoute from './components/auth/ProtectedRoute';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { NavBar } from './components/layout/NavBar';
+import { NavBar } from '@merninator/lib';
 import { ProjectsState } from './context/projects/ProjectsState';
 import { DispatchWrappedStateRouter } from './components/pages/DispatchWrappedStateRouter';
-import { DispatchProviderSingleChild } from './context/DispatchProviderSingleChild';
+import { NavBarPropProvider } from './components/NavBarPropProvider';
 
 export const App: React.FC = () => {
   return (
@@ -20,13 +20,14 @@ export const App: React.FC = () => {
       <AuthState>
         <AppState>
           <ProjectsState>
-            <DispatchProviderSingleChild>
+            <NavBarPropProvider>
               <NavBar
                 dispatch={(): void => {
                   console.log('dispatch not replaced');
                 }}
+                user={{ self: 'init', email: 'init', givenName: 'init', familyName: 'init', _v: 0 }}
               />
-            </DispatchProviderSingleChild>
+            </NavBarPropProvider>
             <Router>
               <Switch>
                 {/* <ConditionalRoute path="/todos" noUser="/login" component={TodoPage} /> */}

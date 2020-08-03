@@ -58,6 +58,7 @@ export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
           authLoading={authLoading}
           authError={authError}
           user={user}
+          checkedAuth={checkedAuth}
         />
       );
     }

@@ -1,18 +1,16 @@
-import React, { useContext } from 'react';
-import { AuthStateContext } from '../../context/auth/AuthState';
+import React from 'react';
 
 import { NavStateLink } from './NavLink/NavStateLink';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { AuthActions, AuthActionTypes, AppActions, AppActionTypes } from '@merninator/types';
+import { AuthActions, AuthActionTypes, AppActions, AppActionTypes, AuthStateInterface } from '@merninator/types';
 
 interface NavBarProps {
   dispatch: (arg0: AuthActions | AppActions) => void;
+  user: AuthStateInterface['user'];
 }
 
-export const NavBar: React.FC<NavBarProps> = ({ dispatch }) => {
-  const { user } = useContext(AuthStateContext);
-
+export const NavBar: React.FC<NavBarProps> = ({ dispatch, user }) => {
   const authLinks = (
     <>
       <NavStateLink
@@ -20,7 +18,7 @@ export const NavBar: React.FC<NavBarProps> = ({ dispatch }) => {
         actions={[{ type: AppActionTypes.changePage, payload: 'projects' }]}
         dispatch={dispatch}
       />
-      <h3 className="mt-1">|</h3>
+      <h4 className="mt-1">|</h4>
       {user?.self !== 'guest' && (
         <NavStateLink
           text={`${user?.givenName} ${user?.familyName}`}
@@ -28,7 +26,7 @@ export const NavBar: React.FC<NavBarProps> = ({ dispatch }) => {
           dispatch={dispatch}
         />
       )}
-      <h3 className="mt-1">|</h3>
+      <h4 className="mt-1">|</h4>
       <NavStateLink
         text={<FontAwesomeIcon className="mr-2" icon="sign-out-alt" />}
         actions={[
