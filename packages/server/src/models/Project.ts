@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+
 import { IUser } from '../models/User';
 
 const ProjectSchema = new Schema(

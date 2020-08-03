@@ -1,9 +1,8 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AppActionTypes, AppActions, AuthActionTypes, AuthActions, AuthStateInterface } from '@merninator/types';
 import React from 'react';
 
 import { NavStateLink } from './NavLink/NavStateLink';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { AuthActions, AuthActionTypes, AppActions, AppActionTypes, AuthStateInterface } from '@merninator/types';
 
 interface NavBarProps {
   dispatch: (arg0: AuthActions | AppActions) => void;

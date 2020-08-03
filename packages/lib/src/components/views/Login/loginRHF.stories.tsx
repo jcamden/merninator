@@ -1,10 +1,11 @@
-import React from 'react';
+import { AppActionTypes, AuthActionTypes, IDispatch } from '@merninator/types';
 import { action } from '@storybook/addon-actions';
-import { LoginRHF } from './LoginRHF';
-import { initialUser } from '../../../utils/index';
-import { AuthActionTypes, AppActionTypes, IDispatch } from '@merninator/types';
 import Axios from 'axios';
+import React from 'react';
+
 import { GOOGLE_CLIENT_ID } from '../../../settings';
+import { initialUser } from '../../../utils/index';
+import { LoginRHF } from './LoginRHF';
 
 const loginUserTest = async (formData: { email: string; password: string }, dispatch: IDispatch): Promise<void> => {
   const config = {

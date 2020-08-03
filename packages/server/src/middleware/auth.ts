@@ -1,7 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
+
+import { NextFunction, Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
 
 export const auth = (req: Request, res: Response, next: NextFunction): void => {
     // get token from header

@@ -1,8 +1,9 @@
-import React, { ReactNode } from 'react';
-import { useImmerReducer } from 'use-immer';
-import { projectsReducer } from './projectsReducer';
-import { createContext, Dispatch } from 'react';
 import { IProjectsState, ProjectsActions } from '@merninator/types';
+import React, { ReactNode } from 'react';
+import { Dispatch, createContext } from 'react';
+import { useImmerReducer } from 'use-immer';
+
+import { projectsReducer } from './projectsReducer';
 
 // const projects = [
 //   {

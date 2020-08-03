@@ -1,6 +1,7 @@
-import { Router, Request, Response } from 'express';
-import { Project } from '../../../models/Project';
+import { Request, Response, Router } from 'express';
+
 import { auth } from '../../../middleware/auth';
+import { Project } from '../../../models/Project';
 
 export const deleteProjectRouter = Router();
 

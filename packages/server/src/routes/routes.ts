@@ -1,8 +1,8 @@
 import express from 'express';
 
 import { authRouter } from './auth/auth';
-import { userRouter } from './user/user';
 import { projectRouter } from './project/project';
+import { userRouter } from './user/user';
 
 export const router = express.Router();
 

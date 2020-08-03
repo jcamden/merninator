@@ -1,7 +1,8 @@
-import { Router, Request, Response } from 'express';
+import chalk from 'chalk';
+import { Request, Response, Router } from 'express';
+
 import { genPassword, issueJWT } from '../../../lib/utils';
 import { User } from '../../../models/User';
-import chalk from 'chalk';
 
 export const registerRouter = Router();
 

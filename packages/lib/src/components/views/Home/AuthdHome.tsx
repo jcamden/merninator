@@ -1,5 +1,5 @@
+import { AppActions, AuthActions } from '@merninator/types';
 import React from 'react';
-import { AuthActions, AppActions } from '@merninator/types';
 
 interface AuthdHomeProps {
   dispatch: (arg0: AuthActions | AppActions) => void;

@@ -1,7 +1,9 @@
 import crypto from 'crypto';
-import jsonwebtoken from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
+
+import jsonwebtoken from 'jsonwebtoken';
+
 import { IUser } from '../models/User';
 
 const pathToKey = path.join(__dirname, '../../security/jwt', 'id_rsa_priv.pem');

@@ -1,5 +1,6 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import { validatePassword, issueJWT } from '../../../lib/utils';
+import { NextFunction, Request, Response, Router } from 'express';
+
+import { issueJWT, validatePassword } from '../../../lib/utils';
 import { User } from '../../../models/User';
 
 export const loginRouter = Router();

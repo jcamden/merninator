@@ -1,4 +1,5 @@
 import React, { ReactNode, useContext } from 'react';
+
 import { AuthStateContext } from '../../context/auth/AuthState';
 
 interface CheckAuthProps {

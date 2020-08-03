@@ -1,10 +1,11 @@
-import React from 'react';
+import { AppActionTypes, AppActions, AuthActionTypes, AuthActions } from '@merninator/types';
 import { action } from '@storybook/addon-actions';
-import { RegisterRHF } from './RegisterRHF';
-import { initialUser } from '../../../utils/index';
-import { AuthActions, AppActions, AuthActionTypes, AppActionTypes } from '@merninator/types';
 import Axios from 'axios';
+import React from 'react';
+
 import { GOOGLE_CLIENT_ID } from '../../../settings';
+import { initialUser } from '../../../utils/index';
+import { RegisterRHF } from './RegisterRHF';
 
 const registerUserTest = async (
   data: { givenName: string; familyName: string; email: string; password: string; password2: string },

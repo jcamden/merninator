@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import { Project } from '../../../models/Project';
+
 import { auth } from '../../../middleware/auth';
+import { Project } from '../../../models/Project';
 
 export const getProjectRouter = Router();
 

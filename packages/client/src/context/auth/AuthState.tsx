@@ -1,9 +1,10 @@
+import { AuthActions, AuthStateInterface } from '@merninator/types';
 import React, { ReactNode, useEffect } from 'react';
+import { Dispatch, createContext } from 'react';
 import { useImmerReducer } from 'use-immer';
-import { authReducer } from './authReducer';
-import { createContext, Dispatch } from 'react';
-import { AuthStateInterface, AuthActions } from '@merninator/types';
+
 import { loadUserAuthDispatch } from '../../utils/authUtils';
+import { authReducer } from './authReducer';
 
 // really todos belongs in a separate context
 // and it should be informed by a GET request

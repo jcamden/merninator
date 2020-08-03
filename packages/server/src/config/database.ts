@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
 import chalk from 'chalk';
+import mongoose from 'mongoose';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const dbConnection = isProduction ? process.env.MONGO_URI_PROD : process.env.MONGO_URI_DEV;

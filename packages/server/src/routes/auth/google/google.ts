@@ -1,8 +1,9 @@
-import { Router } from 'express';
-import { issueJWT } from '../../../lib/utils';
-import { User } from '../../../models/User';
 import Axios from 'axios';
 import chalk from 'chalk';
+import { Router } from 'express';
+
+import { issueJWT } from '../../../lib/utils';
+import { User } from '../../../models/User';
 
 export const googleRouter = Router();
 

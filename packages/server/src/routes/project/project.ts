@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { getProjectRouter } from './getProject/getProject';
-import { putProjectRouter } from './putProject/putProject';
+
 import { deleteProjectRouter } from './deleteProject/deleteProject';
+import { getProjectRouter } from './getProject/getProject';
 import { postProjectRouter } from './postProject/postProject';
+import { putProjectRouter } from './putProject/putProject';
 
 export const projectRouter = Router();
 

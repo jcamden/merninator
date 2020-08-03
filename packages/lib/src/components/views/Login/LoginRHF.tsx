@@ -1,12 +1,13 @@
-import React from 'react';
-import Axios from 'axios';
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { AppActionTypes, AuthActionTypes, AuthStateInterface, FormWithDispatch, IDispatch } from '@merninator/types';
+import Axios from 'axios';
+import React from 'react';
+import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { useForm } from 'react-hook-form';
+import { Redirect } from 'react-router-dom';
+
 import { LoadingLogo } from '../../atoms/LoadingLogo/LoadingLogo';
 import { DummyPage } from '../../templates/DummyPage';
-import { Redirect } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { AuthActionTypes, AppActionTypes, AuthStateInterface, IDispatch, FormWithDispatch } from '@merninator/types';
 
 interface FormData {
   email: string;

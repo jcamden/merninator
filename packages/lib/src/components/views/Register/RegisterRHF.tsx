@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import Axios from 'axios';
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AuthActionTypes, AppActionTypes, AuthStateInterface, IDispatch, FormWithDispatch } from '@merninator/types';
-import { DummyPage } from '../../templates/DummyPage';
+import { AppActionTypes, AuthActionTypes, AuthStateInterface, FormWithDispatch, IDispatch } from '@merninator/types';
+import Axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { useForm } from 'react-hook-form';
+
 import { LoadingLogo } from '../../atoms/LoadingLogo/LoadingLogo';
+import { DummyPage } from '../../templates/DummyPage';
 
 interface FormData {
   givenName: string;

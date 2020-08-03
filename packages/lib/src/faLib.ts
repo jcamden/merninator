@@ -2,36 +2,35 @@
 // Figured I'll proly be usin' em again.
 
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import {
-  faSignOutAlt,
-  faPlusSquare,
-  faLockOpen,
-  faLock,
-  faTimesCircle,
-  faFilePdf,
-  faSearch,
-  faArrowCircleRight,
   faArrowCircleLeft,
-  faSearchPlus,
-  faSearchMinus,
-  faFileAlt,
-  faTools,
-  faBook,
-  faUserEdit,
+  faArrowCircleRight,
   faBible,
-  faStream,
+  faBook,
   faEdit,
-  faTrashAlt,
-  faUserPlus,
+  faEye,
+  faEyeSlash,
+  faFileAlt,
+  faFilePdf,
   faFlag,
+  faInfinity,
+  faLock,
+  faLockOpen,
   faMinusCircle,
   faPlusCircle,
-  faInfinity,
-  faEyeSlash,
-  faEye,
+  faPlusSquare,
+  faSearch,
+  faSearchMinus,
+  faSearchPlus,
+  faSignOutAlt,
+  faStream,
+  faTimesCircle,
+  faTools,
+  faTrashAlt,
+  faUserEdit,
+  faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
-
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
   faGoogle,

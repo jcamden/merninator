@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { Project } from '../../../models/Project';
-import { auth } from '../../../middleware/auth';
 import { check, validationResult } from 'express-validator';
+
+import { auth } from '../../../middleware/auth';
+import { Project } from '../../../models/Project';
 
 export const postProjectRouter = Router();
 

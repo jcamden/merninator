@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { Project } from '../../../models/Project';
-import { auth } from '../../../middleware/auth';
+
 import { id2Self } from '../../../lib/utils';
+import { auth } from '../../../middleware/auth';
+import { Project } from '../../../models/Project';
 
 export const getUsersProjectsRouter = Router();
 

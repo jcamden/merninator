@@ -1,7 +1,8 @@
-import React from 'react';
 import { action } from '@storybook/addon-actions';
+import React from 'react';
+
+import { fakeUser, initialUser } from '../../../utils/index';
 import { NavBar } from './NavBar';
-import { initialUser, fakeUser } from '../../../utils/index';
 
 export default {
   title: 'organisms',

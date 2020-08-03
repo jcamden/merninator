@@ -1,8 +1,9 @@
-// import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 // import fs from 'fs';
 // import path from 'path';
 import { PassportStatic } from 'passport';
+// import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+
 import { User } from '../models/User';
 
 // const pathToKey = path.join(__dirname, '../../security/jwt/', 'id_rsa_pub.pem');
