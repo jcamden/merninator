@@ -5,6 +5,7 @@ import React, { useContext } from 'react';
 import { AppStateContext } from '../context/app/AppState';
 import { AuthStateContext } from '../context/auth/AuthState';
 import { ProjectsStateContext } from '../context/projects/ProjectsState';
+import { modalRHFOnSubmit } from '../services/modalRHFOnSubmit';
 import { GOOGLE_CLIENT_ID, SERVER } from '../settings';
 import { loginUser, registerUser } from '../utils/authUtils';
 import { CheckAuth } from './auth/CheckAuth';
@@ -60,7 +61,15 @@ export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
       );
     }
     case 'projects': {
-      return <ProjectsPage dispatch={dispatch} user={user} projects={projects} server={SERVER} />;
+      return (
+        <ProjectsPage
+          dispatch={dispatch}
+          modalRHFOnSubmit={modalRHFOnSubmit}
+          projects={projects}
+          server={SERVER}
+          user={user}
+        />
+      );
     }
     case 'profile': {
       return <Profile dispatch={dispatch} />;

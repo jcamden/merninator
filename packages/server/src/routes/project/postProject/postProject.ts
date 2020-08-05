@@ -26,7 +26,7 @@ postProjectRouter.post('/', [auth, [check('title', 'title is required').not().is
         console.log(project);
 
         const resProject = {
-            self: `/projects/${project._id}`,
+            self: `/project/${project._id}`,
             title: project.title,
             completed: project.completed,
             createdAt: project.createdAt,

@@ -1,19 +1,20 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AuthStateInterface, IDispatch, Projects, ProjectsActionTypes } from '@merninator/types';
+import { AuthStateInterface, IDispatch, ModalRHFOnSubmit, Projects, ProjectsActionTypes } from '@merninator/types';
 import React, { useEffect, useState } from 'react';
 
+import { ModalRHF } from '../../organisms/Modal/ModalRHF';
 import { NewProjectButton } from './NewProjectButton';
-import { NewProjectModal } from './NewProjectModal';
 import { Project } from './Project';
 
 interface ProjectsPageProps {
   dispatch: IDispatch;
-  server: string;
+  modalRHFOnSubmit: ModalRHFOnSubmit;
   projects: Projects;
+  server: string;
   user: AuthStateInterface['user'];
 }
 
-export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch, server, projects, user }) => {
+export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch, modalRHFOnSubmit, projects, server, user }) => {
   const [creatingNewProject, setCreatingNewProject] = useState(false);
 
   useEffect(() => {
@@ -57,7 +58,13 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch, server, pr
         </div>
       </div>
       {creatingNewProject && (
-        <NewProjectModal setCreatingNewProject={setCreatingNewProject} dispatch={dispatch} server={server} />
+        <ModalRHF
+          dispatch={dispatch}
+          modalRHFOnSubmit={modalRHFOnSubmit}
+          server={'https://localhost:5000'}
+          setModalOpen={setCreatingNewProject}
+          submitURL="/project"
+        />
       )}
     </>
   );
