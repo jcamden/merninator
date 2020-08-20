@@ -20,7 +20,7 @@ export const modalRHFOnSubmit = async <T>(
     // submit form:
     try {
       setLoading(true);
-      await Axios.post(`${server}${submitURL}`, data, {
+      const res = await Axios.post(`${server}${submitURL}`, data, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -31,6 +31,20 @@ export const modalRHFOnSubmit = async <T>(
         (data as RHFModalDataAddProject).title !== undefined;
 
       if (isAddProjectData(data)) {
+        console.log(res.data._id);
+        console.log(data.pdf[0]);
+
+        const url = `https://localhost:5000/project/upload/${res.data._id}`;
+        const formData = new FormData();
+        // gonna be passed to upload backend as 'file':
+        formData.append('file', data.pdf[0]);
+
+        await Axios.post(url, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
         dispatch({
           type: ProjectsActionTypes.addProject,
           payload: {

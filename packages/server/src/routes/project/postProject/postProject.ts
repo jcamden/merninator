@@ -12,7 +12,9 @@ postProjectRouter.post('/', [auth, [check('title', 'title is required').not().is
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { title } = req.body;
+    const { title, pdf } = req.body;
+
+    console.log(pdf);
 
     try {
         const newProject = new Project({
@@ -34,7 +36,7 @@ postProjectRouter.post('/', [auth, [check('title', 'title is required').not().is
         };
 
         // need to edit response to include self
-        res.json({ success: true, project: resProject });
+        res.json({ success: true, project: resProject, _id: project._id });
     } catch (err) {
         console.error(err.message);
         res.status(500).send({ success: false, msg: 'server error', err: err });

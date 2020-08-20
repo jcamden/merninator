@@ -8,7 +8,7 @@ import {
 } from '@merninator/types';
 import React, { cloneElement, useContext } from 'react';
 
-import { AppDispatchContext } from '../../context/app/AppState';
+import { AppDispatchContext, AppStateContext } from '../../context/app/AppState';
 import { AuthDispatchContext } from '../../context/auth/AuthState';
 import { AuthStateContext } from '../../context/auth/AuthState';
 import { ProjectsDispatchContext } from '../../context/projects/ProjectsState';
@@ -34,6 +34,12 @@ export const NavBarPropProvider: React.FC<NavBarPropProviderProps> = ({ children
   const appDispatch = useContext(AppDispatchContext);
   const projectsDispatch = useContext(ProjectsDispatchContext);
   const { user } = useContext(AuthStateContext);
+  const { page, onSetQsPage } = useContext(AppStateContext);
+
+  // using our custom hook to set the qsPage to our default page or whatever page has been set to in AppStateContext
+  // We'll clone the navBar passed in as a child and replace page prop value with the value of qsPage.
+  // (Could also just call the navbar as a child here, but the cloning approach was used to genericize the provider.)
+  // const [qsPage, onSetQsPage] = useQueryString('page', page);
 
   const dispatch = (action: AuthActions | AppActions): void | Error => {
     // If the action is of the auth action type, dispatch
@@ -46,7 +52,12 @@ export const NavBarPropProvider: React.FC<NavBarPropProviderProps> = ({ children
       : new Error('Bad action: there is no reducer which handles that action.');
   };
 
-  const navBarWithProps = cloneElement(children, { dispatch: dispatch, user: user });
+  const navBarWithProps = cloneElement(children, {
+    dispatch: dispatch,
+    user: user,
+    page: page,
+    onSetQsPage: onSetQsPage,
+  });
 
   return <>{navBarWithProps}</>;
 };

@@ -60,10 +60,15 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({ dispatch, modalRHFOn
       {creatingNewProject && (
         <ModalRHF
           dispatch={dispatch}
+          formFields={[
+            { title: 'title', type: 'text', placeholder: 'title', validation: { required: 'title required' } },
+          ]}
           modalRHFOnSubmit={modalRHFOnSubmit}
           server={'https://localhost:5000'}
           setModalOpen={setCreatingNewProject}
+          submitButtonTexts={{ default: 'Create Project', loading: 'Creating Project', success: 'Project Created' }}
           submitURL="/project"
+          title="Create a Project"
         />
       )}
     </>

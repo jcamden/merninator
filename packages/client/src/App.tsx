@@ -12,6 +12,7 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import { DispatchWrappedStateRouter } from './components/hoc/DispatchWrappedStateRouter';
+import { ModalProvider } from './components/hoc/ModalProvider';
 import { NavBarPropProvider } from './components/hoc/NavBarPropProvider';
 import { AppState } from './context/app/AppState';
 import { AuthState } from './context/auth/AuthState';
@@ -23,12 +24,17 @@ export const App: React.FC = () => {
       <AuthState>
         <AppState>
           <ProjectsState>
+            <ModalProvider />
             <NavBarPropProvider>
               <NavBar
                 dispatch={(): void => {
                   console.log('dispatch not replaced');
                 }}
                 user={{ self: 'init', email: 'init', givenName: 'init', familyName: 'init', _v: 0 }}
+                page="placeholder"
+                onSetQsPage={(newValue: string): void =>
+                  console.log(`${newValue}: onSetQsPage was not replaced by NavBarPropProvider`)
+                }
               />
             </NavBarPropProvider>
             <Router>

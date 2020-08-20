@@ -13,7 +13,7 @@ export const registerUser = async (
   };
 
   try {
-    const res = await Axios.post('https://localhost:5000/auth/register', data, config);
+    const res = await Axios.post(process.env.REACT_APP_SERVER + '/auth/register', data, config);
 
     dispatch({
       type: AuthActionTypes.registerSuccess,
@@ -21,7 +21,36 @@ export const registerUser = async (
     });
     dispatch({
       type: AppActionTypes.changePage,
-      payload: 'home',
+      payload: 'writing',
+    });
+  } catch (err) {
+    dispatch({
+      type: AuthActionTypes.authError,
+      payload: err.response.data.msg,
+    });
+  }
+};
+
+export const registerUserModal = async (
+  data: { givenName: string; familyName: string; email: string; password: string; password2: string },
+  dispatch: (arg0: AuthActions | AppActions) => void,
+): Promise<void> => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await Axios.post(process.env.REACT_APP_SERVER + '/auth/register', data, config);
+
+    dispatch({
+      type: AuthActionTypes.registerSuccess,
+      payload: res.data,
+    });
+    dispatch({
+      type: AppActionTypes.setModal,
+      payload: '',
     });
   } catch (err) {
     dispatch({
@@ -43,14 +72,42 @@ export const loginUser = async (
   };
 
   try {
-    const res = await Axios.post('https://localhost:5000/auth/login', formData, config);
+    const res = await Axios.post(process.env.REACT_APP_SERVER + '/auth/login', formData, config);
     dispatch({
       type: AuthActionTypes.loginSuccess,
       payload: res.data,
     });
     dispatch({
       type: AppActionTypes.changePage,
-      payload: 'home',
+      payload: 'writing',
+    });
+  } catch (err) {
+    dispatch({
+      type: AuthActionTypes.authError,
+      payload: err.response.data.msg,
+    });
+  }
+};
+
+export const loginUserModal = async (
+  formData: { email: string; password: string },
+  dispatch: (arg0: AuthActions | AppActions) => void,
+): Promise<void> => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await Axios.post(process.env.REACT_APP_SERVER + '/auth/login', formData, config);
+    dispatch({
+      type: AuthActionTypes.loginSuccess,
+      payload: res.data,
+    });
+    dispatch({
+      type: AppActionTypes.setModal,
+      payload: '',
     });
   } catch (err) {
     dispatch({
@@ -74,7 +131,7 @@ export const loadUser = async (dispatch: (arg0: AuthActions | AppActions) => voi
   if (localStorage.token) {
     setAuthToken(localStorage.token);
     try {
-      const res = await Axios.get('https://localhost:5000/auth');
+      const res = await Axios.get(process.env.REACT_APP_SERVER + '/auth');
       console.log(res.data.user);
       dispatch({
         type: AuthActionTypes.userLoaded,
@@ -100,7 +157,8 @@ export const loadUserAuthDispatch = async (authDispatch: Dispatch<AuthActions>):
   if (localStorage.token) {
     setAuthToken(localStorage.token);
     try {
-      const res = await Axios.get('https://localhost:5000/auth');
+      console.log(process.env.REACT_APP_SERVER);
+      const res = await Axios.get(process.env.REACT_APP_SERVER + '/auth');
       console.log(res.data.user);
       authDispatch({
         type: AuthActionTypes.userLoaded,

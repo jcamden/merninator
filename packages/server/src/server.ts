@@ -1,7 +1,7 @@
 import './config/database';
 
-import { readFileSync } from 'fs';
-import https from 'https';
+// import { readFileSync } from 'fs';
+// import https from 'https';
 import { join, resolve } from 'path';
 
 import chalk from 'chalk';
@@ -56,13 +56,18 @@ if (isProduction) {
 } else {
     const port = process.env.PORT || 5000;
 
-    const httpsOptions = {
-        key: readFileSync(resolve(__dirname, '../security/ssl/cert.key')),
-        cert: readFileSync(resolve(__dirname, '../security/ssl/cert.pem')),
-    };
-
-    https.createServer(httpsOptions, app).listen(port, () => {
+    app.listen(port, () => {
         consoleLogo();
-        console.log('https server running at ' + chalk.cyan(`https://localhost:${port}`));
+        console.log('http server running at ' + chalk.cyan(`http://localhost:${port}`));
     });
+
+    // const httpsOptions = {
+    //     key: readFileSync(resolve(__dirname, '../security/ssl/cert.key')),
+    //     cert: readFileSync(resolve(__dirname, '../security/ssl/cert.pem')),
+    // };
+
+    // https.createServer(httpsOptions, app).listen(port, () => {
+    //     consoleLogo();
+    //     console.log('https server running at ' + chalk.cyan(`https://localhost:${port}`));
+    // });
 }

@@ -6,5 +6,9 @@ export const appReducer = (draft: AppStateInterface, action: AppActions): void =
       draft.page = action.payload;
       return;
     }
+    case 'setModal': {
+      draft.modal = action.payload;
+      return;
+    }
   }
 };

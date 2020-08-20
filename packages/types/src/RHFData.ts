@@ -12,4 +12,4 @@ export type ModalRHFOnSubmit = <T>(
   success: boolean,
 ) => Promise<void>;
 
-export type RHFModalDataAddProject = { title: string };
+export type RHFModalDataAddProject = { title: string; pdf: any };

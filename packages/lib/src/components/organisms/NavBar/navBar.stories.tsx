@@ -5,7 +5,7 @@ import { fakeUser, initialUser } from '../../../utils/index';
 import { NavBar } from './NavBar';
 
 export default {
-  title: 'organisms',
+  title: 'organisms/Navbar',
   component: NavBar,
 };
 
