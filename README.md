@@ -2,11 +2,11 @@
 <h1 align="center">The MERNinator</h1>
 <h2 align="center">MERN monorepo boilerplate by Djinndex</h2>
 
-<img  src="https://github.com/jcamden/merninator/blob/master/monorepo.png" />
-
 _Well, sir, there's nothing on earth_  
 _Like a genuine, bona fide_  
 _Electrified, four-package monorepo._
+
+<p align="center"><img  src="https://github.com/jcamden/merninator/blob/master/monorepo.png" /></p>
 
 This repo is a(n evolving) template for how I like to do things. This README provides information about the structure of repository and root-level commands, and also some notes on my preferred standards and packages.
 
