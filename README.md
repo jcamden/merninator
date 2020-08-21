@@ -1,7 +1,8 @@
-<p align="center"><img  src="https://github.com/jcamden/MERN-monorepo-boilerplate/blob/master/monorepo.png" /></p>
+<p align="center"><img  src="https://github.com/jcamden/merninator/blob/master/packages/client/public/logo192.png" /></p>
 <h1 align="center">The MERNinator</h1>
 <h2 align="center">MERN monorepo boilerplate by Djinndex</h2>
 
+<img  src="https://github.com/jcamden/merninator/blob/master/monorepo.png" />
 _Well, sir, there's nothing on earth_  
 _Like a genuine, bona fide_  
 _Electrified, four-package monorepo._
