@@ -4,9 +4,9 @@
 
 <p align="center"><img  src="https://github.com/jcamden/merninator/blob/master/monorepo.png" /></p>
 
-->_Well, sir, there's nothing on earth_ <-
-->_Like a genuine, bona fide_ <-
-->_Electrified, four-package monorepo._ <-
+->_Well, sir, there's nothing on earth_<-  
+->_Like a genuine, bona fide_<-  
+->_Electrified, four-package monorepo._<-
 
 This repo is a(n evolving) template for how I like to do things. This README provides information about the structure of repository and root-level commands, and also some notes on my preferred standards and packages.
 
