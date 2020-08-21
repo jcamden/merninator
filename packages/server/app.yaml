@@ -3,7 +3,7 @@ runtime: nodejs12
 service: api
 
 env_variables:
-    MONGO_URI: mongodb+srv://clover:SBG3WEY8ZZ9sa1BR@cloverxuesongzhou.slgz2.gcp.mongodb.net/cloverxuesongzhou?retryWrites=true&w=majority
+    MONGO_URI: replace with URI
     JWT_SECRET_PROD: secret
     NODE_ENV: prod
     PORT: 8080
