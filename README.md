@@ -3,6 +3,7 @@
 <h2 align="center">MERN monorepo boilerplate by Djinndex</h2>
 
 <img  src="https://github.com/jcamden/merninator/blob/master/monorepo.png" />
+
 _Well, sir, there's nothing on earth_  
 _Like a genuine, bona fide_  
 _Electrified, four-package monorepo._
