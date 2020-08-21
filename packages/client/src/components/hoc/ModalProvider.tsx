@@ -14,7 +14,6 @@ import { AppDispatchContext } from '../../context/app/AppState';
 import { AuthStateContext } from '../../context/auth/AuthState';
 import { AuthDispatchContext } from '../../context/auth/AuthState';
 import { ProjectsDispatchContext } from '../../context/projects/ProjectsState';
-import { GOOGLE_CLIENT_ID } from '../../settings';
 import { loginUserModal, registerUserModal } from '../../utils/authUtils';
 
 const isAuthAction = (action: AuthActions | AppActions | ProjectsActions): action is AuthActions =>
@@ -52,7 +51,7 @@ export const ModalProvider: React.FC = () => {
         <LoginRHFModal
           dispatch={dispatch}
           loginUser={loginUserModal}
-          googleClientId={GOOGLE_CLIENT_ID}
+          googleClientId={process.env.REACT_APP_GOOGLE_CLIENT_ID ?? 'no Google clientID'}
           authLoading={authLoading}
           authError={authError}
           checkedAuth={checkedAuth}
@@ -62,7 +61,7 @@ export const ModalProvider: React.FC = () => {
         <RegisterRHFModal
           dispatch={dispatch}
           registerUser={registerUserModal}
-          googleClientId={GOOGLE_CLIENT_ID}
+          googleClientId={process.env.REACT_APP_GOOGLE_CLIENT_ID ?? 'no Google clientID'}
           authLoading={authLoading}
           authError={authError}
           user={user}

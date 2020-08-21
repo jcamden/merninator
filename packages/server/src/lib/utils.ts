@@ -6,8 +6,10 @@ import jsonwebtoken from 'jsonwebtoken';
 
 import { IUser } from '../models/User';
 
-const pathToKey = path.join(__dirname, '../../security/jwt', 'id_rsa_priv.pem');
+const pathToKey = path.join(__dirname, '../security/jwt', 'id_rsa_priv.pem');
+console.log(pathToKey);
 const PRIV_KEY = fs.readFileSync(pathToKey, 'utf8');
+console.log(PRIV_KEY);
 
 /**
  *

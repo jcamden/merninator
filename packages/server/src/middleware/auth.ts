@@ -17,7 +17,7 @@ export const auth = (req: Request, res: Response, next: NextFunction): void => {
         // if token is prefixed with 'Bearer ', strip it off
         const strippedToken = token.startsWith('Bearer ') ? token.slice(7, token.length).trimLeft() : token;
 
-        const pathToKey = path.join(__dirname, '../../security/jwt/', 'id_rsa_pub.pem');
+        const pathToKey = path.join(__dirname, '../security/jwt/', 'id_rsa_pub.pem');
         const PUB_KEY = fs.readFileSync(pathToKey, 'utf8');
 
         const decoded = jwt.verify(strippedToken, PUB_KEY, 'RS256');
