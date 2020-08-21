@@ -2,12 +2,6 @@
 <h1 align="center">The MERNinator</h1>
 <h2 align="center">MERN monorepo boilerplate by Djinndex</h2>
 
-<p align="center"><img  src="https://github.com/jcamden/merninator/blob/master/monorepo.png" /></p>
-
-<p align="center"><i>Well, sir, there's nothing on earth</i></p>
-<p align="center"><i>Like a genuine, bona fide</i></p>
-<p align="center"><i>Electrified, five-package monorepo.</i></p>
-
 NOTE: This README is out-of-date.
 
 This repo is a(n evolving) template for how I like to do things. This README provides information about the structure of repository and root-level commands, and also some notes on my preferred standards and packages.
@@ -157,3 +151,9 @@ MIT
 ## Acknowledgments
 
 God
+
+<p align="center"><img  src="https://github.com/jcamden/merninator/blob/master/monorepo.png" /></p>
+
+<p align="center"><i>Well, sir, there's nothing on earth</i></p>
+<p align="center"><i>Like a genuine, bona fide</i></p>
+<p align="center"><i>Electrified, five-package monorepo.</i></p>
