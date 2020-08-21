@@ -34,7 +34,7 @@ export const modalRHFOnSubmit = async <T>(
         console.log(res.data._id);
         console.log(data.pdf[0]);
 
-        const url = `https://localhost:5000/project/upload/${res.data._id}`;
+        const url = `${process.env.REACT_APP_SERVER}/project/upload/${res.data._id}`;
         const formData = new FormData();
         // gonna be passed to upload backend as 'file':
         formData.append('file', data.pdf[0]);

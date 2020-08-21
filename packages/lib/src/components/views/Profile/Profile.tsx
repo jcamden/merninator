@@ -5,6 +5,6 @@ interface ProfileProps {
   dispatch: (arg0: AuthActions | AppActions) => void;
 }
 
-export const Profile: React.FC<ProfileProps> = ({ dispatch }) => {
+export const Profile: React.FC<ProfileProps> = ({}) => {
   return <div>This is your profile!</div>;
 };

@@ -12,7 +12,7 @@
         "version": "0.1.0",
         "description": "@merninator/server",
         "title": "merninator server",
-        "url": "https://localhost:8000"
+        "url": "http://localhost:5000"
     },
     "dependencies": {
         "axios": "^0.19.2",

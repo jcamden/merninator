@@ -6,7 +6,6 @@ import { AppStateContext } from '../context/app/AppState';
 import { AuthStateContext } from '../context/auth/AuthState';
 import { ProjectsStateContext } from '../context/projects/ProjectsState';
 import { modalRHFOnSubmit } from '../services/modalRHFOnSubmit';
-import { GOOGLE_CLIENT_ID, SERVER } from '../settings';
 import { loginUser, registerUser } from '../utils/authUtils';
 import { CheckAuth } from './auth/CheckAuth';
 
@@ -39,7 +38,7 @@ export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
         <LoginRHF
           dispatch={dispatch}
           loginUser={loginUser}
-          googleClientId={GOOGLE_CLIENT_ID}
+          googleClientId={process.env.REACT_APP_GOOGLE_CLIENT_ID ?? 'no Google client ID'}
           authLoading={authLoading}
           authError={authError}
           user={user}
@@ -52,7 +51,7 @@ export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
         <RegisterRHF
           dispatch={dispatch}
           registerUser={registerUser}
-          googleClientId={GOOGLE_CLIENT_ID}
+          googleClientId={process.env.REACT_APP_GOOGLE_CLIENT_ID ?? 'no Google client ID'}
           authLoading={authLoading}
           authError={authError}
           user={user}
@@ -66,7 +65,7 @@ export const StateRouter: React.FC<StateRouterProps> = ({ dispatch }) => {
           dispatch={dispatch}
           modalRHFOnSubmit={modalRHFOnSubmit}
           projects={projects}
-          server={SERVER}
+          server={process.env.REACT_APP_SERVER ?? 'http://localhost:5000'}
           user={user}
         />
       );

@@ -15,7 +15,7 @@ interface NavStateLinkProps {
   onSetQsPage: (newValue: string) => void;
 }
 
-export const NavStateLink: React.FC<NavStateLinkProps> = ({ text, actions, dispatch, size, px, page, onSetQsPage }) => {
+export const NavStateLink: React.FC<NavStateLinkProps> = ({ text, actions, dispatch, size, px, onSetQsPage }) => {
   const [hovered, setHovered] = useState(false);
   return (
     <span

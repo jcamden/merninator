@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IDispatch, ModalRHFOnSubmit } from '@merninator/types';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -43,7 +42,7 @@ export const ModalRHF: React.FC<ModalRHFProps> = ({
     modalRHFOnSubmit<FormData>(data, dispatch, server, setLoading, setModalOpen, setSuccess, submitURL, success);
   };
 
-  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.files !== null) {
       setFileName(e.target.files[0].name);
     }
@@ -96,7 +95,7 @@ export const ModalRHF: React.FC<ModalRHFProps> = ({
                     ref={register}
                     type="file"
                     name="pdf"
-                    onChange={e => onChangeFile(e)}
+                    onChange={(e): void => onChangeFile(e)}
                   />
                   <label
                     className={`custom-file-label ${fileName === 'chews a file' ? 'text-secondary' : 'text-dark'}`}

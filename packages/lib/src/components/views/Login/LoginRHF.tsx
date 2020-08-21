@@ -63,7 +63,7 @@ export const LoginRHF: React.FC<LoginRHFProps> = ({
         // self-invoking arrow function so I can use async await
         (async (): Promise<void> => {
           // thought about replacing Axios with fetch, but honestly, fetch support for query params is crap;
-          const res = await Axios.get('https://localhost:5000/auth/google', {
+          const res = await Axios.get('http://localhost:5000/auth/google', {
             params: {
               idToken: response.tokenId,
             },

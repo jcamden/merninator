@@ -15,3 +15,6 @@ export { AuthdHome } from './src/components/views/Home/AuthdHome';
 export { UnauthdHome } from './src/components/views/Home/UnauthdHome';
 export { Profile } from './src/components/views/Profile/Profile';
 export { ProjectsPage } from './src/components/views/Projects/ProjectsPage';
+
+// utils
+export { isString } from './src/utils/index';

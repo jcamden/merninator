@@ -60,7 +60,7 @@ export const NavBar: React.FC<NavBarProps> = ({ dispatch, onSetQsPage, page, use
         dispatch={dispatch}
         page={page}
         px={2}
-        size="1rem"
+        size="1.2rem"
         text="Login"
         onSetQsPage={(string): void => {
           console.log(string);
@@ -71,7 +71,7 @@ export const NavBar: React.FC<NavBarProps> = ({ dispatch, onSetQsPage, page, use
         dispatch={dispatch}
         page={page}
         px={2}
-        size="1rem"
+        size="1.2rem"
         text="Register"
         onSetQsPage={(string): void => {
           console.log(string);
@@ -100,7 +100,9 @@ export const NavBar: React.FC<NavBarProps> = ({ dispatch, onSetQsPage, page, use
         </div>
       </a>
 
-      <div className="navbar-nav d-flex flex-row text-secondary">{user?.self !== 'guest' ? authLinks : guestLinks}</div>
+      <div className="navbar-nav d-flex flex-row text-secondary align-items-center">
+        {user?.self !== 'guest' ? authLinks : guestLinks}
+      </div>
     </nav>
   );
 };

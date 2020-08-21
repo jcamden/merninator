@@ -70,7 +70,7 @@ export const RegisterRHF: React.FC<RegisterRHFProps> = ({
       // self-invoking arrow function so I can use async await
       (async (): Promise<void> => {
         try {
-          const res = await Axios.get('https://localhost:5000/auth/google', {
+          const res = await Axios.get('http://localhost:5000/auth/google', {
             params: {
               idToken: response.tokenId,
             },

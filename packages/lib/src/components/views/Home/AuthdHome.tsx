@@ -5,6 +5,6 @@ interface AuthdHomeProps {
   dispatch: (arg0: AuthActions | AppActions) => void;
 }
 
-export const AuthdHome: React.FC<AuthdHomeProps> = ({ dispatch }) => {
+export const AuthdHome: React.FC<AuthdHomeProps> = ({}) => {
   return <>Welcome!</>;
 };
